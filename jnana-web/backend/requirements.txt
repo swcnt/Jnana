@@ -1,0 +1,27 @@
+# Flask and web framework dependencies
+Flask==3.0.0
+Flask-SQLAlchemy==3.1.1
+Flask-CORS==4.0.0
+Flask-SocketIO==5.3.6
+python-socketio==5.10.0
+
+# Database
+SQLAlchemy==2.0.23
+alembic==1.13.1
+
+# API and serialization
+marshmallow==3.20.1
+flask-marshmallow==0.15.0
+marshmallow-sqlalchemy==0.29.0
+
+# Environment and configuration
+python-dotenv==1.0.0
+
+# HTTP client for external APIs
+requests==2.31.0
+
+# WebSocket support
+eventlet==0.33.3
+
+# Async support
+asyncio-mqtt==0.13.0
