@@ -1,0 +1,46 @@
+{
+  "format_version": "jnana-1.0",
+  "created_at": "2025-07-09T13:50:12.917712",
+  "hypotheses": [
+    {
+      "hypothesis_id": "76e35b12-b31c-44a7-88a3-9f5d60166295",
+      "title": "Storage Test Hypothesis",
+      "content": "Testing storage functionality",
+      "description": "Testing storage functionality",
+      "experimental_validation": "",
+      "created_at": 1752087012.9176772,
+      "updated_at": 1752087012.9176772,
+      "generation_timestamp": "2025-07-09T13:50:12.917679",
+      "version": 1,
+      "version_string": "1.0",
+      "hypothesis_type": "original",
+      "parent_id": null,
+      "children_ids": [],
+      "hypothesis_number": 1,
+      "hallmarks": {
+        "testability": "",
+        "specificity": "",
+        "grounded_knowledge": "",
+        "predictive_power": "",
+        "parsimony": ""
+      },
+      "evaluation_scores": {},
+      "references": [],
+      "feedback_history": [],
+      "notes": "",
+      "improvements_made": "",
+      "user_feedback": "",
+      "tournament_record": {
+        "wins": 0,
+        "losses": 0,
+        "matches": [],
+        "elo_rating": null,
+        "last_match_timestamp": null
+      },
+      "agent_contributions": [],
+      "generation_strategy": "",
+      "metadata": {},
+      "tags": []
+    }
+  ]
+}

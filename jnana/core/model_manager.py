@@ -152,15 +152,22 @@ class UnifiedModelManager:
     def get_model_for_agent(self, agent_type: str, agent_id: Optional[str] = None) -> LLMConfig:
         """
         Get LLM configuration for a specific agent type.
-        
+
         Args:
             agent_type: Type of agent ("supervisor", "generation", etc.)
             agent_id: Optional specific agent ID
-            
+
         Returns:
             LLMConfig for the agent
         """
-        return self.agent_llm_config.get_config_for_agent(agent_type, agent_id)
+        # Get agent-specific configuration or fall back to default
+        agents_config = self.config.get("agents", {})
+        if agent_type in agents_config:
+            config_dict = agents_config[agent_type]
+        else:
+            config_dict = self.config.get("default", {})
+
+        return self._create_llm_config(config_dict)
     
     def get_interactive_model(self, preference: Optional[str] = None) -> LLMConfig:
         """
