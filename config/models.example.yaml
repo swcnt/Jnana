@@ -1,0 +1,134 @@
+# Jnana Model Configuration
+# This file configures LLM providers for different components and use cases
+
+# Default model configuration
+default:
+  provider: "openai"
+  model: "gpt-4o"
+  api_key: "${OPENAI_API_KEY}"
+  temperature: 0.7
+  max_tokens: 2048
+
+# Agent-specific configurations (ProtoGnosis integration)
+agents:
+  supervisor:
+    provider: "anthropic"
+    model: "claude-3-5-sonnet-20241022"
+    api_key: "${ANTHROPIC_API_KEY}"
+    temperature: 0.5
+    max_tokens: 4096
+    
+  generation:
+    provider: "openai"
+    model: "gpt-4o"
+    api_key: "${OPENAI_API_KEY}"
+    temperature: 0.8
+    max_tokens: 3072
+    
+  reflection:
+    provider: "anthropic"
+    model: "claude-3-5-sonnet-20241022"
+    api_key: "${ANTHROPIC_API_KEY}"
+    temperature: 0.6
+    max_tokens: 2048
+    
+  ranking:
+    provider: "gemini"
+    model: "gemini-1.5-pro"
+    api_key: "${GEMINI_API_KEY}"
+    temperature: 0.4
+    max_tokens: 1024
+    
+  evolution:
+    provider: "openai"
+    model: "gpt-4o"
+    api_key: "${OPENAI_API_KEY}"
+    temperature: 0.7
+    max_tokens: 2048
+    
+  proximity:
+    provider: "gemini"
+    model: "gemini-1.5-pro"
+    api_key: "${GEMINI_API_KEY}"
+    temperature: 0.5
+    max_tokens: 1024
+    
+  meta_review:
+    provider: "anthropic"
+    model: "claude-3-5-sonnet-20241022"
+    api_key: "${ANTHROPIC_API_KEY}"
+    temperature: 0.6
+    max_tokens: 4096
+
+# Interactive mode configurations (Wisteria integration)
+interactive:
+  primary:
+    provider: "openai"
+    model: "gpt-4o"
+    api_key: "${OPENAI_API_KEY}"
+    temperature: 0.7
+    max_tokens: 2048
+    
+  alternative:
+    provider: "anthropic"
+    model: "claude-3-5-sonnet-20241022"
+    api_key: "${ANTHROPIC_API_KEY}"
+    temperature: 0.7
+    max_tokens: 2048
+
+# Local LLM configurations
+local:
+  ollama:
+    provider: "ollama"
+    model: "llama3"
+    base_url: "http://localhost:11434"
+    temperature: 0.7
+    max_tokens: 2048
+    
+  llm_studio:
+    provider: "llm_studio"
+    model: "default"
+    base_url: "http://localhost:3000"
+    api_key: "${LLM_STUDIO_API_KEY}"
+    temperature: 0.7
+    max_tokens: 2048
+
+# Specialized configurations for different tasks
+tasks:
+  hypothesis_generation:
+    provider: "openai"
+    model: "gpt-4o"
+    temperature: 0.8
+    max_tokens: 3072
+    
+  hypothesis_refinement:
+    provider: "anthropic"
+    model: "claude-3-5-sonnet-20241022"
+    temperature: 0.6
+    max_tokens: 2048
+    
+  scientific_evaluation:
+    provider: "gemini"
+    model: "gemini-1.5-pro"
+    temperature: 0.4
+    max_tokens: 1024
+    
+  tournament_ranking:
+    provider: "gemini"
+    model: "gemini-1.5-pro"
+    temperature: 0.3
+    max_tokens: 1024
+
+# Performance and scaling settings
+performance:
+  max_concurrent_requests: 10
+  request_timeout: 60
+  retry_attempts: 3
+  rate_limit_delay: 1.0
+  
+# UI and interaction settings
+ui:
+  default_mode: "interactive"  # "interactive", "batch", "hybrid"
+  auto_save_interval: 300  # seconds
+  max_hypothesis_display: 100
+  enable_real_time_updates: true
