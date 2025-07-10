@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jnana - Live Web Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .loading { animation: spin 1s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-white border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="brain" class="h-8 w-8 text-blue-600"></i>
+                        <div>
+                            <h1 class="text-xl font-bold text-gray-900">Jnana Live</h1>
+                            <p class="text-sm text-gray-500">AI Co-Scientist with Real API Integration</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div id="connection-status" class="flex items-center space-x-2 px-3 py-1 rounded-full bg-yellow-100">
+                            <i data-lucide="wifi-off" class="h-4 w-4 text-yellow-600"></i>
+                            <span class="text-sm font-medium text-yellow-700">Connecting...</span>
+                        </div>
+                        <button onclick="testAPI()" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                            Test API
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Status Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-blue-100 rounded-lg">
+                            <i data-lucide="server" class="h-6 w-6 text-blue-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-sm font-medium text-gray-900">Backend Status</h3>
+                            <p id="backend-status" class="text-sm text-gray-500">Checking...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-green-100 rounded-lg">
+                            <i data-lucide="zap" class="h-6 w-6 text-green-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-sm font-medium text-gray-900">API Status</h3>
+                            <p id="api-status" class="text-sm text-gray-500">Ready</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center">
+                        <div class="p-2 bg-purple-100 rounded-lg">
+                            <i data-lucide="activity" class="h-6 w-6 text-purple-600"></i>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-sm font-medium text-gray-900">Sessions</h3>
+                            <p id="session-count" class="text-sm text-gray-500">0 active</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Interface -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Create Session -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-6 border-b border-gray-200">
+                        <h2 class="text-xl font-semibold text-gray-900">Create Research Session</h2>
+                        <p class="text-gray-600 mt-1">Start a new AI-assisted research session</p>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Research Goal</label>
+                                <textarea id="research-goal" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Describe your research question or goal..."></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Mode</label>
+                                <select id="session-mode" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="interactive">Interactive</option>
+                                    <option value="batch">Batch</option>
+                                    <option value="hybrid">Hybrid</option>
+                                </select>
+                            </div>
+                            <button onclick="createSessionFromForm()" class="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                Create Session
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sessions List -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-6 border-b border-gray-200">
+                        <h2 class="text-xl font-semibold text-gray-900">Active Sessions</h2>
+                        <p class="text-gray-600 mt-1">Your research sessions</p>
+                    </div>
+                    <div class="p-6">
+                        <div id="sessions-list" class="space-y-3">
+                            <div class="text-center text-gray-500 py-8">
+                                <i data-lucide="loader" class="h-8 w-8 mx-auto mb-2 loading"></i>
+                                <p>Loading sessions...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Console -->
+            <div class="mt-8 bg-white rounded-lg shadow">
+                <div class="p-6 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-900">Console Output</h2>
+                    <p class="text-gray-600 mt-1">Real-time system messages and API responses</p>
+                </div>
+                <div class="p-6">
+                    <div id="output" class="bg-gray-900 text-green-400 rounded-lg p-4 h-64 overflow-y-auto font-mono text-sm">
+                        <div>[System] Jnana Live Web Interface initialized</div>
+                        <div>[System] Ready for commands...</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // API base URL
+        const API_BASE = 'http://localhost:5001/api';
+        
+        // WebSocket connection
+        let socket = null;
+
+        // Initialize the application
+        async function init() {
+            log('[System] Initializing Jnana Live Interface...');
+            await checkBackendStatus();
+            await loadSessions();
+            connectWebSocket();
+        }
+
+        // Check backend status
+        async function checkBackendStatus() {
+            try {
+                log('[API] Checking backend connection...');
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                
+                if (data.status === 'healthy') {
+                    document.getElementById('backend-status').textContent = 'Connected ✅';
+                    document.getElementById('connection-status').innerHTML = `
+                        <i data-lucide="wifi" class="h-4 w-4 text-green-600"></i>
+                        <span class="text-sm font-medium text-green-700">Connected</span>
+                    `;
+                    document.getElementById('connection-status').className = 'flex items-center space-x-2 px-3 py-1 rounded-full bg-green-100';
+                    lucide.createIcons();
+                    log('[API] ✅ Backend connected successfully');
+                }
+            } catch (error) {
+                document.getElementById('backend-status').textContent = 'Disconnected ❌';
+                log('[API] ❌ Backend connection failed: ' + error.message);
+            }
+        }
+
+        // Load sessions
+        async function loadSessions() {
+            try {
+                log('[API] Loading sessions...');
+                const response = await fetch(`${API_BASE}/sessions`);
+                const data = await response.json();
+                
+                const sessionsList = document.getElementById('sessions-list');
+                if (data.sessions && data.sessions.length > 0) {
+                    sessionsList.innerHTML = data.sessions.map(session => `
+                        <div class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer">
+                            <h3 class="font-medium text-gray-900">${session.research_goal.substring(0, 80)}...</h3>
+                            <div class="flex items-center justify-between mt-2">
+                                <span class="text-sm text-gray-500">${new Date(session.created_at).toLocaleDateString()}</span>
+                                <span class="px-2 py-1 text-xs font-medium rounded-full bg-blue-100 text-blue-800">
+                                    ${session.mode}
+                                </span>
+                            </div>
+                        </div>
+                    `).join('');
+                    document.getElementById('session-count').textContent = `${data.sessions.length} active`;
+                    log(`[API] ✅ Loaded ${data.sessions.length} sessions`);
+                } else {
+                    sessionsList.innerHTML = `
+                        <div class="text-center text-gray-500 py-8">
+                            <i data-lucide="folder" class="h-8 w-8 mx-auto mb-2"></i>
+                            <p>No sessions yet. Create your first session!</p>
+                        </div>
+                    `;
+                    log('[API] No sessions found');
+                }
+                lucide.createIcons();
+            } catch (error) {
+                log('[API] ❌ Failed to load sessions: ' + error.message);
+            }
+        }
+
+        // Connect WebSocket
+        function connectWebSocket() {
+            try {
+                log('[WebSocket] Connecting...');
+                socket = io('http://localhost:5001/jnana');
+                
+                socket.on('connect', () => {
+                    log('[WebSocket] ✅ Connected successfully');
+                });
+
+                socket.on('session_created', (data) => {
+                    log('[WebSocket] 🎉 Session created: ' + data.session_id);
+                    loadSessions();
+                });
+
+                socket.on('hypothesis_generated', (data) => {
+                    log('[WebSocket] 🧠 Hypothesis generated: ' + data.hypothesis.title);
+                });
+
+                socket.on('disconnect', () => {
+                    log('[WebSocket] ⚠️ Disconnected');
+                });
+
+            } catch (error) {
+                log('[WebSocket] ❌ Connection failed: ' + error.message);
+            }
+        }
+
+        // Test API connection
+        async function testAPI() {
+            log('[Test] Running API connectivity test...');
+            await checkBackendStatus();
+            
+            try {
+                const response = await fetch(`${API_BASE}/sessions`);
+                const data = await response.json();
+                log(`[Test] ✅ Sessions endpoint working - found ${data.sessions?.length || 0} sessions`);
+            } catch (error) {
+                log('[Test] ❌ Sessions endpoint failed: ' + error.message);
+            }
+            
+            log('[Test] API test completed');
+        }
+
+        // Create session from form
+        async function createSessionFromForm() {
+            const goal = document.getElementById('research-goal').value;
+            const mode = document.getElementById('session-mode').value;
+            
+            if (!goal.trim()) {
+                log('[Form] ❌ Please enter a research goal');
+                return;
+            }
+
+            await createSession(goal, mode);
+        }
+
+        // Create session
+        async function createSession(goal, mode = 'interactive') {
+            try {
+                log('[Session] 🔄 Creating new session...');
+                log(`[Session] Goal: ${goal.substring(0, 100)}...`);
+                log(`[Session] Mode: ${mode}`);
+                
+                const response = await fetch(`${API_BASE}/sessions`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        research_goal: goal,
+                        mode: mode
+                    })
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    log(`[Session] ✅ Session created successfully!`);
+                    log(`[Session] ID: ${data.session_id}`);
+                    log(`[Session] Status: ${data.status}`);
+                    document.getElementById('research-goal').value = '';
+                    await loadSessions();
+                } else {
+                    log(`[Session] ❌ Failed to create session: ${data.error}`);
+                }
+            } catch (error) {
+                log('[Session] ❌ Error creating session: ' + error.message);
+            }
+        }
+
+        // Log function
+        function log(message) {
+            const output = document.getElementById('output');
+            const timestamp = new Date().toLocaleTimeString();
+            output.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            output.scrollTop = output.scrollHeight;
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
