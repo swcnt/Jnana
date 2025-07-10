@@ -21,6 +21,78 @@ sys.path.insert(0, str(Path(__file__).parent))
 from jnana.core.jnana_system import JnanaSystem
 
 
+async def demonstrate_biomni_verification_details(jnana, hypothesis):
+    """
+    Demonstrate detailed Biomni verification process for a single hypothesis.
+
+    Args:
+        jnana: JnanaSystem instance
+        hypothesis: UnifiedHypothesis to analyze
+    """
+    print(f"\n🔬 Detailed Biomni Verification Demo")
+    print("=" * 50)
+    print(f"Hypothesis: {hypothesis.title[:60]}...")
+
+    if not hypothesis.is_biomni_verified():
+        print("❌ This hypothesis was not verified by Biomni")
+        print("   Possible reasons:")
+        print("   • Not classified as biomedical content")
+        print("   • Biomni service unavailable")
+        print("   • Verification failed due to technical issues")
+        return
+
+    # Get detailed verification results
+    biomni_summary = hypothesis.get_biomni_summary()
+    verification = hypothesis.biomni_verification
+
+    print(f"✅ Biomni Verification Successful!")
+    print(f"\n📊 Core Assessment:")
+    print(f"   Biologically Plausible: {biomni_summary['biologically_plausible']}")
+    print(f"   Confidence Score: {biomni_summary['confidence_score']:.1%}")
+    print(f"   Evidence Strength: {biomni_summary['evidence_strength']}")
+    print(f"   Verification Type: {biomni_summary['verification_type']}")
+    print(f"   Timestamp: {biomni_summary.get('timestamp', 'Unknown')}")
+
+    print(f"\n📚 Evidence Analysis:")
+    print(f"   Supporting Evidence: {len(verification.supporting_evidence)} items")
+    if verification.supporting_evidence:
+        for i, evidence in enumerate(verification.supporting_evidence[:2], 1):
+            print(f"      {i}. {evidence[:80]}...")
+
+    print(f"   Contradicting Evidence: {len(verification.contradicting_evidence)} items")
+    if verification.contradicting_evidence:
+        for i, evidence in enumerate(verification.contradicting_evidence[:2], 1):
+            print(f"      {i}. {evidence[:80]}...")
+
+    print(f"\n🧪 Experimental Suggestions:")
+    print(f"   Suggested Experiments: {len(verification.suggested_experiments)} items")
+    if verification.suggested_experiments:
+        for i, experiment in enumerate(verification.suggested_experiments[:2], 1):
+            print(f"      {i}. {experiment[:80]}...")
+
+    print(f"\n🔬 Biomedical Context:")
+    if hasattr(verification, 'related_pathways') and verification.related_pathways:
+        print(f"   Related Pathways: {len(verification.related_pathways)} identified")
+        for pathway in verification.related_pathways[:3]:
+            print(f"      • {pathway}")
+
+    if hasattr(verification, 'molecular_mechanisms') and verification.molecular_mechanisms:
+        print(f"   Molecular Mechanisms: {len(verification.molecular_mechanisms)} identified")
+        for mechanism in verification.molecular_mechanisms[:3]:
+            print(f"      • {mechanism}")
+
+    print(f"\n🛠️  Technical Details:")
+    print(f"   Verification ID: {verification.verification_id}")
+    print(f"   Tools Used: {', '.join(verification.tools_used)}")
+    print(f"   Execution Time: {verification.execution_time:.2f} seconds")
+
+    if hasattr(verification, 'biomni_response') and verification.biomni_response:
+        response_preview = verification.biomni_response[:200].replace('\n', ' ')
+        print(f"   Response Preview: {response_preview}...")
+
+    print("=" * 50)
+
+
 async def demonstrate_alzheimers_research():
     """
     Demonstrate the complete workflow for Alzheimer's research using
@@ -31,6 +103,7 @@ async def demonstrate_alzheimers_research():
     print("=" * 60)
     print("Researcher: Dr. Sarah Chen, Stanford University")
     print("Goal: Novel therapeutic targets bypassing amyloid-beta approaches")
+    print("🧬 Features: ProtoGnosis Multi-Agent + Biomni Biomedical Verification")
     print("=" * 60)
     
     # Initialize Jnana system
@@ -66,7 +139,14 @@ agents:
         await jnana.start()
         print("   ✅ Jnana system started")
         print("   ✅ ProtoGnosis multi-agent system initialized")
-        print("   ✅ Biomni biomedical verifier activated")
+
+        # Check Biomni availability and show status
+        biomni_status = jnana.biomni_agent.is_initialized if jnana.biomni_agent else False
+        if biomni_status:
+            print("   ✅ Biomni biomedical verifier activated (Stanford AI)")
+        else:
+            print("   ⚠️  Biomni using enhanced fallback mode (install: pip install biomni)")
+            print("   ℹ️  Fallback provides biomedical analysis without full Biomni features")
         
         # Set research goal
         print("\n🎯 Step 2: Setting Research Goal...")
@@ -91,107 +171,218 @@ agents:
         hypotheses = []
         for i, strategy in enumerate(strategies, 1):
             print(f"\n   🧠 Agent {i}: {strategy.replace('_', ' ').title()}")
-            
+
             hypothesis = await jnana.generate_single_hypothesis(strategy)
             hypotheses.append(hypothesis)
-            
+
             print(f"      📝 Generated: {hypothesis.title}")
             print(f"      🎯 Strategy: {hypothesis.generation_strategy}")
-            
-            # Show Biomni verification if available
+
+            # Demonstrate Biomni verification results
+            print(f"      🧬 Biomni Verification:")
             if hypothesis.is_biomni_verified():
                 biomni_summary = hypothesis.get_biomni_summary()
-                print(f"      🧬 Biomni Verified: {biomni_summary['biologically_plausible']}")
-                print(f"      📊 Confidence: {biomni_summary['confidence_score']:.1%}")
-                print(f"      🔬 Domain: {biomni_summary.get('domain_classification', 'General')}")
-            
+                print(f"         ✅ Status: Verified")
+                print(f"         🎯 Biologically Plausible: {biomni_summary['biologically_plausible']}")
+                print(f"         📊 Confidence Score: {biomni_summary['confidence_score']:.1%}")
+                print(f"         💪 Evidence Strength: {biomni_summary['evidence_strength']}")
+                print(f"         🔬 Verification Type: {biomni_summary['verification_type']}")
+                print(f"         📚 Supporting Evidence: {biomni_summary['supporting_evidence_count']} items")
+                print(f"         ⚠️  Contradicting Evidence: {biomni_summary['contradicting_evidence_count']} items")
+                print(f"         🧪 Suggested Experiments: {biomni_summary['suggested_experiments_count']} items")
+            else:
+                print(f"         ❌ Status: Not verified (may not be biomedical)")
+
             # Simulate processing time
             await asyncio.sleep(1)
         
         print(f"\n   ✅ Generated {len(hypotheses)} hypotheses across {len(strategies)} strategies")
         
-        # Demonstrate hypothesis refinement
-        print("\n🔧 Step 4: Interactive Hypothesis Refinement...")
-        
+        # Demonstrate hypothesis refinement with Biomni re-verification
+        print("\n🔧 Step 4: Interactive Hypothesis Refinement with Biomni Re-verification...")
+
         if hypotheses:
             top_hypothesis = hypotheses[0]  # Use first hypothesis for demo
             print(f"   🎯 Refining: {top_hypothesis.title}")
-            
+
+            # Show original Biomni results
+            if top_hypothesis.is_biomni_verified():
+                original_summary = top_hypothesis.get_biomni_summary()
+                print(f"   📊 Original Biomni Assessment:")
+                print(f"      Confidence: {original_summary['confidence_score']:.1%}")
+                print(f"      Plausible: {original_summary['biologically_plausible']}")
+                print(f"      Evidence Strength: {original_summary['evidence_strength']}")
+
             feedback = ("Focus on specific molecular mechanisms and address potential safety concerns "
                        "regarding microglial overactivation")
-            
+
             print(f"   💬 Dr. Chen's feedback: {feedback[:60]}...")
-            
+
             refined_hypothesis = await jnana.refine_hypothesis(top_hypothesis, feedback)
-            
+
             print(f"   ✨ Refined hypothesis: {refined_hypothesis.title}")
-            
-            # Show improvement in Biomni verification
+
+            # Show improvement in Biomni verification after refinement
             if refined_hypothesis.is_biomni_verified():
                 refined_summary = refined_hypothesis.get_biomni_summary()
-                original_summary = top_hypothesis.get_biomni_summary()
-                
-                print(f"   📈 Confidence improved: {original_summary['confidence_score']:.1%} → {refined_summary['confidence_score']:.1%}")
+                original_summary = top_hypothesis.get_biomni_summary() if top_hypothesis.is_biomni_verified() else {"confidence_score": 0.0}
+
+                print(f"   🧬 Biomni Re-verification Results:")
+                print(f"      📈 Confidence: {original_summary['confidence_score']:.1%} → {refined_summary['confidence_score']:.1%}")
+                print(f"      🎯 Plausibility: {refined_summary['biologically_plausible']}")
+                print(f"      💪 Evidence Strength: {refined_summary['evidence_strength']}")
+                print(f"      🔬 Verification Type: {refined_summary['verification_type']}")
+            else:
+                print(f"   ⚠️  Refined hypothesis not re-verified by Biomni")
         
-        # Get session results
-        print("\n📊 Step 5: Research Session Analysis...")
-        
+        # Get session results and demonstrate comprehensive Biomni analysis
+        print("\n📊 Step 5: Comprehensive Biomni Verification Analysis...")
+
         session_info = jnana.session_manager.get_session_info()
         all_hypotheses = jnana.session_manager.get_all_hypotheses()
-        
-        print(f"   📋 Total hypotheses: {len(all_hypotheses)}")
-        
-        # Analyze Biomni verification results
+
+        print(f"   📋 Total hypotheses generated: {len(all_hypotheses)}")
+
+        # Comprehensive Biomni verification analysis
         biomni_verified = sum(1 for h in all_hypotheses if h.is_biomni_verified())
+        biomedical_hypotheses = sum(1 for h in all_hypotheses if h.is_biomedical)
+
+        print(f"\n   🧬 Biomni Verification Summary:")
+        print(f"      📊 Biomedical hypotheses: {biomedical_hypotheses}/{len(all_hypotheses)} ({biomedical_hypotheses/len(all_hypotheses)*100:.1f}%)")
+        print(f"      ✅ Biomni verified: {biomni_verified}/{len(all_hypotheses)} ({biomni_verified/len(all_hypotheses)*100:.1f}%)")
+
         if biomni_verified > 0:
-            avg_confidence = sum(h.get_biomni_summary()['confidence_score'] 
-                               for h in all_hypotheses if h.is_biomni_verified()) / biomni_verified
-            print(f"   🧬 Biomni verified: {biomni_verified}/{len(all_hypotheses)} ({biomni_verified/len(all_hypotheses)*100:.1f}%)")
-            print(f"   📊 Average confidence: {avg_confidence:.1%}")
+            # Calculate detailed statistics
+            confidences = []
+            plausible_count = 0
+            evidence_strengths = {"weak": 0, "moderate": 0, "strong": 0}
+            verification_types = {}
+
+            for h in all_hypotheses:
+                if h.is_biomni_verified():
+                    summary = h.get_biomni_summary()
+                    confidences.append(summary['confidence_score'])
+                    if summary['biologically_plausible']:
+                        plausible_count += 1
+
+                    strength = summary.get('evidence_strength', 'unknown')
+                    if strength in evidence_strengths:
+                        evidence_strengths[strength] += 1
+
+                    v_type = summary.get('verification_type', 'general')
+                    verification_types[v_type] = verification_types.get(v_type, 0) + 1
+
+            avg_confidence = sum(confidences) / len(confidences)
+            print(f"      📈 Average confidence: {avg_confidence:.1%}")
+            print(f"      🎯 Biologically plausible: {plausible_count}/{biomni_verified} ({plausible_count/biomni_verified*100:.1f}%)")
+
+            print(f"\n   💪 Evidence Strength Distribution:")
+            for strength, count in evidence_strengths.items():
+                if count > 0:
+                    print(f"      {strength.title()}: {count} hypotheses")
+
+            print(f"\n   🔬 Verification Types:")
+            for v_type, count in verification_types.items():
+                print(f"      {v_type.title()}: {count} hypotheses")
+        else:
+            print(f"      ⚠️  No hypotheses were verified by Biomni")
+            print(f"      ℹ️  This may indicate non-biomedical content or Biomni unavailability")
         
-        # Show top hypotheses
-        print("\n🏆 Step 6: Top Research Hypotheses...")
-        
+        # Show top hypotheses with detailed Biomni analysis
+        print("\n🏆 Step 6: Top Research Hypotheses with Biomni Insights...")
+
         for i, hypothesis in enumerate(all_hypotheses[:3], 1):
             print(f"\n   {i}. {hypothesis.title}")
             print(f"      🎯 Strategy: {hypothesis.generation_strategy}")
-            
+            print(f"      🧬 Biomedical: {'Yes' if hypothesis.is_biomedical else 'No'}")
+
             if hypothesis.is_biomni_verified():
                 biomni_summary = hypothesis.get_biomni_summary()
-                print(f"      🧬 Biomni: {biomni_summary['confidence_score']:.1%} confidence")
-                print(f"      🔬 Domain: {biomni_summary.get('domain_classification', 'General')}")
-                
-                # Show some evidence
-                evidence = biomni_summary.get('supporting_evidence', [])
-                if evidence:
-                    print(f"      ✅ Evidence: {evidence[0][:80]}...")
+                print(f"      ✅ Biomni Verification Results:")
+                print(f"         📊 Confidence: {biomni_summary['confidence_score']:.1%}")
+                print(f"         🎯 Biologically Plausible: {biomni_summary['biologically_plausible']}")
+                print(f"         💪 Evidence Strength: {biomni_summary['evidence_strength']}")
+                print(f"         🔬 Verification Type: {biomni_summary['verification_type']}")
+
+                # Show evidence counts
+                print(f"         📚 Supporting Evidence: {biomni_summary['supporting_evidence_count']} items")
+                print(f"         ⚠️  Contradicting Evidence: {biomni_summary['contradicting_evidence_count']} items")
+                print(f"         🧪 Suggested Experiments: {biomni_summary['suggested_experiments_count']} items")
+
+                # Show actual evidence if available (from the full verification object)
+                if hasattr(hypothesis, 'biomni_verification') and hypothesis.biomni_verification:
+                    verification = hypothesis.biomni_verification
+                    if verification.supporting_evidence:
+                        print(f"         📖 Sample Evidence: {verification.supporting_evidence[0][:100]}...")
+                    if verification.suggested_experiments:
+                        print(f"         🔬 Sample Experiment: {verification.suggested_experiments[0][:100]}...")
+            else:
+                print(f"      ❌ No Biomni verification available")
+                if hypothesis.is_biomedical:
+                    print(f"         ℹ️  Biomedical hypothesis but verification failed")
+                else:
+                    print(f"         ℹ️  Not classified as biomedical content")
+
+        # Demonstrate detailed Biomni verification for the first verified hypothesis
+        verified_hypotheses = [h for h in all_hypotheses if h.is_biomni_verified()]
+        if verified_hypotheses:
+            print(f"\n🔬 Step 6.5: Detailed Biomni Verification Demonstration...")
+            await demonstrate_biomni_verification_details(jnana, verified_hypotheses[0])
         
-        # Research recommendations
-        print("\n🎯 Step 7: Research Recommendations...")
-        
+        # Demonstrate Biomni-informed research recommendations
+        print("\n🎯 Step 7: Biomni-Informed Research Recommendations...")
+
+        # Generate recommendations based on Biomni verification results
+        verified_hypotheses = [h for h in all_hypotheses if h.is_biomni_verified()]
+        high_confidence_hypotheses = [h for h in verified_hypotheses
+                                    if h.get_biomni_summary()['confidence_score'] > 0.7]
+
+        print(f"   📊 Recommendations based on {len(verified_hypotheses)} Biomni-verified hypotheses")
+        print(f"   🎯 {len(high_confidence_hypotheses)} high-confidence hypotheses (>70%)")
+
         recommendations = [
             "Prioritize TREM2 agonist development with focus on DAP12 signaling",
-            "Investigate TREM2-PINK1 pathway interactions for combination therapy", 
+            "Investigate TREM2-PINK1 pathway interactions for combination therapy",
             "Develop blood-brain barrier penetrant TREM2 modulators",
             "Establish biomarkers for patient stratification"
         ]
-        
+
         for i, rec in enumerate(recommendations, 1):
             print(f"   {i}. {rec}")
-        
-        # Show session file location
+
+        # Add Biomni-specific recommendations
+        if verified_hypotheses:
+            print(f"\n   🧬 Additional Biomni-Informed Recommendations:")
+            print(f"   • Focus on hypotheses with 'strong' evidence strength")
+            print(f"   • Prioritize experiments suggested by Biomni verification")
+            print(f"   • Consider contradicting evidence for risk assessment")
+            print(f"   • Validate biomedical plausibility before clinical trials")
+
+        # Show session file location with Biomni data
         print(f"\n💾 Session saved to: {jnana.storage.storage_path}")
-        
-        print("\n" + "=" * 60)
-        print("🎉 Demo Complete!")
-        print("=" * 60)
+        print(f"   📊 Includes comprehensive Biomni verification data")
+        print(f"   🧬 {biomni_verified} hypotheses with biomedical verification")
+
+        print("\n" + "=" * 80)
+        print("🎉 Alzheimer's Research Demo Complete!")
+        print("=" * 80)
         print("Dr. Chen now has:")
         print("✅ Multiple novel therapeutic hypotheses")
-        print("✅ Biomedical verification and confidence scores")
-        print("✅ Specific molecular mechanisms identified")
+        print("✅ Comprehensive Biomni biomedical verification")
+        print("✅ Confidence scores and evidence strength assessments")
+        print("✅ Supporting and contradicting evidence analysis")
+        print("✅ Suggested experimental validation protocols")
+        print("✅ Biomedical plausibility assessments")
         print("✅ Evidence-based research recommendations")
         print("✅ Clear experimental roadmap for validation")
+        print("\n🧬 Biomni Integration Benefits:")
+        print("• Biomedical hypothesis validation using Stanford AI")
+        print("• Evidence-based confidence scoring")
+        print("• Experimental design suggestions")
+        print("• Risk assessment through contradicting evidence")
+        print("• Domain-specific verification (genomics, drug discovery, etc.)")
         print("\nTime saved: 3-4 weeks of manual research → 2 hours with AI assistance")
+        print("Quality improvement: Human intuition + AI verification = Higher success rate")
         
     except Exception as e:
         print(f"❌ Demo error: {e}")
