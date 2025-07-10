@@ -132,3 +132,42 @@ ui:
   auto_save_interval: 300  # seconds
   max_hypothesis_display: 100
   enable_real_time_updates: true
+
+# Biomni biomedical verification settings
+biomni:
+  enabled: true
+  data_path: "./data/biomni"
+  llm_model: "claude-sonnet-4-20250514"
+
+  # Verification settings
+  confidence_threshold: 0.6
+  max_execution_time: 300  # seconds
+  enable_experimental_suggestions: true
+  auto_verify_biomedical: true  # Automatically verify biomedical hypotheses
+
+  # Domain-specific tool preferences
+  genomics_tools:
+    - "crispr_screen"
+    - "scrna_seq"
+    - "gwas_analysis"
+
+  drug_discovery_tools:
+    - "admet_prediction"
+    - "molecular_docking"
+    - "compound_screening"
+
+  protein_tools:
+    - "structure_prediction"
+    - "interaction_analysis"
+    - "folding_simulation"
+
+  # Verification triggers
+  biomedical_keywords:
+    - "gene"
+    - "protein"
+    - "cell"
+    - "drug"
+    - "disease"
+    - "therapy"
+    - "genomics"
+    - "pharmaceutical"
