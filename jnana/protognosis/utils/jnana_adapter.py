@@ -211,9 +211,14 @@ class JnanaProtoGnosisAdapter:
             self.coscientist.memory.add_hypothesis(pg_hypothesis)
             
             # Evolve hypothesis
-            evolved_pg_hypothesis = await self.coscientist.evolve_hypothesis(
+            evolution_result = self.coscientist.evolve_hypothesis(
                 pg_hypothesis.hypothesis_id, feedback
             )
+
+            # Get the evolved hypothesis from memory
+            evolved_pg_hypothesis = self.coscientist.memory.get_hypothesis(
+                evolution_result.get("evolved_hypothesis_id", pg_hypothesis.hypothesis_id)
+            ) or pg_hypothesis
             
             # Convert back to Jnana format
             evolved_unified_hypothesis = self.converter.protognosis_to_unified(evolved_pg_hypothesis)

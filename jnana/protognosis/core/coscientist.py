@@ -325,7 +325,7 @@ class CoScientist:
 
             # Add task and wait for completion
             self.supervisor.add_task(task)
-            self.supervisor.wait_for_completion()
+            self.supervisor.wait_for_all_tasks()
 
             # Return the task result
             return task.result or {"evolved_hypothesis_id": hypothesis_id}

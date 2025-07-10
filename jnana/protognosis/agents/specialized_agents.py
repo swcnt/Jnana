@@ -1158,6 +1158,8 @@ class EvolutionAgent(Agent):
         
         if task_type == "improve_hypothesis":
             return await self._improve_hypothesis(task)
+        elif task_type == "evolve_hypothesis":
+            return await self._improve_hypothesis(task)  # Use same method for evolution
         elif task_type == "combine_hypotheses":
             return await self._combine_hypotheses(task)
         elif task_type == "simplify_hypothesis":
@@ -1244,11 +1246,17 @@ class EvolutionAgent(Agent):
         }
         
         try:
-            response, prompt_tokens, completion_tokens = self.llm.generate_with_json_output(prompt, schema, system_prompt=system_prompt)
-            
-            self.total_calls += 1
-            self.total_prompt_tokens += prompt_tokens
-            self.total_completion_tokens += completion_tokens
+            result = self.llm.generate_with_json_output(prompt, schema, system_prompt=system_prompt)
+
+            # Handle different return types from different LLM implementations
+            if isinstance(result, tuple):
+                response, prompt_tokens, completion_tokens = result
+                self.total_calls += 1
+                self.total_prompt_tokens += prompt_tokens
+                self.total_completion_tokens += completion_tokens
+            else:
+                response = result
+                self.total_calls += 1
             
             # Create a new hypothesis based on the improved version
             improved_hypothesis = ResearchHypothesis(

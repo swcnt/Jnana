@@ -229,8 +229,11 @@ class ContextMemory:
         # Get all hypotheses
         hypotheses = list(self.hypotheses.values())
         
-        # Sort by Elo rating
-        top_hypotheses = sorted(hypotheses, key=lambda h: h.elo_rating, reverse=True)[:k]
+        # Sort by Elo rating, handle None values
+        def safe_elo_rating(h):
+            return h.elo_rating if h.elo_rating is not None else 1000.0  # Default rating
+
+        top_hypotheses = sorted(hypotheses, key=safe_elo_rating, reverse=True)[:k]
         
         return top_hypotheses
     
