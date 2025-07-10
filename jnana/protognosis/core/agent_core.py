@@ -51,6 +51,11 @@ class ResearchHypothesis:
         self.metadata = metadata or {}
         self.reviews = []
         self.tournament_matches = []
+
+        # Tournament tracking attributes
+        self.tournament_wins = 0
+        self.tournament_losses = 0
+        self.last_tournament_time = None
     
     def add_review(self, review: Dict):
         """Add a review to this hypothesis."""
@@ -71,7 +76,10 @@ class ResearchHypothesis:
             "elo_rating": self.elo_rating,
             "metadata": self.metadata,
             "reviews": self.reviews,
-            "tournament_matches": self.tournament_matches
+            "tournament_matches": self.tournament_matches,
+            "tournament_wins": self.tournament_wins,
+            "tournament_losses": self.tournament_losses,
+            "last_tournament_time": self.last_tournament_time
         }
     
     @classmethod
@@ -88,6 +96,12 @@ class ResearchHypothesis:
         hypothesis.created_at = data["created_at"]
         hypothesis.reviews = data["reviews"]
         hypothesis.tournament_matches = data["tournament_matches"]
+
+        # Load tournament tracking attributes with defaults for backward compatibility
+        hypothesis.tournament_wins = data.get("tournament_wins", 0)
+        hypothesis.tournament_losses = data.get("tournament_losses", 0)
+        hypothesis.last_tournament_time = data.get("last_tournament_time", None)
+
         return hypothesis
     
     def __str__(self) -> str:

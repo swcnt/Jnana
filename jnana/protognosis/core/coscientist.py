@@ -300,6 +300,40 @@ class CoScientist:
         """
         return list(self.memory.hypotheses.values())
 
+    def evolve_hypothesis(self, hypothesis_id: str, feedback: str = None) -> Dict:
+        """
+        Evolve a hypothesis based on feedback.
+
+        Args:
+            hypothesis_id: ID of hypothesis to evolve
+            feedback: Optional feedback for evolution
+
+        Returns:
+            Dictionary containing evolved hypothesis information
+        """
+        try:
+            # Create evolution task
+            task = Task(
+                task_type="evolve_hypothesis",
+                agent_type="evolution",
+                priority=2,
+                params={
+                    "hypothesis_id": hypothesis_id,
+                    "feedback": feedback or ""
+                }
+            )
+
+            # Add task and wait for completion
+            self.supervisor.add_task(task)
+            self.supervisor.wait_for_completion()
+
+            # Return the task result
+            return task.result or {"evolved_hypothesis_id": hypothesis_id}
+
+        except Exception as e:
+            self.logger.error(f"Error evolving hypothesis {hypothesis_id}: {e}")
+            return {"error": str(e), "evolved_hypothesis_id": hypothesis_id}
+
     # [The rest of the CoScientist class methods remain unchanged]
     # ... (methods like generate_hypotheses, review_hypotheses, run_tournament, etc.)
 

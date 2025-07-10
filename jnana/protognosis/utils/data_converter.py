@@ -45,11 +45,11 @@ class ProtoGnosisDataConverter:
         
         # Create tournament record from ProtoGnosis data
         tournament_record = TournamentRecord(
-            matches_played=pg_hypothesis.tournament_matches,
+            matches=pg_hypothesis.tournament_matches,
             wins=pg_hypothesis.tournament_wins,
             losses=pg_hypothesis.tournament_losses,
             elo_rating=pg_hypothesis.elo_rating,
-            last_match_time=pg_hypothesis.last_tournament_time
+            last_match_timestamp=pg_hypothesis.last_tournament_time
         )
         
         # Create unified hypothesis
@@ -60,7 +60,7 @@ class ProtoGnosisDataConverter:
             content=pg_hypothesis.content,
             
             # Scientific evaluation
-            scientific_hallmarks=scientific_hallmarks,
+            hallmarks=scientific_hallmarks,
             
             # Timestamps
             created_at=pg_hypothesis.created_at,
@@ -72,7 +72,6 @@ class ProtoGnosisDataConverter:
             
             # System metadata
             hypothesis_type="protognosis_generated",
-            source_system="protognosis",
             version_string="1.0"
         )
         
@@ -103,11 +102,11 @@ class ProtoGnosisDataConverter:
         # Create ProtoGnosis metadata from unified hypothesis
         pg_metadata = {
             "strategy": unified_hypothesis.generation_strategy,
-            "testability_score": unified_hypothesis.scientific_hallmarks.testability,
-            "specificity_score": unified_hypothesis.scientific_hallmarks.specificity,
-            "grounded_knowledge_score": unified_hypothesis.scientific_hallmarks.grounded_knowledge,
-            "predictive_power_score": unified_hypothesis.scientific_hallmarks.predictive_power,
-            "parsimony_score": unified_hypothesis.scientific_hallmarks.parsimony,
+            "testability_score": unified_hypothesis.hallmarks.testability,
+            "specificity_score": unified_hypothesis.hallmarks.specificity,
+            "grounded_knowledge_score": unified_hypothesis.hallmarks.grounded_knowledge,
+            "predictive_power_score": unified_hypothesis.hallmarks.predictive_power,
+            "parsimony_score": unified_hypothesis.hallmarks.parsimony,
             "jnana_metadata": unified_hypothesis.metadata,
             "conversion_timestamp": time.time()
         }
@@ -123,10 +122,10 @@ class ProtoGnosisDataConverter:
         )
         
         # Set tournament data
-        pg_hypothesis.tournament_matches = unified_hypothesis.tournament_record.matches_played
+        pg_hypothesis.tournament_matches = unified_hypothesis.tournament_record.matches
         pg_hypothesis.tournament_wins = unified_hypothesis.tournament_record.wins
         pg_hypothesis.tournament_losses = unified_hypothesis.tournament_record.losses
-        pg_hypothesis.last_tournament_time = unified_hypothesis.tournament_record.last_match_time
+        pg_hypothesis.last_tournament_time = unified_hypothesis.tournament_record.last_match_timestamp
         
         # Set timestamps
         pg_hypothesis.created_at = unified_hypothesis.created_at

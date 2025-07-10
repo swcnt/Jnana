@@ -1,23 +1,494 @@
 {
-  "hypotheses": [],
+  "hypotheses": [
+    {
+      "hypothesis_id": "62386d2d-0cd3-4b06-8697-723c2ffd41c5",
+      "content": "Alzheimer's disease (AD) progression may be significantly influenced by lysosomal dysfunction, which plays a critical role in cellular waste processing and protein degradation. I hypothesize that enhancing lysosomal function can reduce neurodegeneration and cognitive decline in AD by improving the clearance of toxic protein aggregates, including but not limited to amyloid-beta and tau.",
+      "summary": "Investigate the therapeutic potential of enhancing lysosomal function to mitigate Alzheimer's disease progression by improving the clearance of neurotoxic aggregates.",
+      "agent_id": "generation-3",
+      "created_at": 1752176147.66222,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Lysosomal Dysfunction as a Novel Therapeutic Approach for Alzheimer's Disease",
+        "key_novelty_aspects": [
+          "Focus on lysosomal function rather than amyloid-beta or tau alone.",
+          "Explore the role of autophagy and lysosome biogenesis in neuroprotection.",
+          "Potential to integrate with or bypass current amyloid-beta focused treatments."
+        ],
+        "testable_predictions": [
+          "Enhancing lysosomal activity in animal models of AD will result in decreased neuronal death and improved cognitive function.",
+          "Pharmacological agents that increase lysosomal biogenesis and function will reduce the levels of amyloid-beta and tau aggregates in AD models.",
+          "Patients with genetic profiles indicating higher lysosomal activity will show slower AD progression."
+        ],
+        "generation_strategy": "I identified lysosomal dysfunction as an emerging area of interest in AD research. Through a literature review, I noted that while amyloid-beta and tau are well-studied, their degradation pathways, particularly involving lysosomes, are less explored. The hypothesis builds on the existing understanding of autophagy and lysosomal biology, proposing a shift in focus to cellular waste management systems as a novel therapeutic avenue.",
+        "explanation": "Recent literature suggests that lysosomal dysfunction is implicated in the pathogenesis of Alzheimer's disease, as it leads to the accumulation of neurotoxic protein aggregates. While amyloid-beta remains a central focus, targeting the lysosomal pathway may offer a broader and possibly more effective therapeutic strategy. By enhancing lysosomal function, it may be possible to improve the degradation and clearance of multiple toxic species, addressing a significant gap in amyloid-centric approaches."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "7f2d45e4-fa72-4c59-8fc3-8d75e5f3bb34",
+      "content": "This hypothesis proposes that modulating neuronal exosome secretion pathways can serve as a novel therapeutic strategy for Alzheimer's disease by reducing the spread of pathological tau and other neurotoxic proteins, thus bypassing the limitations of amyloid-beta focused approaches.",
+      "summary": "By targeting the pathways involved in exosome secretion from neurons, it might be possible to limit the intercellular transfer of neurotoxic proteins, including tau, offering a new therapeutic avenue for Alzheimer's disease.",
+      "agent_id": "generation-1",
+      "created_at": 1752176160.3032162,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Neuronal Exosome Secretion Pathways for Alzheimer's Disease Therapy",
+        "key_novelty_aspects": [
+          "Shifts focus from amyloid-beta to exosome-mediated protein transfer.",
+          "Targets a fundamental cellular process with broad implications for proteinopathy.",
+          "Proposes a mechanism to limit disease progression through intercellular communication."
+        ],
+        "testable_predictions": [
+          "Inhibition of specific exosome secretion proteins in neuronal cultures will reduce extracellular tau propagation.",
+          "Animal models of Alzheimer's disease with modified exosome pathways will show reduced neurodegeneration.",
+          "Pharmacological modulation of exosome pathways will decrease cognitive decline in Alzheimer's models."
+        ],
+        "generation_strategy": "Simulated scientific debate among experts with diverse backgrounds in neurobiology, molecular biology, and pharmacology, focusing on identifying novel therapeutic targets for Alzheimer's disease.",
+        "explanation": "The hypothesis emerged from a simulated debate among experts with different perspectives on Alzheimer's disease. Dr. A, a neurobiologist, emphasized the need to move beyond amyloid-beta and suggested looking at tau propagation. Dr. B, a molecular biologist, proposed examining cellular communication mechanisms, specifically exosomes. Dr. C, a pharmacologist, highlighted the potential for druggable targets within these pathways. The consensus was that exosomes, being involved in protein transfer among neurons, represent a new target area that could circumvent the challenges faced by amyloid-beta therapies."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "159478bd-e82c-40c0-81ef-f4839ac108f5",
+      "content": "Contrary to the assumption that amyloid-beta accumulation is the primary therapeutic target for Alzheimer's disease, we propose that modulating mitochondrial dynamics could serve as an effective therapeutic strategy. Specifically, enhancing mitochondrial biogenesis and functional connectivity within neurons may bypass the limitations observed in amyloid-beta focused approaches.",
+      "summary": "This hypothesis suggests that by targeting mitochondrial dynamics, specifically enhancing mitochondrial biogenesis and network connectivity within neurons, we can develop novel therapeutic strategies for Alzheimer's disease, potentially circumventing the limitations of amyloid-beta focused approaches.",
+      "agent_id": "generation-3",
+      "created_at": 1752176181.177345,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Neuronal Metabolism: Modulating Mitochondrial Dynamics as a Therapeutic Strategy for Alzheimer's Disease",
+        "key_novelty_aspects": [
+          "Shifts focus from amyloid-beta to mitochondrial dynamics.",
+          "Proposes enhancement of mitochondrial biogenesis as a therapeutic approach.",
+          "Suggests the importance of mitochondrial network connectivity in neuronal health."
+        ],
+        "testable_predictions": [
+          "Modulating genes involved in mitochondrial biogenesis will improve neuronal function and reduce Alzheimer's pathology in animal models.",
+          "Increasing mitochondrial network connectivity correlates with improved cognitive function in Alzheimer's patients.",
+          "Pharmacological agents that enhance mitochondrial dynamics reduce neurodegeneration markers in Alzheimer's disease models."
+        ],
+        "generation_strategy": "Analyzed current Alzheimer's research literature and identified key assumptions. Evaluated the evidence supporting the amyloid-beta hypothesis and the emerging role of mitochondrial dysfunction. Selected mitochondrial dynamics as a promising alternative target. Developed a hypothesis that challenges the amyloid-beta focus by emphasizing the potential of mitochondrial modulation for therapeutic development.",
+        "explanation": "The current Alzheimer's disease research heavily focuses on amyloid-beta accumulation. However, treatments targeting amyloid-beta have not consistently provided clinical benefits, suggesting that amyloid-beta may not be the sole driver of the disease. One assumption is that amyloid-beta deposition is the primary target for interventions. Evidence suggests mitochondrial dysfunction also plays a critical role in Alzheimer's pathogenesis. Mitochondrial dynamics, involving biogenesis, fission, fusion, and mitophagy, are essential for neuronal health. By challenging the amyloid-beta-centric view and focusing on mitochondrial dynamics, we propose a novel pathway that could lead to effective therapies."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "de194412-97a7-4ec9-aceb-e98145690d9e",
+      "content": "Alzheimer's disease progression could be mitigated by enhancing the efficiency of the glymphatic system, which facilitates the clearance of neurotoxic proteins, including amyloid-beta and tau, from the brain. This approach involves targeting aquaporin-4 (AQP4) channels and associated regulatory pathways to improve interstitial fluid flow and protein clearance, potentially bypassing current limitations of amyloid-beta focused therapies.",
+      "summary": "This hypothesis proposes that enhancing the glymphatic system's function by targeting aquaporin-4 channels could improve the clearance of neurotoxic proteins in Alzheimer's disease, offering a novel therapeutic approach beyond amyloid-beta centric strategies.",
+      "agent_id": "generation-0",
+      "created_at": 1752176196.5490692,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Modulating Neuronal Glymphatic System Function to Enhance Neurotoxic Protein Clearance in Alzheimer's Disease",
+        "key_novelty_aspects": [
+          "Focuses on the glymphatic system, a less explored target in Alzheimer's disease.",
+          "Involves modulation of aquaporin-4 channels to enhance interstitial fluid flow.",
+          "Proposes a systemic clearance mechanism, moving beyond intracellular pathways."
+        ],
+        "testable_predictions": [
+          "Increased expression or activity of aquaporin-4 will correlate with reduced amyloid-beta and tau levels in Alzheimer's disease models.",
+          "Modulation of glymphatic function will show cognitive improvements in Alzheimer's disease animal models.",
+          "Pharmacological agents that enhance aquaporin-4 function will demonstrate increased clearance of neurotoxic proteins in vivo."
+        ],
+        "generation_strategy": "The strategy involved identifying less explored systemic clearance mechanisms, such as the glymphatic system, and linking them to known molecular targets like aquaporin-4 that can be modulated to enhance clearance efficiency. This approach leverages existing knowledge on protein clearance and neurodegeneration and applies it to a new context, ensuring the hypothesis is both novel and grounded in established scientific principles.",
+        "explanation": "This hypothesis builds on the understanding that the glymphatic system plays a critical role in clearing waste products from the brain, including neurotoxic proteins implicated in Alzheimer's disease. By focusing on aquaporin-4 channels, which are crucial for glymphatic function, this hypothesis extends the concept of enhancing cellular clearance mechanisms (similar to lysosomal pathways) to a larger, systemic scale. This approach represents a shift from intracellular to extracellular clearance strategies, providing a novel therapeutic target that is not limited to amyloid-beta pathways."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "26e7d6e9-03fe-4fff-be94-e835b2d48811",
+      "content": "A novel therapeutic approach for Alzheimer's disease could involve targeting Neuronal Pentraxin 2 (NPTX2) to restore synaptic function and cognitive abilities. NPTX2 has been implicated in maintaining dendritic spine stability and synapse formation, processes that are impaired in Alzheimer's. By modulating NPTX2 expression or activity, it may be possible to counteract synapse loss and cognitive decline, bypassing the limitations of amyloid-beta focused treatments.",
+      "summary": "This hypothesis suggests that modulating NPTX2, a protein involved in synaptic stability, could offer a novel therapeutic target for Alzheimer's disease, addressing synaptic deficits rather than amyloid-beta accumulation.",
+      "agent_id": "generation-1",
+      "created_at": 1752176583.1190789,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Neuronal Pentraxin 2 (NPTX2) to Modulate Synaptic Function in Alzheimer's Disease",
+        "key_novelty_aspects": [
+          "Focus on synaptic stability rather than amyloid-beta",
+          "Targeting a novel protein, NPTX2, with potential regulatory roles in synapse maintenance",
+          "Potential for new therapeutic interventions that promote cognitive resilience"
+        ],
+        "testable_predictions": [
+          "Altering NPTX2 levels in animal models will result in changes in synaptic density and memory performance.",
+          "NPTX2 expression correlates with cognitive performance in Alzheimer's patients.",
+          "NPTX2 modulation can reverse synaptic loss in Alzheimer's disease cell culture models."
+        ],
+        "generation_strategy": "The hypothesis was generated by identifying a gap in the literature where the focus has predominantly been on amyloid-beta. By considering recent studies highlighting the importance of synaptic health in Alzheimer's and exploring lesser-known proteins like NPTX2 involved in synaptic function, a novel and testable hypothesis was formulated.",
+        "explanation": "The literature on Alzheimer's disease has traditionally focused on amyloid-beta and tau proteins as primary targets. However, therapies targeting these pathways have shown limited clinical success, possibly due to the complex etiology of Alzheimer's. Recent findings suggest synaptic dysfunction is a critical early event in Alzheimer's pathogenesis. NPTX2 is a protein that plays a crucial role in synapse formation and maintenance, yet it has not been extensively studied in the context of Alzheimer's. By exploring NPTX2 as a therapeutic target, this hypothesis aims to address synaptic deficits directly, which may lead to more effective treatments."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "96efcd12-b62a-4898-9457-9809acc9bef2",
+      "content": "The hypothesis is that enhancing or restoring synaptic plasticity through modulation of molecules such as BDNF (Brain-Derived Neurotrophic Factor), Synaptotagmin, or Neuregulin can mitigate cognitive deficits in Alzheimer's disease, independent of amyloid-beta accumulation.",
+      "summary": "This hypothesis focuses on targeting molecules involved in synaptic plasticity as a therapeutic strategy for Alzheimer's disease, aiming to bypass the limitations of amyloid-beta-centric approaches by directly addressing synaptic dysfunction.",
+      "agent_id": "generation-2",
+      "created_at": 1752176596.704584,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Synaptic Plasticity Molecules as a Novel Approach to Alzheimer's Disease Therapy",
+        "key_novelty_aspects": [
+          "Shifts focus from amyloid-beta to synaptic plasticity.",
+          "Targets molecules with direct roles in synaptic function and cognitive processes.",
+          "Proposes a mechanistic intervention strategy that could be synergistic with existing treatments."
+        ],
+        "testable_predictions": [
+          "Modulation of BDNF levels in animal models of Alzheimer's will result in improved cognitive function without altering amyloid-beta levels.",
+          "Inhibition or enhancement of Synaptotagmin activity will correlate with changes in synaptic density and learning outcomes in Alzheimer's models.",
+          "Administration of Neuregulin analogs will restore synaptic strength and plasticity, leading to cognitive improvements."
+        ],
+        "generation_strategy": "Simulated debate among diverse experts, iterative refinement of ideas, synthesis of consensus-derived hypothesis",
+        "explanation": "The simulated debate involved experts from neurobiology, pharmacology, and clinical research, each providing insights into alternative therapeutic targets for Alzheimer's disease. The neurobiologist emphasized the importance of synaptic health and plasticity, while the pharmacologist highlighted the potential of targeting molecules that regulate synaptic function. The clinician stressed the need for treatments that can improve cognitive outcomes without relying solely on amyloid-beta reduction. Through iterative discussion, the experts converged on the idea of targeting synaptic plasticity-related molecules, synthesizing a novel hypothesis that was robust to critiques and promising in terms of potential therapeutic outcomes."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "7fdbbb28-dec5-4813-a631-0748dafcd4bb",
+      "content": "Alzheimer's disease progression is significantly influenced by disrupted mitochondrial dynamics, which can be targeted to improve neuronal function and survival. Therapeutics that enhance mitochondrial biogenesis, fusion, and function could provide an effective treatment pathway, bypassing the limitations of amyloid-beta focused approaches.",
+      "summary": "This hypothesis proposes that targeting mitochondrial dynamics could be a novel therapeutic avenue for Alzheimer's disease, challenging the amyloid-beta-centric assumption and focusing on the cellular energy dysfunction that underlies neurodegeneration.",
+      "agent_id": "generation-1",
+      "created_at": 1752176615.218718,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Mitochondrial Dynamics as a Therapeutic Strategy for Alzheimer's Disease",
+        "key_novelty_aspects": [
+          "Shifting focus from amyloid-beta to mitochondrial dynamics in Alzheimer's treatment.",
+          "Explores the role of mitochondrial biogenesis and fusion/fission balance in neurodegeneration.",
+          "Proposes targeting cellular energy dysfunction as a therapeutic strategy."
+        ],
+        "testable_predictions": [
+          "Alzheimer's disease models treated with mitochondrial biogenesis enhancers will show reduced neurodegeneration and improved cognitive function.",
+          "Mitochondrial fusion-promoting compounds will decrease synaptic loss in Alzheimer's disease animal models.",
+          "Biopsies from Alzheimer's patients will exhibit altered expression of genes involved in mitochondrial dynamics compared to controls."
+        ],
+        "generation_strategy": "The strategy involved identifying current assumptions about Alzheimer's disease, particularly the amyloid-beta-centered view, and examining recent literature for contradictory evidence. Research on mitochondrial dysfunction in neurodegenerative diseases provided a promising alternative avenue. The hypothesis was then crafted to address these considerations, ensuring it was specific, testable, and could significantly impact the field if validated.",
+        "explanation": "Current Alzheimer's research heavily focuses on the amyloid-beta hypothesis, which suggests that the accumulation of amyloid-beta plaques in the brain is a primary cause of the disease. However, many clinical trials targeting amyloid-beta have failed to produce significant therapeutic benefits, suggesting that other pathways may be crucial. One key assumption is that amyloid-beta is the central driver of Alzheimer's pathology, but emerging evidence suggests mitochondrial dysfunction plays a significant role in neurodegeneration. Mitochondria are critical for cellular energy production, and their dysfunction can lead to neuronal death. By challenging the assumption that amyloid-beta is the sole or primary target, we can explore mitochondrial dynamics as a novel therapeutic target. This approach could provide new insights into the disease and open up alternative treatment strategies."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "338787fa-5be8-47bb-ae05-50793b32e9df",
+      "content": "Investigating the enhancement of mitophagy, the selective degradation of damaged mitochondria, as a therapeutic target in Alzheimer's disease (AD). This approach aims to improve neuronal health by clearing dysfunctional mitochondria, thus potentially reducing oxidative stress and neuroinflammation, which are linked to AD pathology. This strategy builds on mitochondrial dynamics and lysosomal function enhancement but focuses specifically on the autophagic degradation pathway.",
+      "summary": "Enhancing mitophagy could serve as a novel therapeutic target for Alzheimer's disease by improving mitochondrial health and reducing oxidative stress and inflammation, offering a different avenue from amyloid-beta strategies.",
+      "agent_id": "generation-2",
+      "created_at": 1752176633.0691998,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Neuronal Autophagy Pathways via Enhancing Mitophagy for Alzheimer's Disease Therapy",
+        "key_novelty_aspects": [
+          "Focus on mitophagy as a specific autophagy-related process.",
+          "Potential to reduce oxidative stress and inflammation in neurons.",
+          "Combines aspects of mitochondrial dynamics and lysosomal function."
+        ],
+        "testable_predictions": [
+          "Enhancing mitophagy in neuronal cell lines or animal models will lead to a decrease in oxidative stress markers.",
+          "Mice models of Alzheimer's disease with enhanced mitophagy will show improved cognitive function compared to controls.",
+          "Reduction in neuroinflammatory markers will be observed following mitophagy enhancement in AD models."
+        ],
+        "generation_strategy": "The hypothesis was generated by identifying a gap in the existing hypotheses that focus on broader mitochondrial and lysosomal functions without specifying autophagic processes. By honing in on mitophagy, the hypothesis proposes a specific, novel mechanism that could be exploited for therapeutic purposes. This approach also aligns well with the research goal of bypassing amyloid-beta focused limitations while building on the foundation of cellular clearance pathways.",
+        "explanation": "This hypothesis extends the understanding of mitochondrial dynamics and lysosomal function by specifically targeting mitophagy, a process not explicitly covered in the existing hypotheses. By focusing on this selective degradation of damaged mitochondria, the approach leverages the concept of improving cellular health through better waste management, which could lead to decreased oxidative stress and inflammation, known contributors to AD. This provides a fresh angle that complements the existing focus on improving mitochondrial health and protein clearance without directly targeting amyloid-beta."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "7ec4f647-bf98-48ed-a076-2523254f4e0f",
+      "content": "Altered mitochondrial dynamics, particularly in synaptic regions, contribute to cognitive decline in Alzheimer's disease. Modulating proteins involved in mitochondrial fission and fusion, such as Drp1 and OPA1, could restore synaptic function and offer a therapeutic avenue independent of amyloid-beta pathways.",
+      "summary": "Investigating Drp1 and OPA1 as potential therapeutic targets in Alzheimer's disease by modulating mitochondrial dynamics to improve synaptic function and cognitive outcomes.",
+      "agent_id": "generation-2",
+      "created_at": 1752177684.60726,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Synaptic Mitochondrial Dynamics to Mitigate Alzheimer's Disease Progression",
+        "key_novelty_aspects": [
+          "Focus on synaptic mitochondrial dynamics rather than amyloid-beta pathways.",
+          "Leveraging mitochondrial fission and fusion mechanisms for therapeutic intervention.",
+          "Integration of synaptic health with mitochondrial function in Alzheimer's disease."
+        ],
+        "testable_predictions": [
+          "Inhibition of Drp1 will reduce excessive mitochondrial fission in Alzheimer's models, improving synaptic function and cognitive performance.",
+          "Enhancement of OPA1 activity will promote mitochondrial fusion, leading to improved synaptic resilience in Alzheimer's mouse models.",
+          "Synaptic mitochondrial morphology will correlate with cognitive performance in Alzheimer's patients, independent of amyloid-beta levels."
+        ],
+        "generation_strategy": "The hypothesis was generated by synthesizing recent findings on mitochondrial dynamics and synaptic health, identifying a gap in Alzheimer's research that typically focuses on amyloid-beta. By exploring the roles of Drp1 and OPA1, a novel target for therapy was formulated, aligning with current scientific understanding while proposing a distinct approach.",
+        "explanation": "Recent literature highlights the role of mitochondrial dynamics in neuronal health, particularly in synapses, where energy demand is high. Alzheimer's models show disrupted mitochondrial fission and fusion, contributing to synaptic dysfunction. While much research focuses on amyloid-beta, targeting mitochondrial dynamics offers a novel approach that may address cognitive symptoms more effectively. Drp1 and OPA1 are key proteins in this process, making them promising targets. This hypothesis bridges current knowledge on mitochondrial biology with Alzheimer's pathology, suggesting a new therapeutic path."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "a0ba2152-d908-4ce6-8b0e-5d91a9f919ea",
+      "content": "This hypothesis proposes that targeting synaptic mitochondrial dysfunction can serve as a novel therapeutic approach for Alzheimer's disease by enhancing synaptic resilience and function, potentially bypassing the limitations of amyloid-beta focused therapies.",
+      "summary": "Targeting synaptic mitochondrial dysfunction could offer a new therapeutic avenue for Alzheimer's disease by improving synaptic health and cognitive function, circumventing the challenges associated with amyloid-beta targeting.",
+      "agent_id": "generation-2",
+      "created_at": 1752177698.027096,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Synaptic Mitochondrial Dysfunction in Alzheimer's Disease",
+        "key_novelty_aspects": [
+          "Focus on synaptic mitochondrial health rather than amyloid-beta.",
+          "Potential to improve synaptic function and cognitive performance.",
+          "Addresses both metabolic and synaptic dysfunction aspects of Alzheimer's."
+        ],
+        "testable_predictions": [
+          "Alzheimer's models with enhanced synaptic mitochondrial function will show improved cognitive outcomes.",
+          "Pharmacological agents that boost synaptic mitochondrial health will reduce synaptic loss and improve synaptic plasticity in Alzheimer's models.",
+          "Human Alzheimer's patients with higher synaptic mitochondrial function will exhibit slower cognitive decline compared to those with impaired function."
+        ],
+        "generation_strategy": "The hypothesis was generated through a simulated debate where experts proposed ideas and critiqued alternatives. The debate evolved by integrating insights from different disciplines, leading to a consensus on the potential of synaptic mitochondrial interventions. This strategy ensured a comprehensive exploration of the research goal, resulting in a hypothesis that is both novel and grounded in current scientific understanding.",
+        "explanation": "The hypothesis emerged from a simulated debate among experts with backgrounds in neurodegeneration, mitochondrial biology, synaptic physiology, and clinical neurology. This diverse group addressed the limitations of amyloid-beta therapies and proposed that focusing on mitochondrial dysfunction at synapses offers a promising alternative. By enhancing synaptic mitochondrial health, this approach may improve cognitive function and resilience, offering a novel and testable pathway for therapeutic development."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "35f887c6-8886-44b0-87e5-7b4de3e77a12",
+      "content": "Given the emerging evidence of synaptic dysfunction preceding amyloid-beta pathology, targeting molecules that regulate synaptic vesicle dynamics may represent a novel therapeutic approach for Alzheimer's disease. Specifically, modulating proteins involved in vesicle docking, fusion, and neurotransmitter release could improve synaptic function and delay neurodegenerative processes.",
+      "summary": "Challenging the focus on amyloid-beta, this hypothesis proposes that targeting synaptic vesicle dynamics could offer a new therapeutic strategy for Alzheimer's disease by addressing early synaptic dysfunction.",
+      "agent_id": "generation-1",
+      "created_at": 1752177717.287263,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Synaptic Vesicle Dynamics as a Therapeutic Avenue in Alzheimer's Disease",
+        "key_novelty_aspects": [
+          "Focus on synaptic vesicle dynamics instead of amyloid-beta.",
+          "Potential to address early-stage synaptic dysfunction.",
+          "Exploration of understudied molecular targets in Alzheimer's research."
+        ],
+        "testable_predictions": [
+          "Inhibition of specific synaptic vesicle proteins will restore synaptic function in Alzheimer's disease models.",
+          "Alzheimer's disease patients will exhibit altered expression levels of synaptic vesicle proteins compared to healthy controls.",
+          "Animal models with modified synaptic vesicle dynamics will show delayed progression of Alzheimer's pathology."
+        ],
+        "generation_strategy": "The generation strategy involved identifying key assumptions in current Alzheimer's research, particularly the focus on amyloid-beta. By analyzing the evidence for early synaptic dysfunction and its independence from amyloid-beta pathology, a novel hypothesis was formed that targets synaptic vesicle dynamics. This approach is scientifically plausible and aligns with emerging evidence, representing a significant departure from traditional therapeutic targets.",
+        "explanation": "The hypothesis is based on challenging the assumption that amyloid-beta is the primary therapeutic target in Alzheimer's disease. Current therapies focusing on amyloid-beta have not been successful in reversing or significantly delaying disease progression. One key assumption is that amyloid-beta accumulation is the earliest and primary driver of synaptic dysfunction and neurodegeneration. However, growing evidence suggests that synaptic dysfunction can occur independently and may even precede amyloid-beta plaque formation. By targeting synaptic vesicle dynamics, we are addressing a potentially earlier and causative aspect of the disease, which may lead to more effective therapeutic interventions."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "195864b4-e0c6-40ab-8071-23fc930f6821",
+      "content": "We hypothesize that enhancing the integrity and function of the neurovascular unit (NVU) by targeting signaling pathways involved in blood-brain barrier (BBB) maintenance and cerebral blood flow regulation can offer a novel therapeutic strategy for Alzheimer's disease. This approach aims to improve the clearance of neurotoxic aggregates and reduce neuroinflammation by strengthening NVU components, including endothelial cells, pericytes, and astrocytes.",
+      "summary": "This hypothesis proposes that by enhancing the integrity of the neurovascular unit, it may be possible to improve the clearance of neurotoxic aggregates and reduce inflammation, offering a new therapeutic avenue for Alzheimer's disease.",
+      "agent_id": "generation-3",
+      "created_at": 1752177735.8143308,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Neurovascular Unit Integrity to Mitigate Alzheimer's Disease Progression",
+        "key_novelty_aspects": [
+          "Focus on neurovascular unit integrity rather than amyloid-beta.",
+          "Improvement of blood-brain barrier function to facilitate clearance of neurotoxins.",
+          "Reduction of neuroinflammation through enhanced cerebral perfusion."
+        ],
+        "testable_predictions": [
+          "Enhanced NVU integrity will correlate with decreased levels of neurotoxic aggregates in Alzheimer's disease models.",
+          "Interventions aimed at NVU components will result in improved cognitive function in Alzheimer's disease models.",
+          "Restoration of BBB function will correlate with reduced neuroinflammatory markers in the brain."
+        ],
+        "generation_strategy": "The strategy involved analyzing existing hypotheses and identifying a common overlooked systemic factor: the neurovascular unit. By focusing on the NVU, the hypothesis integrates aspects of clearance and inflammation control, providing a holistic and novel angle for Alzheimer's disease research. This approach was chosen to create a significant departure from amyloid-beta-centric strategies while remaining grounded in physiological processes.",
+        "explanation": "The proposed hypothesis builds on existing ideas by shifting the focus from intracellular and intercellular processes to the systemic integrity of the neurovascular unit. While current hypotheses explore intracellular clearance mechanisms and neuron-specific interventions, this hypothesis expands the scope to consider how the vascular system's health impacts neurodegenerative processes. By focusing on the NVU, it integrates the clearance of neurotoxins and reduction of neuroinflammation, which are critical in Alzheimer's pathology. This approach represents a significant shift from amyloid-beta-centric therapies by addressing systemic factors that could influence disease progression."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "3c506e72-9769-44a9-bf10-673b9f5d9aec",
+      "content": "The hypothesis proposes that dysregulated iron homeostasis, particularly involving ferritin heavy chain (FTH), plays a significant role in Alzheimer's disease (AD) progression. Targeting FTH to restore iron homeostasis could provide a novel therapeutic approach that circumvents the limitations of amyloid-beta focused treatments.",
+      "summary": "This research hypothesis suggests that modulating ferritin heavy chain to maintain proper iron homeostasis could represent a novel therapeutic strategy for Alzheimer's disease, offering an alternative to amyloid-beta centric therapies.",
+      "agent_id": "generation-3",
+      "created_at": 1752177885.017161,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Neuronal Ferritin Heavy Chain Modulation to Ameliorate Alzheimer's Disease Pathology",
+        "key_novelty_aspects": [
+          "Focus on iron metabolism and ferritin heavy chain as therapeutic targets",
+          "Bypasses amyloid-beta pathways",
+          "Addresses neuroinflammation and oxidative stress"
+        ],
+        "testable_predictions": [
+          "Animal models with overexpression of ferritin heavy chain will show improved cognitive function and reduced AD pathology.",
+          "Inhibition of ferritin heavy chain degradation in neuronal cultures will decrease markers of oxidative stress and neuroinflammation.",
+          "Patients with Alzheimer's disease will exhibit altered levels of ferritin heavy chain compared to healthy controls."
+        ],
+        "generation_strategy": "The hypothesis was generated by identifying gaps in current Alzheimer's disease research, particularly the need for alternative therapeutic targets beyond amyloid-beta. Key findings from recent studies on iron metabolism and its role in neurodegeneration were synthesized to identify FTH as a potential target. The strategy involved connecting disparate findings on iron dysregulation and its impact on neuroinflammation and oxidative stress, which are not fully explored in the context of AD.",
+        "explanation": "The literature on Alzheimer's disease increasingly indicates that iron dysregulation and oxidative stress are critical components of AD pathology. Ferritin heavy chain (FTH) is a key regulator of intracellular iron storage and has been implicated in neurodegenerative diseases. By focusing on FTH, this hypothesis aims to explore how restoring iron balance can modulate neuroinflammatory and oxidative pathways, which are also key features of AD, thereby offering a novel therapeutic target that diverges from the traditional amyloid-beta approach."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "30908cd9-4550-4e5e-be25-fa13dfed450a",
+      "content": "Modulating the activity of SIRT3, a mitochondrial sirtuin, could restore mitochondrial function and neuronal energy homeostasis in Alzheimer's disease, bypassing the limitations of amyloid-beta focused therapies. This approach aims to enhance mitochondrial biogenesis, reduce oxidative stress, and improve neuronal survival, potentially impacting disease progression.",
+      "summary": "This hypothesis proposes targeting mitochondrial dysfunction in Alzheimer's disease by modulating SIRT3 activity, which may provide a therapeutic avenue distinct from amyloid-beta pathways.",
+      "agent_id": "generation-3",
+      "created_at": 1752177899.4915478,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Neuronal Mitochondrial Dysfunction in Alzheimer's Disease via SIRT3 Modulation",
+        "key_novelty_aspects": [
+          "Focuses on mitochondrial dysfunction, a non-amyloid-beta pathway.",
+          "Explores the modulation of SIRT3, which is less studied in Alzheimer's context.",
+          "Integrates energy metabolism and oxidative stress regulation into the therapeutic strategy."
+        ],
+        "testable_predictions": [
+          "Activation of SIRT3 in neuronal cell models of Alzheimer's will improve mitochondrial respiratory function.",
+          "SIRT3 modulation will decrease markers of oxidative stress in Alzheimer's disease models.",
+          "In vivo studies will show that SIRT3 activation leads to improved cognitive function and reduced neurodegeneration in Alzheimer's disease animal models."
+        ],
+        "generation_strategy": "The generation strategy involved creating expert personas with backgrounds in neurobiology, mitochondrial biology, pharmacology, and clinical neuroscience. Each expert proposed ideas based on their field, critiquing others' proposals to refine the hypothesis. The debate focused on identifying pathways that could offer new therapeutic targets, leading to a consensus on targeting mitochondrial dysfunction via SIRT3 modulation.",
+        "explanation": "The hypothesis emerged from a simulated debate involving experts from neurobiology, mitochondrial biology, pharmacology, and clinical neuroscience. By combining insights from these fields, the hypothesis addresses the need for novel Alzheimer's therapies beyond amyloid-beta, focusing on mitochondrial dysfunction, a recognized but underexplored aspect of the disease. This approach is significant due to its potential to impact both cellular energy metabolism and oxidative stress, crucial factors in neuronal health."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "21a49fb7-33d6-44e7-9dbe-2a1cd89bb30a",
+      "content": "We hypothesize that dysregulation of neuronal energy metabolism, rather than amyloid-beta accumulation, plays a critical role in Alzheimer's disease pathology. Specifically, targeting mitochondrial function and glucose metabolism pathways in neurons could provide an effective therapeutic approach, bypassing the limitations of amyloid-beta focused treatments.",
+      "summary": "This hypothesis proposes that the dysfunction in neuronal energy metabolism is a primary driver of Alzheimer's disease, suggesting that therapeutic strategies aimed at restoring mitochondrial function and optimizing glucose utilization in neurons could be more effective than current amyloid-beta centered approaches.",
+      "agent_id": "generation-3",
+      "created_at": 1752177923.3277388,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Neuronal Energy Metabolism Dysregulation in Alzheimer's Disease",
+        "key_novelty_aspects": [
+          "Challenges the amyloid-beta hypothesis",
+          "Focuses on energy metabolism as a primary target",
+          "Suggests mitochondrial and glucose metabolism pathways as novel therapeutic targets"
+        ],
+        "testable_predictions": [
+          "Alzheimer's patients will exhibit more pronounced alterations in neuronal energy metabolism markers compared to amyloid-beta levels.",
+          "Therapies aimed at enhancing mitochondrial function will show improved cognitive outcomes in Alzheimer's models compared to amyloid-beta targeting therapies.",
+          "Genetic or pharmacological modulation of key enzymes in glucose metabolism will alleviate Alzheimer's symptoms in preclinical models."
+        ],
+        "generation_strategy": "The strategy involved reviewing the current limitations of amyloid-centric therapies, identifying assumptions about the amyloid hypothesis, and investigating alternative pathological pathways with supporting evidence. Metabolic dysfunctions, particularly mitochondrial and glucose metabolism abnormalities, were identified as overlooked but plausible primary drivers of Alzheimer's pathology. The hypothesis was constructed to challenge existing assumptions by integrating recent findings in neuronal metabolism and aligning with observed clinical failures of amyloid-targeted interventions.",
+        "explanation": "The current research heavily focuses on amyloid-beta as the primary target for Alzheimer's therapies, based on the assumption that amyloid-beta accumulation is the main cause of the disease. However, clinical outcomes of amyloid-targeting drugs have been disappointing, suggesting that other pathways might be involved. One key assumption is that amyloid-beta is the central pathogenic feature, supported by its presence in plaques; however, the correlation between amyloid burden and cognitive decline is weak. Another assumption is that amyloid-beta accumulation is an early event leading to downstream effects, yet some individuals with high amyloid burden do not exhibit symptoms. Challenging these assumptions, our hypothesis posits that energy metabolism dysregulation, particularly involving mitochondria and glucose metabolism, plays a central role in disease pathology. This reframing aligns with growing evidence of metabolic deficits in Alzheimer's and offers a new therapeutic target that could lead to more effective treatments."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "bc28b127-b85d-48cb-bc0e-716ac4f908c9",
+      "content": "This hypothesis proposes targeting the regulation of lipid metabolism through neuronal autophagy as a novel therapeutic strategy for Alzheimer's disease. Specifically, by modulating autophagy-related pathways that influence lipid droplet formation and lipidomics within neurons, it may be possible to reduce the accumulation of neurotoxic species and improve neuronal health, thus offering an alternative to amyloid-beta focused approaches.",
+      "summary": "Modulating autophagy-related lipid metabolism in neurons could provide a new therapeutic strategy for Alzheimer's disease by reducing neurotoxic species accumulation and enhancing neuronal health.",
+      "agent_id": "generation-3",
+      "created_at": 1752177941.108404,
+      "elo_rating": 1200.0,
+      "metadata": {
+        "title": "Targeting Neuronal Autophagy-Mediated Lipid Metabolism to Mitigate Alzheimer's Disease Progression",
+        "key_novelty_aspects": [
+          "Focuses on the intersection of autophagy and lipid metabolism, a relatively unexplored area in Alzheimer's research.",
+          "Proposes a mechanism that integrates cellular metabolic health with neurodegeneration pathways, offering a holistic approach.",
+          "Presents a departure from direct amyloid-beta targeting, addressing the disease from a cellular health perspective."
+        ],
+        "testable_predictions": [
+          "Enhancing specific autophagy-related pathways in neurons will decrease the formation of neurotoxic lipid droplets.",
+          "Modulation of lipid metabolism via autophagy will lead to improved neuronal function and survival in Alzheimer's disease models.",
+          "Altering lipid profiles in neurons can reduce the progression of neurodegenerative markers associated with Alzheimer's disease."
+        ],
+        "generation_strategy": "The strategy involved analyzing the current top-ranked hypotheses for novel angles and combining insights from autophagy and lipid metabolism research. By identifying the intersection of these areas, the hypothesis aims to propose a fundamentally new approach to Alzheimer's therapeutics that extends beyond merely improving current models.",
+        "explanation": "The hypothesis builds upon existing research by focusing on the role of neuronal autophagy and lipid metabolism in Alzheimer's disease, which has been less explored compared to amyloid-beta and tau pathways. Lipid dysregulation is a known factor in neurodegenerative diseases, and autophagy plays a critical role in maintaining cellular homeostasis, including lipid metabolism. By targeting these interconnected pathways, it is possible to influence disease progression through a novel mechanism that circumvents the limitations of amyloid-beta focused therapies."
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    },
+    {
+      "hypothesis_id": "976ba5ba-77da-493b-8e8d-a21a88db6a92",
+      "content": "This is a placeholder hypothesis generated by Jnana.",
+      "summary": "This is a placeholder hypothesis generated by Jnana.",
+      "agent_id": "jnana_converter",
+      "created_at": 1752177885.027497,
+      "elo_rating": null,
+      "metadata": {
+        "strategy": "literature_exploration",
+        "testability_score": "",
+        "specificity_score": "",
+        "grounded_knowledge_score": "",
+        "predictive_power_score": "",
+        "parsimony_score": "",
+        "jnana_metadata": {},
+        "conversion_timestamp": 1752177942.12187
+      },
+      "reviews": [],
+      "tournament_matches": [],
+      "tournament_wins": 0,
+      "tournament_losses": 0,
+      "last_tournament_time": null
+    }
+  ],
   "experiments": {},
   "analyses": {},
   "papers": {},
   "metadata": {
     "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
     "research_plan": {
-      "main_objective": "Identify novel molecular targets for Alzheimer's disease therapeutics",
+      "main_objective": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
       "domain": "Neuroscience, Molecular Biology, Pharmacology",
       "constraints": [
-        "Bypass current limitations of amyloid-beta focused approaches"
+        "Current limitations of amyloid-beta focused approaches"
       ],
-      "preferences": [
-        "Focus on novel molecular targets"
-      ],
+      "preferences": [],
       "evaluation_criteria": [
-        "Effectiveness in bypassing amyloid-beta limitations",
-        "Potential therapeutic efficacy",
-        "Feasibility of targeting in a clinical setting"
+        "Effectiveness of new targets in bypassing amyloid-beta limitations",
+        "Potential for therapeutic development",
+        "Safety and specificity of targeting new molecules",
+        "Mechanistic understanding of new molecular targets"
       ],
       "original_research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
     }
@@ -26,8 +497,8 @@
     "generation-0": {
       "agent_id": "generation-0",
       "agent_type": "generation",
-      "created_at": 1752169798.993929,
-      "last_activity": 1752169798.993929,
+      "created_at": 1752177873.580551,
+      "last_activity": 1752177873.580551,
       "total_tasks_completed": 0,
       "status": "active",
       "hypotheses_generated": 0,
@@ -37,8 +508,8 @@
     "generation-1": {
       "agent_id": "generation-1",
       "agent_type": "generation",
-      "created_at": 1752169798.994205,
-      "last_activity": 1752169798.994205,
+      "created_at": 1752177873.5812778,
+      "last_activity": 1752177873.5812778,
       "total_tasks_completed": 0,
       "status": "active",
       "hypotheses_generated": 0,
@@ -48,8 +519,8 @@
     "generation-2": {
       "agent_id": "generation-2",
       "agent_type": "generation",
-      "created_at": 1752169798.9943738,
-      "last_activity": 1752169798.9943738,
+      "created_at": 1752177873.581865,
+      "last_activity": 1752177873.581866,
       "total_tasks_completed": 0,
       "status": "active",
       "hypotheses_generated": 0,
@@ -59,19 +530,20 @@
     "generation-3": {
       "agent_id": "generation-3",
       "agent_type": "generation",
-      "created_at": 1752169798.99454,
-      "last_activity": 1752169798.99454,
-      "total_tasks_completed": 0,
+      "created_at": 1752177873.582418,
+      "last_activity": 1752177941.115482,
+      "total_tasks_completed": 4,
       "status": "active",
-      "hypotheses_generated": 0,
+      "hypotheses_generated": 4,
       "strategies_used": [],
-      "last_strategy": null
+      "last_strategy": "research_expansion",
+      "last_hypothesis_id": "bc28b127-b85d-48cb-bc0e-716ac4f908c9"
     },
     "generation-4": {
       "agent_id": "generation-4",
       "agent_type": "generation",
-      "created_at": 1752169798.9947011,
-      "last_activity": 1752169798.9947011,
+      "created_at": 1752177873.583133,
+      "last_activity": 1752177873.583133,
       "total_tasks_completed": 0,
       "status": "active",
       "hypotheses_generated": 0,
@@ -81,8 +553,8 @@
     "reflection-0": {
       "agent_id": "reflection-0",
       "agent_type": "reflection",
-      "created_at": 1752169798.9948642,
-      "last_activity": 1752169798.9948642,
+      "created_at": 1752177873.583787,
+      "last_activity": 1752177873.583787,
       "total_tasks_completed": 0,
       "status": "active",
       "reviews_completed": 0,
@@ -92,8 +564,8 @@
     "reflection-1": {
       "agent_id": "reflection-1",
       "agent_type": "reflection",
-      "created_at": 1752169798.995031,
-      "last_activity": 1752169798.995031,
+      "created_at": 1752177873.584377,
+      "last_activity": 1752177873.584377,
       "total_tasks_completed": 0,
       "status": "active",
       "reviews_completed": 0,
@@ -103,8 +575,8 @@
     "ranking-0": {
       "agent_id": "ranking-0",
       "agent_type": "ranking",
-      "created_at": 1752169798.9952042,
-      "last_activity": 1752169798.9952042,
+      "created_at": 1752177873.5849652,
+      "last_activity": 1752177873.5849652,
       "total_tasks_completed": 0,
       "status": "active",
       "rankings_completed": 0,
@@ -114,8 +586,8 @@
     "evolution-0": {
       "agent_id": "evolution-0",
       "agent_type": "evolution",
-      "created_at": 1752169798.995384,
-      "last_activity": 1752169798.9953852,
+      "created_at": 1752177873.5855901,
+      "last_activity": 1752177873.5855901,
       "total_tasks_completed": 0,
       "status": "active",
       "evolutions_completed": 0,
@@ -125,8 +597,8 @@
     "proximity-0": {
       "agent_id": "proximity-0",
       "agent_type": "proximity",
-      "created_at": 1752169798.9955819,
-      "last_activity": 1752169798.9955819,
+      "created_at": 1752177873.586134,
+      "last_activity": 1752177873.586134,
       "total_tasks_completed": 0,
       "status": "active",
       "analyses_completed": 0,
@@ -136,13 +608,318 @@
     "meta-review-0": {
       "agent_id": "meta-review-0",
       "agent_type": "meta-review",
-      "created_at": 1752169798.995775,
-      "last_activity": 1752169798.995775,
+      "created_at": 1752177873.586669,
+      "last_activity": 1752177873.586669,
       "total_tasks_completed": 0,
       "status": "active"
     }
   },
-  "datasets": {},
+  "datasets": {
+    "f95d0c80-6f8a-49b6-a540-6a365a3c0180": {
+      "task_id": "f95d0c80-6f8a-49b6-a540-6a365a3c0180",
+      "agent_id": "generation-3",
+      "strategy": "literature_exploration",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "62386d2d-0cd3-4b06-8697-723c2ffd41c5",
+      "generation_time": 1752176147.665049,
+      "input_parameters": {
+        "strategy": "literature_exploration",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 388,
+        "summary_length": 166,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "c98d0e58-4192-40ca-ad00-f6bb5feae9a8": {
+      "task_id": "c98d0e58-4192-40ca-ad00-f6bb5feae9a8",
+      "agent_id": "generation-1",
+      "strategy": "scientific_debate",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "7f2d45e4-fa72-4c59-8fc3-8d75e5f3bb34",
+      "generation_time": 1752176160.306725,
+      "input_parameters": {
+        "strategy": "scientific_debate",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 283,
+        "summary_length": 224,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "5f8dc00c-52c8-446d-b1fa-f28ec94c95f5": {
+      "task_id": "5f8dc00c-52c8-446d-b1fa-f28ec94c95f5",
+      "agent_id": "generation-3",
+      "strategy": "assumptions_identification",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "159478bd-e82c-40c0-81ef-f4839ac108f5",
+      "generation_time": 1752176181.180817,
+      "input_parameters": {
+        "strategy": "assumptions_identification",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 380,
+        "summary_length": 302,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "43d041a3-40f5-44bf-a344-5e132f202b92": {
+      "task_id": "43d041a3-40f5-44bf-a344-5e132f202b92",
+      "agent_id": "generation-0",
+      "strategy": "research_expansion",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "de194412-97a7-4ec9-aceb-e98145690d9e",
+      "generation_time": 1752176196.553741,
+      "input_parameters": {
+        "strategy": "research_expansion",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 439,
+        "summary_length": 259,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "df513819-0b04-4ff7-a9e3-313f3602953c": {
+      "task_id": "df513819-0b04-4ff7-a9e3-313f3602953c",
+      "agent_id": "generation-1",
+      "strategy": "literature_exploration",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "26e7d6e9-03fe-4fff-be94-e835b2d48811",
+      "generation_time": 1752176583.12546,
+      "input_parameters": {
+        "strategy": "literature_exploration",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 468,
+        "summary_length": 221,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "62ee6899-bfcb-4b2e-8a67-211ab3757195": {
+      "task_id": "62ee6899-bfcb-4b2e-8a67-211ab3757195",
+      "agent_id": "generation-2",
+      "strategy": "scientific_debate",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "96efcd12-b62a-4898-9457-9809acc9bef2",
+      "generation_time": 1752176596.711005,
+      "input_parameters": {
+        "strategy": "scientific_debate",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 274,
+        "summary_length": 242,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "4fbc1c25-f459-414d-8fae-ca705a6b0389": {
+      "task_id": "4fbc1c25-f459-414d-8fae-ca705a6b0389",
+      "agent_id": "generation-1",
+      "strategy": "assumptions_identification",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "7fdbbb28-dec5-4813-a631-0748dafcd4bb",
+      "generation_time": 1752176615.223974,
+      "input_parameters": {
+        "strategy": "assumptions_identification",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 342,
+        "summary_length": 253,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "74f09ae7-ef7c-496d-bed9-0c8cc7c4df8e": {
+      "task_id": "74f09ae7-ef7c-496d-bed9-0c8cc7c4df8e",
+      "agent_id": "generation-2",
+      "strategy": "research_expansion",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "338787fa-5be8-47bb-ae05-50793b32e9df",
+      "generation_time": 1752176633.0756638,
+      "input_parameters": {
+        "strategy": "research_expansion",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 479,
+        "summary_length": 225,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "8a0d681e-c804-49f1-9039-645ead419232": {
+      "task_id": "8a0d681e-c804-49f1-9039-645ead419232",
+      "agent_id": "generation-2",
+      "strategy": "literature_exploration",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "7ec4f647-bf98-48ed-a076-2523254f4e0f",
+      "generation_time": 1752177684.611718,
+      "input_parameters": {
+        "strategy": "literature_exploration",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 311,
+        "summary_length": 173,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "111f2c1c-615f-4041-a046-d217fae0e502": {
+      "task_id": "111f2c1c-615f-4041-a046-d217fae0e502",
+      "agent_id": "generation-2",
+      "strategy": "scientific_debate",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "a0ba2152-d908-4ce6-8b0e-5d91a9f919ea",
+      "generation_time": 1752177698.033756,
+      "input_parameters": {
+        "strategy": "scientific_debate",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 260,
+        "summary_length": 227,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "241af9b8-4f7b-4fcf-804d-af69f2d3a07b": {
+      "task_id": "241af9b8-4f7b-4fcf-804d-af69f2d3a07b",
+      "agent_id": "generation-1",
+      "strategy": "assumptions_identification",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "35f887c6-8886-44b0-87e5-7b4de3e77a12",
+      "generation_time": 1752177717.2928681,
+      "input_parameters": {
+        "strategy": "assumptions_identification",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 384,
+        "summary_length": 209,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "7fb8b008-516c-48f7-9449-b54816a307bf": {
+      "task_id": "7fb8b008-516c-48f7-9449-b54816a307bf",
+      "agent_id": "generation-3",
+      "strategy": "research_expansion",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "195864b4-e0c6-40ab-8071-23fc930f6821",
+      "generation_time": 1752177735.82064,
+      "input_parameters": {
+        "strategy": "research_expansion",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 456,
+        "summary_length": 236,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "bcd83f00-df7b-496e-9ec4-6e30d87c81b9": {
+      "task_id": "bcd83f00-df7b-496e-9ec4-6e30d87c81b9",
+      "agent_id": "generation-3",
+      "strategy": "literature_exploration",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "3c506e72-9769-44a9-bf10-673b9f5d9aec",
+      "generation_time": 1752177885.02429,
+      "input_parameters": {
+        "strategy": "literature_exploration",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 330,
+        "summary_length": 235,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "6e837392-a9d0-410c-8a39-8cca137bd288": {
+      "task_id": "6e837392-a9d0-410c-8a39-8cca137bd288",
+      "agent_id": "generation-3",
+      "strategy": "scientific_debate",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "30908cd9-4550-4e5e-be25-fa13dfed450a",
+      "generation_time": 1752177899.499134,
+      "input_parameters": {
+        "strategy": "scientific_debate",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 367,
+        "summary_length": 189,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "c3cd83ed-17e2-486f-8814-e00072d52a2e": {
+      "task_id": "c3cd83ed-17e2-486f-8814-e00072d52a2e",
+      "agent_id": "generation-3",
+      "strategy": "assumptions_identification",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "21a49fb7-33d6-44e7-9dbe-2a1cd89bb30a",
+      "generation_time": 1752177923.333688,
+      "input_parameters": {
+        "strategy": "assumptions_identification",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 360,
+        "summary_length": 317,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    },
+    "1dde1f72-c487-48d5-831f-f6a8ef968215": {
+      "task_id": "1dde1f72-c487-48d5-831f-f6a8ef968215",
+      "agent_id": "generation-3",
+      "strategy": "research_expansion",
+      "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches",
+      "hypothesis_generated": "bc28b127-b85d-48cb-bc0e-716ac4f908c9",
+      "generation_time": 1752177941.118114,
+      "input_parameters": {
+        "strategy": "research_expansion",
+        "research_goal": "Identify novel molecular targets for Alzheimer's disease therapeutics that could bypass current limitations of amyloid-beta focused approaches"
+      },
+      "output_quality_metrics": {
+        "content_length": 440,
+        "summary_length": 196,
+        "strategy_alignment": 1.0,
+        "novelty_aspects_count": 3,
+        "testable_predictions_count": 3
+      }
+    }
+  },
   "training_plans": {},
   "evaluations": {},
   "tournament_state": {

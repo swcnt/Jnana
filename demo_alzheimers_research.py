@@ -137,7 +137,7 @@ agents:
         print("\n📊 Step 5: Research Session Analysis...")
         
         session_info = jnana.session_manager.get_session_info()
-        all_hypotheses = await jnana.session_manager.get_all_hypotheses()
+        all_hypotheses = jnana.session_manager.get_all_hypotheses()
         
         print(f"   📋 Total hypotheses: {len(all_hypotheses)}")
         
