@@ -157,7 +157,51 @@ class GenerationAgent(Agent):
             
             # Add the hypothesis to memory
             self.memory.add_hypothesis(hypothesis)
-            
+
+            # Update agent state
+            try:
+                self.logger.info(f"Updating agent state for {self.agent_id}")
+                agent_state = self.memory.get_agent_state(self.agent_id) or {}
+                self.logger.info(f"Current agent state: {agent_state}")
+                agent_state.update({
+                    "last_activity": time.time(),
+                    "hypotheses_generated": agent_state.get("hypotheses_generated", 0) + 1,
+                    "last_strategy": strategy,
+                    "last_hypothesis_id": hypothesis.hypothesis_id,
+                    "total_tasks_completed": agent_state.get("total_tasks_completed", 0) + 1
+                })
+                self.logger.info(f"Updated agent state: {agent_state}")
+                self.memory.set_agent_state(self.agent_id, agent_state)
+                self.logger.info(f"Agent state saved for {self.agent_id}")
+            except Exception as e:
+                self.logger.error(f"Error updating agent state: {e}")
+                # Don't raise - this shouldn't fail the task
+
+            # Create dataset for this generation task
+            try:
+                self.logger.info(f"Creating dataset for task {task.task_id}")
+                dataset = {
+                    "task_id": task.task_id,
+                    "agent_id": self.agent_id,
+                    "strategy": strategy,
+                    "research_goal": research_goal,
+                    "hypothesis_generated": hypothesis.hypothesis_id,
+                    "generation_time": time.time(),
+                    "input_parameters": task.params,
+                    "output_quality_metrics": {
+                        "content_length": len(hypothesis.content),
+                        "summary_length": len(hypothesis.summary),
+                        "strategy_alignment": 1.0,  # Could be computed based on strategy adherence
+                        "novelty_aspects_count": len(response["hypothesis"].get("key_novelty_aspects", [])),
+                        "testable_predictions_count": len(response["hypothesis"].get("testable_predictions", []))
+                    }
+                }
+                self.memory.set_dataset(task.task_id, dataset)
+                self.logger.info(f"Dataset created and saved for task {task.task_id}")
+            except Exception as e:
+                self.logger.error(f"Error creating dataset: {e}")
+                # Don't raise - this shouldn't fail the task
+
             return {
                 "hypothesis_id": hypothesis.hypothesis_id,
                 "summary": hypothesis.summary,

@@ -146,9 +146,11 @@ class JnanaSystem:
         
         # Stop event manager
         await self.event_manager.stop()
-        
-        # ProtoGnosis adapter doesn't need explicit stopping
-        
+
+        # Stop ProtoGnosis adapter if running
+        if self.protognosis_adapter:
+            await self.protognosis_adapter.shutdown()
+
         self.logger.info("Jnana system stopped")
     
     async def set_research_goal(self, research_goal: str) -> str:

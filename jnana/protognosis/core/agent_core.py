@@ -687,7 +687,9 @@ class SupervisorAgent:
                 
                 try:
                     # Execute the task
+                    worker_logger.info(f"🔥 CALLING agent.execute_task for {agent.agent_id}")
                     result = asyncio.run(agent.execute_task(task))
+                    worker_logger.info(f"🔥 EXECUTE_TASK RETURNED: {type(result)}")
                     task.result = result
                     task.status = "completed"
                     worker_logger.info(f"Task {task.task_id} completed")
@@ -695,6 +697,8 @@ class SupervisorAgent:
                     task.status = "failed"
                     task.error = str(e)
                     worker_logger.error(f"Task {task.task_id} failed: {str(e)}")
+                    import traceback
+                    worker_logger.error(f"Full traceback: {traceback.format_exc()}")
                 
                 # Mark the task as done in the queue
                 self.task_queue.task_done()

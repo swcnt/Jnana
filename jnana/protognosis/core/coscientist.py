@@ -291,6 +291,15 @@ class CoScientist:
     def get_agent_usages(self, verbose=True):
         return self.supervisor.get_usages(verbose=verbose)
 
+    def get_all_hypotheses(self):
+        """
+        Get all hypotheses from memory.
+
+        Returns:
+            List of ResearchHypothesis objects
+        """
+        return list(self.memory.hypotheses.values())
+
     # [The rest of the CoScientist class methods remain unchanged]
     # ... (methods like generate_hypotheses, review_hypotheses, run_tournament, etc.)
 

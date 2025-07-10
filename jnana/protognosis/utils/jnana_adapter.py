@@ -67,15 +67,31 @@ class JnanaProtoGnosisAdapter:
                 storage_path=self.storage_path,
                 max_workers=self.max_workers
             )
-            
+
+            # Start the CoScientist system (this starts the worker threads!)
+            self.coscientist.start()
+
             self.is_initialized = True
-            self.logger.info("ProtoGnosis initialized successfully")
+            self.logger.info("ProtoGnosis initialized and started successfully")
             return True
             
         except Exception as e:
             self.logger.error(f"Failed to initialize ProtoGnosis: {e}")
             self.is_initialized = False
             return False
+
+    async def shutdown(self) -> None:
+        """
+        Shutdown the ProtoGnosis system and clean up resources.
+        """
+        if self.coscientist and self.is_initialized:
+            try:
+                self.logger.info("Shutting down ProtoGnosis system...")
+                self.coscientist.stop()
+                self.is_initialized = False
+                self.logger.info("ProtoGnosis system stopped successfully")
+            except Exception as e:
+                self.logger.error(f"Error shutting down ProtoGnosis: {e}")
     
     async def generate_hypotheses(self, research_goal: str, count: int = 5,
                                  strategies: Optional[List[str]] = None) -> List[UnifiedHypothesis]:
