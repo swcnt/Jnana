@@ -49,7 +49,36 @@ class EvolutionAgent(Agent):
             
             # Store evolved hypothesis
             self.memory.add_hypothesis(evolved_hypothesis)
-            
+
+            # Update agent state
+            agent_state = self.memory.get_agent_state(self.agent_id) or {}
+            agent_state.update({
+                "last_activity": time.time(),
+                "evolutions_completed": agent_state.get("evolutions_completed", 0) + 1,
+                "last_evolution_type": evolution_type,
+                "last_evolved_hypothesis": evolved_hypothesis.hypothesis_id,
+                "total_tasks_completed": agent_state.get("total_tasks_completed", 0) + 1
+            })
+            self.memory.set_agent_state(self.agent_id, agent_state)
+
+            # Create dataset for this evolution task
+            dataset = {
+                "task_id": task.task_id,
+                "agent_id": self.agent_id,
+                "evolution_type": evolution_type,
+                "original_hypothesis": hypothesis_id,
+                "evolved_hypothesis": evolved_hypothesis.hypothesis_id,
+                "evolution_time": time.time(),
+                "feedback_applied": feedback,
+                "input_parameters": task.parameters,
+                "output_quality_metrics": {
+                    "content_improvement": len(evolved_hypothesis.content) / len(hypothesis.content) if hypothesis.content else 1.0,
+                    "feedback_integration": 1.0 if feedback else 0.5,
+                    "evolution_success": 1.0  # Could be computed based on improvement metrics
+                }
+            }
+            self.memory.set_dataset(task.task_id, dataset)
+
             return {
                 "original_hypothesis_id": hypothesis_id,
                 "evolved_hypothesis_id": evolved_hypothesis.hypothesis_id,

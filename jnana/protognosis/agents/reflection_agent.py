@@ -51,6 +51,32 @@ class ReflectionAgent(Agent):
             else:
                 review = await self._initial_review(hypothesis)
             
+            # Update agent state
+            agent_state = self.memory.get_agent_state(self.agent_id) or {}
+            agent_state.update({
+                "last_activity": time.time(),
+                "reviews_completed": agent_state.get("reviews_completed", 0) + 1,
+                "last_review_type": review_type,
+                "last_hypothesis_reviewed": hypothesis_id,
+                "total_tasks_completed": agent_state.get("total_tasks_completed", 0) + 1
+            })
+            self.memory.set_agent_state(self.agent_id, agent_state)
+
+            # Create dataset for this review task
+            dataset = {
+                "task_id": task.task_id,
+                "agent_id": self.agent_id,
+                "review_type": review_type,
+                "hypothesis_reviewed": hypothesis_id,
+                "review_time": time.time(),
+                "input_parameters": task.parameters,
+                "output_quality_metrics": {
+                    "review_length": len(str(review)),
+                    "review_depth": "deep" if review_type == "deep_verification" else "initial"
+                }
+            }
+            self.memory.set_dataset(task.task_id, dataset)
+
             return {
                 "hypothesis_id": hypothesis_id,
                 "review": review,

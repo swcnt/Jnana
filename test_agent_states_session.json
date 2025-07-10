@@ -1,0 +1,147 @@
+{
+  "hypotheses": [],
+  "experiments": {},
+  "analyses": {},
+  "papers": {},
+  "metadata": {
+    "research_goal": "Test research goal for agent state tracking",
+    "research_plan": {
+      "main_objective": "Test research goal for agent state tracking",
+      "domain": "Artificial Intelligence",
+      "constraints": [],
+      "preferences": [],
+      "evaluation_criteria": [
+        "Accuracy of state tracking",
+        "Efficiency of the tracking process",
+        "Robustness to different scenarios"
+      ],
+      "original_research_goal": "Test research goal for agent state tracking"
+    }
+  },
+  "agent_states": {
+    "generation-0": {
+      "agent_id": "generation-0",
+      "agent_type": "generation",
+      "created_at": 1752168706.9208362,
+      "last_activity": 1752168706.9208372,
+      "total_tasks_completed": 0,
+      "status": "active",
+      "hypotheses_generated": 0,
+      "strategies_used": [],
+      "last_strategy": null
+    },
+    "generation-1": {
+      "agent_id": "generation-1",
+      "agent_type": "generation",
+      "created_at": 1752168706.921246,
+      "last_activity": 1752168706.921246,
+      "total_tasks_completed": 0,
+      "status": "active",
+      "hypotheses_generated": 0,
+      "strategies_used": [],
+      "last_strategy": null
+    },
+    "generation-2": {
+      "agent_id": "generation-2",
+      "agent_type": "generation",
+      "created_at": 1752168706.921508,
+      "last_activity": 1752168706.921508,
+      "total_tasks_completed": 0,
+      "status": "active",
+      "hypotheses_generated": 0,
+      "strategies_used": [],
+      "last_strategy": null
+    },
+    "generation-3": {
+      "agent_id": "generation-3",
+      "agent_type": "generation",
+      "created_at": 1752168706.9217432,
+      "last_activity": 1752168706.9217432,
+      "total_tasks_completed": 0,
+      "status": "active",
+      "hypotheses_generated": 0,
+      "strategies_used": [],
+      "last_strategy": null
+    },
+    "generation-4": {
+      "agent_id": "generation-4",
+      "agent_type": "generation",
+      "created_at": 1752168706.921956,
+      "last_activity": 1752168706.921956,
+      "total_tasks_completed": 0,
+      "status": "active",
+      "hypotheses_generated": 0,
+      "strategies_used": [],
+      "last_strategy": null
+    },
+    "reflection-0": {
+      "agent_id": "reflection-0",
+      "agent_type": "reflection",
+      "created_at": 1752168706.922163,
+      "last_activity": 1752168706.922163,
+      "total_tasks_completed": 0,
+      "status": "active",
+      "reviews_completed": 0,
+      "review_types_used": [],
+      "last_review_type": null
+    },
+    "reflection-1": {
+      "agent_id": "reflection-1",
+      "agent_type": "reflection",
+      "created_at": 1752168706.922366,
+      "last_activity": 1752168706.9223669,
+      "total_tasks_completed": 0,
+      "status": "active",
+      "reviews_completed": 0,
+      "review_types_used": [],
+      "last_review_type": null
+    },
+    "ranking-0": {
+      "agent_id": "ranking-0",
+      "agent_type": "ranking",
+      "created_at": 1752168706.922582,
+      "last_activity": 1752168706.922582,
+      "total_tasks_completed": 0,
+      "status": "active",
+      "rankings_completed": 0,
+      "criteria_used": [],
+      "last_ranking_criteria": null
+    },
+    "evolution-0": {
+      "agent_id": "evolution-0",
+      "agent_type": "evolution",
+      "created_at": 1752168706.922792,
+      "last_activity": 1752168706.922793,
+      "total_tasks_completed": 0,
+      "status": "active",
+      "evolutions_completed": 0,
+      "evolution_types_used": [],
+      "last_evolution_type": null
+    },
+    "proximity-0": {
+      "agent_id": "proximity-0",
+      "agent_type": "proximity",
+      "created_at": 1752168706.923002,
+      "last_activity": 1752168706.923002,
+      "total_tasks_completed": 0,
+      "status": "active",
+      "analyses_completed": 0,
+      "analysis_types_used": [],
+      "last_analysis_type": null
+    },
+    "meta-review-0": {
+      "agent_id": "meta-review-0",
+      "agent_type": "meta-review",
+      "created_at": 1752168706.9232068,
+      "last_activity": 1752168706.9232068,
+      "total_tasks_completed": 0,
+      "status": "active"
+    }
+  },
+  "datasets": {},
+  "training_plans": {},
+  "evaluations": {},
+  "tournament_state": {
+    "matches": []
+  }
+}

@@ -51,6 +51,33 @@ class RankingAgent(Agent):
             # Perform ranking
             rankings = await self._rank_hypotheses(hypotheses, ranking_criteria)
             
+            # Update agent state
+            agent_state = self.memory.get_agent_state(self.agent_id) or {}
+            agent_state.update({
+                "last_activity": time.time(),
+                "rankings_completed": agent_state.get("rankings_completed", 0) + 1,
+                "last_ranking_criteria": ranking_criteria,
+                "hypotheses_ranked": len(hypothesis_ids),
+                "total_tasks_completed": agent_state.get("total_tasks_completed", 0) + 1
+            })
+            self.memory.set_agent_state(self.agent_id, agent_state)
+
+            # Create dataset for this ranking task
+            dataset = {
+                "task_id": task.task_id,
+                "agent_id": self.agent_id,
+                "ranking_criteria": ranking_criteria,
+                "hypotheses_ranked": hypothesis_ids,
+                "ranking_time": time.time(),
+                "input_parameters": task.parameters,
+                "output_quality_metrics": {
+                    "hypotheses_count": len(hypotheses),
+                    "ranking_completeness": len(rankings) / len(hypotheses) if hypotheses else 0,
+                    "criteria_specificity": len(ranking_criteria.split())
+                }
+            }
+            self.memory.set_dataset(task.task_id, dataset)
+
             return {
                 "rankings": rankings,
                 "criteria": ranking_criteria,

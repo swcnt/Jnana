@@ -51,6 +51,34 @@ class ProximityAgent(Agent):
             # Perform proximity analysis
             analysis = await self._analyze_proximity(hypotheses, analysis_type)
             
+            # Update agent state
+            agent_state = self.memory.get_agent_state(self.agent_id) or {}
+            agent_state.update({
+                "last_activity": time.time(),
+                "analyses_completed": agent_state.get("analyses_completed", 0) + 1,
+                "last_analysis_type": analysis_type,
+                "hypotheses_analyzed": len(hypothesis_ids),
+                "total_tasks_completed": agent_state.get("total_tasks_completed", 0) + 1
+            })
+            self.memory.set_agent_state(self.agent_id, agent_state)
+
+            # Create dataset for this proximity analysis task
+            dataset = {
+                "task_id": task.task_id,
+                "agent_id": self.agent_id,
+                "analysis_type": analysis_type,
+                "hypotheses_analyzed": hypothesis_ids,
+                "analysis_time": time.time(),
+                "input_parameters": task.parameters,
+                "output_quality_metrics": {
+                    "hypotheses_count": len(hypotheses),
+                    "proximity_pairs": len(analysis.get("proximity_matrix", {})),
+                    "clusters_identified": len(analysis.get("clusters", [])),
+                    "analysis_completeness": 1.0 if len(hypotheses) >= 2 else 0.5
+                }
+            }
+            self.memory.set_dataset(task.task_id, dataset)
+
             return {
                 "analysis": analysis,
                 "analysis_type": analysis_type,

@@ -51,6 +51,34 @@ class MetaReviewAgent(Agent):
             # Perform meta-review
             meta_review = await self._conduct_meta_review(hypotheses, review_type)
             
+            # Update agent state
+            agent_state = self.memory.get_agent_state(self.agent_id) or {}
+            agent_state.update({
+                "last_activity": time.time(),
+                "meta_reviews_completed": agent_state.get("meta_reviews_completed", 0) + 1,
+                "last_review_type": review_type,
+                "hypotheses_reviewed": len(hypothesis_ids),
+                "total_tasks_completed": agent_state.get("total_tasks_completed", 0) + 1
+            })
+            self.memory.set_agent_state(self.agent_id, agent_state)
+
+            # Create dataset for this meta-review task
+            dataset = {
+                "task_id": task.task_id,
+                "agent_id": self.agent_id,
+                "review_type": review_type,
+                "hypotheses_reviewed": hypothesis_ids,
+                "meta_review_time": time.time(),
+                "input_parameters": task.parameters,
+                "output_quality_metrics": {
+                    "hypotheses_count": len(hypotheses),
+                    "insights_generated": len(meta_review.get("key_insights", [])),
+                    "recommendations_provided": len(meta_review.get("recommendations", [])),
+                    "review_comprehensiveness": len(str(meta_review)) / 1000  # Rough measure
+                }
+            }
+            self.memory.set_dataset(task.task_id, dataset)
+
             return {
                 "meta_review": meta_review,
                 "review_type": review_type,

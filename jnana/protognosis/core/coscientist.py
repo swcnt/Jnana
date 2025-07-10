@@ -70,6 +70,9 @@ class CoScientist:
         supervisor_llm = self._get_llm_for_agent("supervisor", "supervisor")
         self.supervisor = SupervisorAgent(supervisor_llm, self.memory, max_workers=max_workers)
 
+        # Initialize research goal
+        self.research_goal = None
+
         # Create specialized agents
         self._create_specialized_agents()
 
@@ -143,6 +146,8 @@ class CoScientist:
             llm = self._get_llm_for_agent("generation", f"generation-{i}")
             agent = GenerationAgent(f"generation-{i}", llm, self.memory)
             self.supervisor.register_agent(agent)
+            # Initialize agent state
+            self._initialize_agent_state(agent)
 
         #TODO: make programatically specifiable
         # Reflection agents
@@ -150,28 +155,85 @@ class CoScientist:
             llm = self._get_llm_for_agent("reflection", f"reflection-{i}")
             agent = ReflectionAgent(f"reflection-{i}", llm, self.memory)
             self.supervisor.register_agent(agent)
+            self._initialize_agent_state(agent)
 
         # Ranking agent
         llm = self._get_llm_for_agent("ranking", "ranking-0")
         ranking_agent = RankingAgent("ranking-0", llm, self.memory)
         self.supervisor.register_agent(ranking_agent)
+        self._initialize_agent_state(ranking_agent)
 
         # Evolution agent
         llm = self._get_llm_for_agent("evolution", "evolution-0")
         evolution_agent = EvolutionAgent("evolution-0", llm, self.memory)
         self.supervisor.register_agent(evolution_agent)
+        self._initialize_agent_state(evolution_agent)
 
         # Proximity agent
         llm = self._get_llm_for_agent("proximity", "proximity-0")
         proximity_agent = ProximityAgent("proximity-0", llm, self.memory)
         self.supervisor.register_agent(proximity_agent)
+        self._initialize_agent_state(proximity_agent)
 
         # Meta-review agent
         llm = self._get_llm_for_agent("meta-review", "meta-review-0")
         meta_review_agent = MetaReviewAgent("meta-review-0", llm, self.memory)
         self.supervisor.register_agent(meta_review_agent)
+        self._initialize_agent_state(meta_review_agent)
 
         self.logger.info("Created and registered all specialized agents")
+
+    def _initialize_agent_state(self, agent):
+        """Initialize the state for a newly created agent."""
+        initial_state = {
+            "agent_id": agent.agent_id,
+            "agent_type": agent.agent_type,
+            "created_at": time.time(),
+            "last_activity": time.time(),
+            "total_tasks_completed": 0,
+            "status": "active"
+        }
+
+        # Add agent-specific state fields
+        if agent.agent_type == "generation":
+            initial_state.update({
+                "hypotheses_generated": 0,
+                "strategies_used": [],
+                "last_strategy": None
+            })
+        elif agent.agent_type == "reflection":
+            initial_state.update({
+                "reviews_completed": 0,
+                "review_types_used": [],
+                "last_review_type": None
+            })
+        elif agent.agent_type == "ranking":
+            initial_state.update({
+                "rankings_completed": 0,
+                "criteria_used": [],
+                "last_ranking_criteria": None
+            })
+        elif agent.agent_type == "evolution":
+            initial_state.update({
+                "evolutions_completed": 0,
+                "evolution_types_used": [],
+                "last_evolution_type": None
+            })
+        elif agent.agent_type == "proximity":
+            initial_state.update({
+                "analyses_completed": 0,
+                "analysis_types_used": [],
+                "last_analysis_type": None
+            })
+        elif agent.agent_type == "meta_review":
+            initial_state.update({
+                "meta_reviews_completed": 0,
+                "review_types_used": [],
+                "last_review_type": None
+            })
+
+        self.memory.set_agent_state(agent.agent_id, initial_state)
+        self.logger.info(f"Initialized state for agent {agent.agent_id} ({agent.agent_type})")
 
     def register_custom_agent(self, agent):
         """
@@ -194,6 +256,9 @@ class CoScientist:
             Dictionary containing the parsed research plan configuration
         """
         self.logger.info(f"Setting research goal: {research_goal[:100]}...")
+
+        # Store as instance variable
+        self.research_goal = research_goal
 
         # Parse the research goal
         research_plan = self.supervisor.parse_research_goal(research_goal)
@@ -272,7 +337,10 @@ class CoScientist:
                 task_type="generate_hypothesis",
                 agent_type="generation",
                 priority=1,
-                params={"strategy": strategy}
+                params={
+                    "strategy": strategy,
+                    "research_goal": self.research_goal
+                }
             )
 
             self.supervisor.add_task(task)
@@ -335,7 +403,10 @@ class CoScientist:
                         task_type=review_type,
                         agent_type="reflection",
                         priority=2,
-                        params={"hypothesis_id": h.hypothesis_id}
+                        params={
+                            "hypothesis_id": h.hypothesis_id,
+                            "review_type": review_type
+                        }
                     )
 
                     self.supervisor.add_task(task)

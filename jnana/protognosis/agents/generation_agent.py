@@ -75,7 +75,35 @@ class GenerationAgent(Agent):
             
             # Store in memory
             self.memory.add_hypothesis(hypothesis)
-            
+
+            # Update agent state
+            agent_state = self.memory.get_agent_state(self.agent_id) or {}
+            agent_state.update({
+                "last_activity": time.time(),
+                "hypotheses_generated": agent_state.get("hypotheses_generated", 0) + 1,
+                "last_strategy": strategy,
+                "last_hypothesis_id": hypothesis.hypothesis_id,
+                "total_tasks_completed": agent_state.get("total_tasks_completed", 0) + 1
+            })
+            self.memory.set_agent_state(self.agent_id, agent_state)
+
+            # Create dataset for this generation task
+            dataset = {
+                "task_id": task.task_id,
+                "agent_id": self.agent_id,
+                "strategy": strategy,
+                "research_goal": research_goal,
+                "hypothesis_generated": hypothesis.hypothesis_id,
+                "generation_time": time.time(),
+                "input_parameters": task.parameters,
+                "output_quality_metrics": {
+                    "content_length": len(hypothesis.content),
+                    "summary_length": len(hypothesis.summary),
+                    "strategy_alignment": 1.0  # Could be computed based on strategy adherence
+                }
+            }
+            self.memory.set_dataset(task.task_id, dataset)
+
             return {
                 "hypothesis_id": hypothesis.hypothesis_id,
                 "content": hypothesis.content,
