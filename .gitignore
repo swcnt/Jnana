@@ -158,13 +158,15 @@ cython_debug/
 #  project, it is recommended to ignore the entire .idea directory.
 .idea/
 
-# Jnana specific
-data/
+# Jnana specific - ignore data files but not source code
+/data/
 sessions/
 logs/
 *.db
 *.sqlite
 *.sqlite3
+*.json
+!config/*.json
 
 # Configuration files with API keys
 config/models.yaml
