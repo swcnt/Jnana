@@ -13,7 +13,11 @@ from datetime import datetime
 import json
 
 try:
-    from biomni.agent import A1
+    # Try to import Biomni with compatibility handling
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")  # Suppress deprecation warnings
+        from biomni.agent import A1
     BIOMNI_AVAILABLE = True
     BIOMNI_IMPORT_ERROR = None
 except ImportError as e:
@@ -22,7 +26,14 @@ except ImportError as e:
     A1 = None
 except Exception as e:
     BIOMNI_AVAILABLE = False
-    BIOMNI_IMPORT_ERROR = f"Biomni import failed: {str(e)}"
+    # Check if it's the specific LangChain compatibility issue
+    if "convert_to_openai_data_block" in str(e):
+        BIOMNI_IMPORT_ERROR = (
+            f"Biomni LangChain compatibility issue: {str(e)}. "
+            "Try: pip install 'langchain==0.1.20' 'langchain-core==0.1.52' 'langgraph==0.1.19'"
+        )
+    else:
+        BIOMNI_IMPORT_ERROR = f"Biomni import failed: {str(e)}"
     A1 = None
 
 
@@ -102,8 +113,19 @@ class BiomniAgent:
         
         if not BIOMNI_AVAILABLE:
             self.logger.warning(f"Biomni is not available: {BIOMNI_IMPORT_ERROR}")
-            self.logger.info("To install Biomni: pip install biomni")
-            self.logger.info("Note: Biomni requires compatible versions of langchain, langgraph, and other dependencies")
+
+            if "convert_to_openai_data_block" in str(BIOMNI_IMPORT_ERROR):
+                self.logger.info("🔧 BIOMNI COMPATIBILITY FIX:")
+                self.logger.info("   Biomni requires older LangChain versions. To fix:")
+                self.logger.info("   1. Create new environment: conda create -n biomni-env python=3.9")
+                self.logger.info("   2. Install compatible versions:")
+                self.logger.info("      pip install 'langchain==0.1.20' 'langchain-core==0.1.52' 'langgraph==0.1.19'")
+                self.logger.info("   3. Install Biomni: pip install biomni")
+                self.logger.info("   4. Or disable Biomni in config/models.yaml: biomni.enabled = false")
+            else:
+                self.logger.info("To install Biomni: pip install biomni")
+                self.logger.info("Note: Biomni requires compatible versions of langchain, langgraph, and other dependencies")
+
             self.config.enabled = False
     
     async def initialize(self) -> bool:

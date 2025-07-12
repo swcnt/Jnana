@@ -105,8 +105,14 @@ class JnanaSystem:
             # Load Biomni configuration from models.yaml
             biomni_config_dict = self.model_manager.config.get("biomni", {})
 
+            # Check if Biomni is enabled in configuration
+            if not biomni_config_dict.get("enabled", False):
+                self.logger.info("Biomni integration disabled in configuration")
+                self.biomni_agent = None
+                return
+
             biomni_config = BiomniConfig(
-                enabled=biomni_config_dict.get("enabled", True),
+                enabled=biomni_config_dict.get("enabled", False),
                 data_path=biomni_config_dict.get("data_path", "./data/biomni"),
                 llm_model=biomni_config_dict.get("llm_model", "claude-sonnet-4-20250514"),
                 confidence_threshold=biomni_config_dict.get("confidence_threshold", 0.6),
@@ -797,8 +803,14 @@ Generate an expansion-focused hypothesis:"""
             "ui_enabled": self.enable_ui,
             "session": session_info,
             "storage_stats": self.storage.get_statistics(),
-            "event_stats": self.event_manager.get_statistics()
+            "event_stats": self.event_manager.get_statistics(),
+            "biomni_available": self.biomni_agent.is_initialized if self.biomni_agent else False,
+            "biomni_enabled": self.biomni_agent.config.enabled if self.biomni_agent else False
         }
+
+    def get_status(self) -> Dict[str, Any]:
+        """Alias for get_system_status() for convenience."""
+        return self.get_system_status()
 
     async def generate_single_hypothesis(self, strategy: str = "literature_exploration") -> Optional[UnifiedHypothesis]:
         """
