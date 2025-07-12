@@ -435,11 +435,79 @@ class ContextMemory:
     def get_tournament_matches(self) -> List[Dict]:
         """
         Get all tournament matches.
-        
+
         Returns:
             List of all tournament matches
         """
         return self.tournament_state["matches"]
+
+    def update_tournament_state(self, tournament_state: Dict) -> None:
+        """
+        Update the tournament state.
+
+        Args:
+            tournament_state: The new tournament state
+        """
+        self.tournament_state = tournament_state
+        self._save_if_needed()
+
+    def get_experiment(self, experiment_id: str) -> Optional[Dict]:
+        """
+        Get an experiment by ID.
+
+        Args:
+            experiment_id: The ID of the experiment
+
+        Returns:
+            The experiment if found, None otherwise
+        """
+        return self.experiments.get(experiment_id)
+
+    def get_paper(self, paper_id: str) -> Optional[Dict]:
+        """
+        Get a paper by ID.
+
+        Args:
+            paper_id: The ID of the paper
+
+        Returns:
+            The paper if found, None otherwise
+        """
+        return self.papers.get(paper_id)
+
+    def add_meta_review(self, meta_review: Dict) -> None:
+        """
+        Add a meta-review to memory.
+
+        Args:
+            meta_review: The meta-review to add
+        """
+        if "meta_reviews" not in self.metadata:
+            self.metadata["meta_reviews"] = []
+        self.metadata["meta_reviews"].append(meta_review)
+        self._save_if_needed()
+
+    def get_all_matches(self) -> List[Dict]:
+        """
+        Get all tournament matches.
+
+        Returns:
+            List of all tournament matches
+        """
+        return self.tournament_state.get("matches", [])
+
+    def get_experiments_for_hypothesis(self, hypothesis_id: str) -> List[Dict]:
+        """
+        Get all experiments for a specific hypothesis.
+
+        Args:
+            hypothesis_id: The ID of the hypothesis
+
+        Returns:
+            List of experiments for the hypothesis
+        """
+        return [exp for exp in self.experiments.values()
+                if exp.get("hypothesis_id") == hypothesis_id]
 
 
 class Task:
