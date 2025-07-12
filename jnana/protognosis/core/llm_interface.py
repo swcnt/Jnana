@@ -243,7 +243,7 @@ class GeminiLLM(LLMInterface):
 
     def generate_with_json_output(self, prompt: str, json_schema: Dict,
                                  system_prompt: Optional[str] = None,
-                                 temperature: float = 0.7, max_tokens: int = 1024) -> Dict:
+                                 temperature: float = 0.7, max_tokens: int = 1024) -> Tuple[Dict, int, int]:
         """Generate a structured JSON response from Gemini."""
         schema_prompt = f"""
         Your response must be formatted as a JSON object according to this schema:
@@ -279,7 +279,18 @@ class GeminiLLM(LLMInterface):
                 content = content.split("```json")[1].split("```")[0].strip()
             elif "```" in content:
                 content = content.split("```")[1].split("```")[0].strip()
-            return json.loads(content)
+
+            parsed_response = json.loads(content)
+
+            # Gemini doesn't provide token counts, so we estimate
+            prompt_tokens = len(full_prompt.split()) * 1.3  # Rough estimate
+            completion_tokens = len(response.text.split()) * 1.3  # Rough estimate
+
+            self.total_calls += 1
+            self.total_prompt_tokens += int(prompt_tokens)
+            self.total_completion_tokens += int(completion_tokens)
+
+            return parsed_response, int(prompt_tokens), int(completion_tokens)
         except Exception as e:
             raise ValueError(f"Failed to parse JSON response: {e}. Response was: {response.text}")
 
@@ -324,7 +335,7 @@ class OpenAILLM(LLMInterface):
 
     def generate_with_json_output(self, prompt: str, json_schema: Dict,
                                  system_prompt: Optional[str] = None,
-                                 temperature: float = 0.7, max_tokens: int = 1024) -> Dict:
+                                 temperature: float = 0.7, max_tokens: int = 1024) -> Tuple[Dict, int, int]:
         """Generate a structured JSON response from OpenAI."""
         schema_prompt = f"""
         Your response must be formatted as a JSON object according to this schema:
@@ -351,7 +362,17 @@ class OpenAILLM(LLMInterface):
         import json
         try:
             content = response.choices[0].message.content
-            return json.loads(content)
+            parsed_response = json.loads(content)
+
+            # Get token counts from OpenAI response
+            prompt_tokens = response.usage.prompt_tokens
+            completion_tokens = response.usage.completion_tokens
+
+            self.total_calls += 1
+            self.total_prompt_tokens += prompt_tokens
+            self.total_completion_tokens += completion_tokens
+
+            return parsed_response, prompt_tokens, completion_tokens
         except Exception as e:
             raise ValueError(f"Failed to parse JSON response: {e}. Response was: {response.choices[0].message.content}")
 
@@ -411,7 +432,7 @@ class OllamaLLM(LLMInterface):
 
     def generate_with_json_output(self, prompt: str, json_schema: Dict,
                                  system_prompt: Optional[str] = None,
-                                 temperature: float = 0.7, max_tokens: int = 1024) -> Dict:
+                                 temperature: float = 0.7, max_tokens: int = 1024) -> Tuple[Dict, int, int]:
         """Generate a structured JSON response from Ollama."""
         schema_prompt = f"""
         Your response must be formatted as a JSON object according to this schema:
@@ -525,7 +546,7 @@ class LLMStudioLLM(LLMInterface):
 
     def generate_with_json_output(self, prompt: str, json_schema: Dict,
                                  system_prompt: Optional[str] = None,
-                                 temperature: float = 0.7, max_tokens: int = 1024) -> Dict:
+                                 temperature: float = 0.7, max_tokens: int = 1024) -> Tuple[Dict, int, int]:
         """Generate a structured JSON response from the LLM."""
         schema_prompt = f"""
         Your response must be formatted as a JSON object according to this schema:
@@ -544,7 +565,16 @@ class LLMStudioLLM(LLMInterface):
         try:
             # Parse the JSON response using our robust parser
             response_json = self._extract_and_parse_json(response_text)
-            return response_json
+
+            # LLMStudio doesn't provide token counts, so we estimate
+            prompt_tokens = len(full_prompt.split()) * 1.3  # Rough estimate
+            completion_tokens = len(response_text.split()) * 1.3  # Rough estimate
+
+            self.total_calls += 1
+            self.total_prompt_tokens += int(prompt_tokens)
+            self.total_completion_tokens += int(completion_tokens)
+
+            return response_json, int(prompt_tokens), int(completion_tokens)
         except Exception as e:
             raise ValueError(f"Failed to parse JSON response: {str(e)}. Response was: {response_text}")
 
