@@ -42,27 +42,29 @@ class InteractiveInterface(EventSubscriber):
     for hypothesis generation and refinement.
     """
     
-    def __init__(self, event_manager: EventManager, session_manager: SessionManager):
+    def __init__(self, event_manager: EventManager, session_manager: SessionManager, jnana_system=None):
         """
         Initialize the interactive interface.
-        
+
         Args:
             event_manager: Event manager for communication
             session_manager: Session manager for data persistence
+            jnana_system: Reference to the main Jnana system for AI operations
         """
         super().__init__(event_manager, "interactive_interface")
-        
+
         self.session_manager = session_manager
+        self.jnana_system = jnana_system  # Add reference to main system
         self.running = False
-        
+
         # UI state
         self.current_hypothesis_idx = 0
         self.show_hallmarks = True
         self.show_references = True
-        
+
         # Wisteria integration
         self.wisteria_interface: Optional[CursesInterface] = None
-        
+
         # Subscribe to relevant events
         self.subscribe_to_event(EventType.HYPOTHESIS_GENERATED, self._handle_hypothesis_generated)
         self.subscribe_to_event(EventType.HYPOTHESIS_UPDATED, self._handle_hypothesis_updated)
@@ -163,38 +165,93 @@ class InteractiveInterface(EventSubscriber):
         print("Interactive session ended.")
     
     async def _generate_hypothesis_interactive(self):
-        """Generate a new hypothesis interactively."""
+        """Generate a new hypothesis interactively using the Jnana system."""
         print("\nGenerating new hypothesis...")
-        
+
+        # Check if Jnana system is available
+        if not self.jnana_system:
+            print("❌ Error: Jnana system not available for hypothesis generation.")
+            print("   Using placeholder generation instead...")
+            await self._generate_placeholder_hypothesis()
+            return
+
         # Get research goal from session
         session_info = self.session_manager.get_session_info()
         if not session_info:
             print("No active session. Please set a research goal first.")
             return
-        
+
         research_goal = session_info.get("research_goal", "")
-        
-        # For now, create a placeholder hypothesis
-        # This would be replaced with actual generation logic
+        print(f"Research goal: {research_goal}")
+
+        # Ask user for generation strategy
+        print("\nAvailable generation strategies:")
+        strategies = ["literature_exploration", "scientific_debate", "assumptions_identification", "research_expansion"]
+        for i, strategy in enumerate(strategies, 1):
+            print(f"  {i}. {strategy.replace('_', ' ').title()}")
+
+        try:
+            choice = input("\nSelect strategy (1-4) or press Enter for default: ").strip()
+            if choice and choice.isdigit() and 1 <= int(choice) <= 4:
+                strategy = strategies[int(choice) - 1]
+            else:
+                strategy = "literature_exploration"  # Default
+
+            print(f"Using strategy: {strategy.replace('_', ' ').title()}")
+            print("🔄 Generating hypothesis with AI agents...")
+
+            # Use the actual Jnana system to generate hypothesis
+            hypothesis = await self.jnana_system.generate_single_hypothesis(strategy)
+
+            if hypothesis:
+                print(f"✅ Generated: {hypothesis.title}")
+                print(f"📝 Description: {hypothesis.description[:200]}...")
+
+                # Publish event
+                await self.publish_event(
+                    EventType.HYPOTHESIS_GENERATED,
+                    {
+                        "hypothesis_id": hypothesis.hypothesis_id,
+                        "title": hypothesis.title,
+                        "strategy": strategy
+                    }
+                )
+            else:
+                print("❌ Failed to generate hypothesis. Please try again.")
+
+        except KeyboardInterrupt:
+            print("\n⚠️  Generation cancelled by user.")
+        except Exception as e:
+            print(f"❌ Error during generation: {e}")
+            print("   Falling back to placeholder generation...")
+            await self._generate_placeholder_hypothesis()
+
+    async def _generate_placeholder_hypothesis(self):
+        """Generate a placeholder hypothesis when AI generation is not available."""
+        # Get research goal from session
+        session_info = self.session_manager.get_session_info()
+        research_goal = session_info.get("research_goal", "Unknown research goal") if session_info else "Unknown research goal"
+
+        # Create a placeholder hypothesis
         hypothesis = UnifiedHypothesis(
             title=f"Generated Hypothesis {len(self.session_manager.get_all_hypotheses()) + 1}",
             description=f"This hypothesis addresses the research goal: {research_goal}",
-            generation_strategy="interactive_generation"
+            generation_strategy="interactive_placeholder"
         )
-        
+
         # Add to session
         await self.session_manager.add_hypothesis(hypothesis)
-        
-        print(f"Generated: {hypothesis.title}")
-        print(f"Description: {hypothesis.description}")
-        
+
+        print(f"📝 Placeholder Generated: {hypothesis.title}")
+        print(f"📄 Description: {hypothesis.description}")
+
         # Publish event
         await self.publish_event(
             EventType.HYPOTHESIS_GENERATED,
             {
                 "hypothesis_id": hypothesis.hypothesis_id,
                 "title": hypothesis.title,
-                "strategy": "interactive"
+                "strategy": "placeholder"
             }
         )
     
@@ -214,37 +271,74 @@ class InteractiveInterface(EventSubscriber):
         await self._refine_hypothesis_interactive(current_hypothesis)
     
     async def _refine_hypothesis_interactive(self, hypothesis: UnifiedHypothesis):
-        """Interactively refine a specific hypothesis."""
-        print(f"\nRefining: {hypothesis.title}")
-        print(f"Current description: {hypothesis.description}")
-        
-        feedback = input("\nEnter your feedback for improvement: ").strip()
-        
+        """Interactively refine a specific hypothesis using AI."""
+        print(f"\n🔧 Refining: {hypothesis.title}")
+        print(f"📄 Current description: {hypothesis.description[:300]}...")
+
+        feedback = input("\n💬 Enter your feedback for improvement: ").strip()
+
         if feedback:
+            print("🔄 Processing refinement with AI agents...")
+
             # Add feedback to hypothesis
             hypothesis.add_feedback(feedback)
-            
-            # Simple refinement - append feedback to description
-            # This would be replaced with actual AI-powered refinement
-            hypothesis.description += f"\n\nRefinement based on feedback: {feedback}"
-            hypothesis.improvements_made = f"Incorporated user feedback: {feedback[:100]}..."
-            
-            # Update in session
-            await self.session_manager.update_hypothesis(hypothesis)
-            
-            print("Hypothesis refined successfully!")
-            
-            # Publish event
-            await self.publish_event(
-                EventType.HYPOTHESIS_UPDATED,
-                {
-                    "hypothesis_id": hypothesis.hypothesis_id,
-                    "feedback": feedback,
-                    "version": hypothesis.version_string
-                }
-            )
+
+            try:
+                if self.jnana_system:
+                    # Use the actual Jnana system for AI-powered refinement
+                    refined_hypothesis = await self.jnana_system.refine_hypothesis_with_feedback(
+                        hypothesis, feedback
+                    )
+
+                    if refined_hypothesis:
+                        print("✅ Hypothesis refined successfully with AI!")
+                        print(f"📝 New description: {refined_hypothesis.description[:300]}...")
+
+                        # Publish event
+                        await self.publish_event(
+                            EventType.HYPOTHESIS_UPDATED,
+                            {
+                                "hypothesis_id": refined_hypothesis.hypothesis_id,
+                                "feedback": feedback,
+                                "version": refined_hypothesis.version_string,
+                                "refinement_type": "ai_powered"
+                            }
+                        )
+                    else:
+                        print("⚠️  AI refinement failed, using simple refinement...")
+                        await self._simple_refinement(hypothesis, feedback)
+                else:
+                    print("⚠️  Jnana system not available, using simple refinement...")
+                    await self._simple_refinement(hypothesis, feedback)
+
+            except Exception as e:
+                print(f"❌ Error during AI refinement: {e}")
+                print("   Falling back to simple refinement...")
+                await self._simple_refinement(hypothesis, feedback)
         else:
-            print("No feedback provided.")
+            print("⚠️  No feedback provided.")
+
+    async def _simple_refinement(self, hypothesis: UnifiedHypothesis, feedback: str):
+        """Perform simple text-based refinement when AI is not available."""
+        # Simple refinement - append feedback to description
+        hypothesis.description += f"\n\nRefinement based on feedback: {feedback}"
+        hypothesis.improvements_made = f"Incorporated user feedback: {feedback[:100]}..."
+
+        # Update in session
+        await self.session_manager.update_hypothesis(hypothesis)
+
+        print("📝 Hypothesis refined with simple text processing!")
+
+        # Publish event
+        await self.publish_event(
+            EventType.HYPOTHESIS_UPDATED,
+            {
+                "hypothesis_id": hypothesis.hypothesis_id,
+                "feedback": feedback,
+                "version": hypothesis.version_string,
+                "refinement_type": "simple"
+            }
+        )
     
     def _list_hypotheses(self):
         """List all hypotheses in the current session."""

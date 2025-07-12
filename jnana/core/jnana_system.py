@@ -73,7 +73,7 @@ class JnanaSystem:
         # UI component
         self.ui: Optional[InteractiveInterface] = None
         if enable_ui:
-            self.ui = InteractiveInterface(self.event_manager, self.session_manager)
+            self.ui = InteractiveInterface(self.event_manager, self.session_manager, self)
         
         # ProtoGnosis integration
         self.protognosis_adapter: Optional[JnanaProtoGnosisAdapter] = None
@@ -789,7 +789,7 @@ Generate an expansion-focused hypothesis:"""
     def get_system_status(self) -> Dict[str, Any]:
         """Get current system status."""
         session_info = self.session_manager.get_session_info()
-        
+
         return {
             "running": self.running,
             "mode": self.current_mode,
@@ -799,3 +799,81 @@ Generate an expansion-focused hypothesis:"""
             "storage_stats": self.storage.get_statistics(),
             "event_stats": self.event_manager.get_statistics()
         }
+
+    async def generate_single_hypothesis(self, strategy: str = "literature_exploration") -> Optional[UnifiedHypothesis]:
+        """
+        Generate a single hypothesis using the specified strategy.
+
+        Args:
+            strategy: Generation strategy to use
+
+        Returns:
+            Generated hypothesis or None if generation failed
+        """
+        try:
+            if not self.protognosis_adapter:
+                self.logger.warning("ProtoGnosis not available, cannot generate hypothesis")
+                return None
+
+            self.logger.info(f"Generating single hypothesis with strategy: {strategy}")
+
+            # Get research goal from session
+            session_info = self.session_manager.get_session_info()
+            research_goal = session_info.get("research_goal", "") if session_info else ""
+
+            if not research_goal:
+                self.logger.warning("No research goal set, cannot generate hypothesis")
+                return None
+
+            # Use ProtoGnosis to generate a single hypothesis
+            hypotheses = await self.protognosis_adapter.generate_hypotheses(
+                research_goal=research_goal,
+                count=1,
+                strategies=[strategy]
+            )
+
+            if hypotheses:
+                hypothesis = hypotheses[0]
+                self.logger.info(f"Successfully generated hypothesis: {hypothesis.title}")
+                return hypothesis
+            else:
+                self.logger.warning("No hypothesis generated")
+                return None
+
+        except Exception as e:
+            self.logger.error(f"Error generating single hypothesis: {e}")
+            return None
+
+    async def refine_hypothesis_with_feedback(self, hypothesis: UnifiedHypothesis, feedback: str) -> Optional[UnifiedHypothesis]:
+        """
+        Refine a hypothesis using AI agents based on user feedback.
+
+        Args:
+            hypothesis: Hypothesis to refine
+            feedback: User feedback for refinement
+
+        Returns:
+            Refined hypothesis or None if refinement failed
+        """
+        try:
+            if not self.protognosis_adapter:
+                self.logger.warning("ProtoGnosis not available, cannot refine hypothesis")
+                return None
+
+            self.logger.info(f"Refining hypothesis {hypothesis.hypothesis_id} with feedback")
+
+            # Use ProtoGnosis to evolve/refine the hypothesis
+            refined_hypothesis = await self.protognosis_adapter.evolve_hypothesis(
+                hypothesis, feedback
+            )
+
+            if refined_hypothesis:
+                self.logger.info(f"Successfully refined hypothesis: {refined_hypothesis.title}")
+                return refined_hypothesis
+            else:
+                self.logger.warning("Hypothesis refinement failed")
+                return None
+
+        except Exception as e:
+            self.logger.error(f"Error refining hypothesis: {e}")
+            return None
