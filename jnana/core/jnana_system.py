@@ -303,7 +303,7 @@ class JnanaSystem:
             # Phase 3: Final tournament
             self.logger.info("Phase 3: Final tournament evaluation")
             # Get updated hypotheses from session
-            session_hypotheses = await self.session_manager.get_all_hypotheses()
+            session_hypotheses = self.session_manager.get_all_hypotheses()
             ranked_hypotheses = await self.protognosis_adapter.run_tournament(
                 session_hypotheses, match_count=tournament_matches
             )

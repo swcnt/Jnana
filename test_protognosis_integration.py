@@ -222,7 +222,7 @@ async def test_batch_mode():
         
         # Get session results
         session_info = jnana.session_manager.get_session_info()
-        hypotheses = await jnana.session_manager.get_all_hypotheses()
+        hypotheses = jnana.session_manager.get_all_hypotheses()
         
         print(f"   📊 Session generated {len(hypotheses)} hypotheses")
         for i, hyp in enumerate(hypotheses):
