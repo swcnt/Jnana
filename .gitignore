@@ -168,6 +168,12 @@ logs/
 *.json
 !config/*.json
 
+# Node.js dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
 # Configuration files with API keys
 config/models.yaml
 config/local_config.yaml
