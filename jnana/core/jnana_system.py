@@ -17,7 +17,7 @@ from .event_manager import EventManager, EventType
 from ..data.storage import JnanaStorage
 from ..data.unified_hypothesis import UnifiedHypothesis
 from ..ui.interactive_interface import InteractiveInterface
-from ..agents.biomni_agent import BiomniAgent, BiomniConfig
+from ..agents.biomni_modern import ModernBiomniAgent as BiomniAgent, ModernBiomniConfig as BiomniConfig
 
 # Import ProtoGnosis components (integrated)
 try:
@@ -140,6 +140,10 @@ class JnanaSystem:
         # Initialize ProtoGnosis if available
         if self.protognosis_adapter:
             await self.protognosis_adapter.initialize()
+        
+        # Initialize Biomni agent if available
+        if self.biomni_agent:
+            await self.biomni_agent.initialize()
         
         self.logger.info("Jnana system started")
     

@@ -54,12 +54,15 @@ click>=8.1.0
 cachetools>=5.3.0
 redis>=4.6.0
 
-# Biomni integration (optional)
-# biomni>=1.0.0
-# langchain>=0.1.20
-# langgraph>=0.1.19
-# langchain-core>=0.2.43
-# faiss-cpu>=1.7.4
+# Biomni integration with latest LangChain compatibility
+biomni>=1.0.0
+langchain>=0.3.0
+langchain-core>=0.3.0
+langgraph>=0.2.0
+langchain-community>=0.3.0
+langchain-openai>=0.2.0
+langchain-anthropic>=0.2.0
+faiss-cpu>=1.8.0
 
 # ProtoGnosis integration (integrated directly)
 # Note: ProtoGnosis is now integrated directly into Jnana
