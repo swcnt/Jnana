@@ -10,7 +10,16 @@ import uuid
 from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Dict, List, Optional, Any, Union
-from dataclasses_json import dataclass_json
+
+# Try to import dataclasses_json, fall back to manual JSON handling if not available
+try:
+    from dataclasses_json import dataclass_json
+    DATACLASSES_JSON_AVAILABLE = True
+except ImportError:
+    DATACLASSES_JSON_AVAILABLE = False
+    # Create a dummy decorator that does nothing
+    def dataclass_json(cls):
+        return cls
 
 
 @dataclass_json
@@ -341,3 +350,193 @@ class UnifiedHypothesis:
         if self.biomni_verification:
             return self.biomni_verification.confidence_score
         return 0.0
+
+    def to_json(self) -> str:
+        """Convert to JSON string. Uses dataclasses_json if available, otherwise manual serialization."""
+        if DATACLASSES_JSON_AVAILABLE:
+            # Use the dataclass_json method if available
+            return super().to_json() if hasattr(super(), 'to_json') else self._manual_to_json()
+        else:
+            return self._manual_to_json()
+
+    @classmethod
+    def from_json(cls, json_str: str) -> 'UnifiedHypothesis':
+        """Create from JSON string. Uses dataclasses_json if available, otherwise manual deserialization."""
+        if DATACLASSES_JSON_AVAILABLE:
+            # Use the dataclass_json method if available
+            try:
+                return super().from_json(json_str) if hasattr(super(), 'from_json') else cls._manual_from_json(json_str)
+            except:
+                return cls._manual_from_json(json_str)
+        else:
+            return cls._manual_from_json(json_str)
+
+    def _manual_to_json(self) -> str:
+        """Manual JSON serialization when dataclasses_json is not available."""
+        import json
+
+        # Convert dataclass to dict manually
+        data = {
+            'hypothesis_id': self.hypothesis_id,
+            'title': self.title,
+            'content': self.content,
+            'description': self.description,
+            'experimental_validation': self.experimental_validation,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
+            'version': self.version,
+            'status': self.status,
+            'confidence_score': self.confidence_score,
+            'novelty_score': self.novelty_score,
+            'feasibility_score': self.feasibility_score,
+            'impact_score': self.impact_score,
+            'scientific_hallmarks': self.scientific_hallmarks,
+            'testable_predictions': self.testable_predictions,
+            'research_domain': self.research_domain,
+            'methodology': self.methodology,
+            'feedback_history': [
+                {
+                    'feedback': f.feedback,
+                    'timestamp': f.timestamp,
+                    'version_before': f.version_before,
+                    'version_after': f.version_after,
+                    'user_id': f.user_id,
+                    'feedback_type': f.feedback_type
+                } for f in self.feedback_history
+            ],
+            'references': [
+                {
+                    'citation': r.citation,
+                    'url': r.url,
+                    'doi': r.doi,
+                    'relevance_score': r.relevance_score,
+                    'added_at': r.added_at
+                } for r in self.references
+            ],
+            'agent_contributions': [
+                {
+                    'agent_id': ac.agent_id,
+                    'contribution_type': ac.contribution_type,
+                    'content': ac.content,
+                    'timestamp': ac.timestamp,
+                    'confidence': ac.confidence
+                } for ac in self.agent_contributions
+            ],
+            'tournament_record': {
+                'wins': self.tournament_record.wins,
+                'losses': self.tournament_record.losses,
+                'elo_rating': self.tournament_record.elo_rating,
+                'matches_played': self.tournament_record.matches_played,
+                'last_match_timestamp': self.tournament_record.last_match_timestamp
+            } if self.tournament_record else None,
+            'biomni_verification': {
+                'verification_id': self.biomni_verification.verification_id,
+                'is_biologically_plausible': self.biomni_verification.is_biologically_plausible,
+                'confidence_score': self.biomni_verification.confidence_score,
+                'evidence_strength': self.biomni_verification.evidence_strength,
+                'supporting_evidence': self.biomni_verification.supporting_evidence,
+                'contradicting_evidence': self.biomni_verification.contradicting_evidence,
+                'suggested_experiments': self.biomni_verification.suggested_experiments,
+                'verification_type': self.biomni_verification.verification_type,
+                'timestamp': self.biomni_verification.timestamp,
+                'biomni_response': self.biomni_verification.biomni_response
+            } if self.biomni_verification else None
+        }
+
+        return json.dumps(data, indent=2)
+
+    @classmethod
+    def _manual_from_json(cls, json_str: str) -> 'UnifiedHypothesis':
+        """Manual JSON deserialization when dataclasses_json is not available."""
+        import json
+
+        data = json.loads(json_str)
+
+        # Create feedback history
+        feedback_history = []
+        for f_data in data.get('feedback_history', []):
+            feedback_history.append(FeedbackEntry(
+                feedback=f_data['feedback'],
+                timestamp=f_data['timestamp'],
+                version_before=f_data['version_before'],
+                version_after=f_data['version_after'],
+                user_id=f_data.get('user_id'),
+                feedback_type=f_data.get('feedback_type', 'user')
+            ))
+
+        # Create references
+        references = []
+        for r_data in data.get('references', []):
+            references.append(Reference(
+                citation=r_data['citation'],
+                url=r_data.get('url'),
+                doi=r_data.get('doi'),
+                relevance_score=r_data.get('relevance_score', 0.0),
+                added_at=r_data.get('added_at', time.time())
+            ))
+
+        # Create agent contributions
+        agent_contributions = []
+        for ac_data in data.get('agent_contributions', []):
+            agent_contributions.append(AgentContribution(
+                agent_id=ac_data['agent_id'],
+                contribution_type=ac_data['contribution_type'],
+                content=ac_data['content'],
+                timestamp=ac_data.get('timestamp', time.time()),
+                confidence=ac_data.get('confidence', 0.0)
+            ))
+
+        # Create tournament record
+        tournament_record = None
+        if data.get('tournament_record'):
+            tr_data = data['tournament_record']
+            tournament_record = TournamentRecord(
+                wins=tr_data.get('wins', 0),
+                losses=tr_data.get('losses', 0),
+                elo_rating=tr_data.get('elo_rating', 1000.0),
+                matches_played=tr_data.get('matches_played', 0),
+                last_match_timestamp=tr_data.get('last_match_timestamp', 0.0)
+            )
+
+        # Create biomni verification
+        biomni_verification = None
+        if data.get('biomni_verification'):
+            bv_data = data['biomni_verification']
+            biomni_verification = BiomniVerification(
+                verification_id=bv_data.get('verification_id', ''),
+                is_biologically_plausible=bv_data.get('is_biologically_plausible', False),
+                confidence_score=bv_data.get('confidence_score', 0.0),
+                evidence_strength=bv_data.get('evidence_strength', ''),
+                supporting_evidence=bv_data.get('supporting_evidence', []),
+                contradicting_evidence=bv_data.get('contradicting_evidence', []),
+                suggested_experiments=bv_data.get('suggested_experiments', []),
+                verification_type=bv_data.get('verification_type', 'general'),
+                timestamp=bv_data.get('timestamp', time.time()),
+                biomni_response=bv_data.get('biomni_response', '')
+            )
+
+        # Create the hypothesis
+        return cls(
+            hypothesis_id=data.get('hypothesis_id', str(uuid.uuid4())),
+            title=data.get('title', ''),
+            content=data.get('content', ''),
+            description=data.get('description', ''),
+            experimental_validation=data.get('experimental_validation', ''),
+            created_at=data.get('created_at', time.time()),
+            updated_at=data.get('updated_at', time.time()),
+            version=data.get('version', '1.0'),
+            status=data.get('status', 'draft'),
+            confidence_score=data.get('confidence_score', 0.0),
+            novelty_score=data.get('novelty_score', 0.0),
+            feasibility_score=data.get('feasibility_score', 0.0),
+            impact_score=data.get('impact_score', 0.0),
+            scientific_hallmarks=data.get('scientific_hallmarks', []),
+            testable_predictions=data.get('testable_predictions', []),
+            research_domain=data.get('research_domain', ''),
+            methodology=data.get('methodology', ''),
+            feedback_history=feedback_history,
+            references=references,
+            agent_contributions=agent_contributions,
+            tournament_record=tournament_record,
+            biomni_verification=biomni_verification
+        )
