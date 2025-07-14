@@ -1030,10 +1030,10 @@ class RankingAgent(Agent):
             winner_id = None
             loser_id = None
             
-            if response["overall_winner"] == "A":
+            if "A" in response["overall_winner"]:
                 winner_id = hypothesis1_id
                 loser_id = hypothesis2_id
-            elif response["overall_winner"] == "B":
+            elif "B" in response["overall_winner"]:
                 winner_id = hypothesis2_id
                 loser_id = hypothesis1_id
             
