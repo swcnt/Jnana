@@ -207,6 +207,8 @@ class InteractiveInterface(EventSubscriber):
                 print(f"✅ Generated: {hypothesis.title}")
                 print(f"📝 Description: {hypothesis.description[:200]}...")
 
+                await self.session_manager.add_hypothesis(hypothesis)
+
                 # Publish event
                 await self.publish_event(
                     EventType.HYPOTHESIS_GENERATED,

@@ -148,6 +148,8 @@ class SessionManager:
             Session ID
         """
         session_path = Path(session_path)
+
+        self.logger.info(f"Attempting to read session from filepath {session_path}") 
         
         if not session_path.exists():
             raise FileNotFoundError(f"Session file not found: {session_path}")

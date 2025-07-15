@@ -851,6 +851,7 @@ Generate an expansion-focused hypothesis:"""
             if hypotheses:
                 hypothesis = hypotheses[0]
                 self.logger.info(f"Successfully generated hypothesis: {hypothesis.title}")
+                # maybe do this? self.session_manager.add_hypothesis(hypothesis)
                 return hypothesis
             else:
                 self.logger.warning("No hypothesis generated")
