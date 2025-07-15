@@ -59,11 +59,12 @@ except Exception as e:
 @dataclass
 class ModernBiomniConfig:
     """Configuration for modern Biomni integration."""
-    
+
     enabled: bool = True
     data_path: str = "./data/biomni"
     llm_model: str = "claude-sonnet-4-20250514"
-    
+    api_key: str = ""
+
     # Verification settings
     confidence_threshold: float = 0.6
     max_execution_time: int = 300  # seconds
@@ -206,6 +207,11 @@ class ModernBiomniAgent:
             if self.config.auto_patch_imports:
                 self._apply_compatibility_patches()
             
+            # Set up environment for Biomni authentication
+            import os
+            if self.config.api_key:
+                os.environ['ANTHROPIC_API_KEY'] = self.config.api_key
+
             # Initialize Biomni agent
             self.biomni_agent = A1(
                 path=self.config.data_path,
