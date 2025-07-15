@@ -1,0 +1,2 @@
+PLEASE make refining work and not just append a note to the hypothesis in session.
+focus on llm_interface.py, agent_core.py, jnana_session.py, and session_manager.py
