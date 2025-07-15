@@ -243,10 +243,10 @@ class JnanaProtoGnosisAdapter:
             # Create default LLM config
             default_llm_config = LLMConfig(
                 provider=default_config.get("provider", "ollama"),
-                model=default_config.get("model", "llama3"),
+                model=default_config.get("model", "deepseek-r1:8b"),
                 api_key=default_config.get("api_key"),
                 temperature=default_config.get("temperature", 0.7),
-                max_tokens=default_config.get("max_tokens", 2048)
+                max_tokens=default_config.get("max_tokens", 4096)
             )
             
             # Create agent-specific configs if available
@@ -278,7 +278,7 @@ class JnanaProtoGnosisAdapter:
             self.logger.warning(f"Error converting model config, using defaults: {e}")
             # Return basic default configuration
             return AgentLLMConfig(
-                default=LLMConfig(provider="ollama", model="llama3")
+                    default=LLMConfig(provider="ollama", model="deepseek-r1:8b")
             )
     
     def get_status(self) -> Dict[str, Any]:

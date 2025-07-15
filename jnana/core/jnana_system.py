@@ -37,7 +37,7 @@ class JnanaSystem:
     """
     
     def __init__(self, config_path: Union[str, Path] = "config/models.yaml",
-                 storage_path: Union[str, Path] = "data/jnana.db",
+                 storage_path: Union[str, Path] = "data/jnana_run3.db",
                  storage_type: str = "json",
                  max_workers: int = 4,
                  output_path: Optional[Union[str, Path]] = None,
@@ -851,7 +851,6 @@ Generate an expansion-focused hypothesis:"""
             if hypotheses:
                 hypothesis = hypotheses[0]
                 self.logger.info(f"Successfully generated hypothesis: {hypothesis.title}")
-                # maybe do this? self.session_manager.add_hypothesis(hypothesis)
                 return hypothesis
             else:
                 self.logger.warning("No hypothesis generated")

@@ -380,7 +380,7 @@ class OpenAILLM(LLMInterface):
 class OllamaLLM(LLMInterface):
     """Implementation for Ollama local LLM API."""
 
-    def __init__(self, model: str = "llama3", base_url: str = "http://localhost:11434", 
+    def __init__(self, model: str = "deepseek-r1:8b", base_url: str = "http://localhost:11434", 
                  api_key: Optional[str] = None, model_adapter: Optional[Dict] = None):
         """
         Initialize the Ollama LLM interface.
@@ -440,6 +440,7 @@ class OllamaLLM(LLMInterface):
 
         Ensure your response can be parsed by Python's json.loads().
         Return only the JSON object with no additional text.
+        Ensure you use double quotes to enclose property names.
         """
 
         full_prompt = f"{prompt}\n\n{schema_prompt}"
@@ -447,7 +448,12 @@ class OllamaLLM(LLMInterface):
 
         # Generate the response
         response_text = self.generate(full_prompt, system_prompt=system)
-
+        
+        # if there is thinking in the response, cut it out
+        while "</think>" in response_text:
+            before, separator, after = response_text.partition("</think>")
+            response_text = after
+        
         # Extract JSON string and parse
         import json
         try:
@@ -553,8 +559,10 @@ class LLMStudioLLM(LLMInterface):
         {json_schema}
 
         Ensure your response can be parsed by Python's json.loads().
+        Ensure you separate list elements with commas.
         Return only the JSON object with no additional text.
         Do not include any control characters or newlines within string values.
+
         """
 
         full_prompt = f"{prompt}\n\n{schema_prompt}"

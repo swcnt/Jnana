@@ -92,7 +92,7 @@ class InteractiveInterface(EventSubscriber):
             return
         
         # Simple text-based refinement interface
-        print(f"\nFound {len(hypotheses)} hypotheses for refinement:")
+        self.logger.info(f"\nFound {len(hypotheses)} hypotheses for refinement:")
         
         for i, hypothesis in enumerate(hypotheses):
             print(f"{i+1}. {hypothesis.title}")
