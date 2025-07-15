@@ -115,6 +115,7 @@ class JnanaSystem:
                 enabled=biomni_config_dict.get("enabled", False),
                 data_path=biomni_config_dict.get("data_path", "./data/biomni"),
                 llm_model=biomni_config_dict.get("llm_model", "claude-sonnet-4-20250514"),
+                api_key=biomni_config_dict.get("api_key", ""),
                 confidence_threshold=biomni_config_dict.get("confidence_threshold", 0.6),
                 max_execution_time=biomni_config_dict.get("max_execution_time", 300),
                 enable_experimental_suggestions=biomni_config_dict.get("enable_experimental_suggestions", True)
