@@ -131,6 +131,8 @@ class EvolutionAgent(Agent):
                 "generation_method": "evolution"
             }
         )
+
+        self.logger.info(f"Evolved hypothesis: {evolved_hypothesis}")
         
         return evolved_hypothesis
     

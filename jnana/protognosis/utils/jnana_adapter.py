@@ -215,11 +215,22 @@ class JnanaProtoGnosisAdapter:
                 pg_hypothesis.hypothesis_id, feedback
             )
 
+            try:
+                evolved_hypothesis_id = evolution_result.get('evolved_hypothesis_id')
+            except:
+                self.logger.info("ERROR: evolved hypothesis not found")
+
+            try:
+                evolved_pg_hypothesis = self.coscientist.memory.get_hypothesis(evolved_hypothesis_id)
+            except:
+                self.logger.info("Evolved hypothesis not found in memory")
+
+            """
             # Get the evolved hypothesis from memory
             evolved_pg_hypothesis = self.coscientist.memory.get_hypothesis(
                 evolution_result.get("evolved_hypothesis_id", pg_hypothesis.hypothesis_id)
             ) or pg_hypothesis
-            
+            """
             # Convert back to Jnana format
             evolved_unified_hypothesis = self.converter.protognosis_to_unified(evolved_pg_hypothesis)
             
