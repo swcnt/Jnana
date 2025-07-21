@@ -216,6 +216,10 @@ class JnanaProtoGnosisAdapter:
             # Add to ProtoGnosis memory
             self.coscientist.memory.add_hypothesis(pg_hypothesis)
 
+            #test memory
+            if DEBUG:
+                self.logger.info(f"From Memory: \n {self.coscientist.memory.get_hypothesis(pg_id).to_dict()}") 
+
             assert isinstance(pg_hypothesis, ResearchHypothesis)
             assert isinstance(self.coscientist.memory.get_hypothesis(pg_id),ResearchHypothesis)
             assert self.coscientist.memory.get_hypothesis(pg_id).metadata is not None
@@ -225,13 +229,17 @@ class JnanaProtoGnosisAdapter:
                 pg_hypothesis.hypothesis_id, feedback
             )
 
+
+            if DEBUG:
+                self.logger.info(f"Evolved raw: \n {evolution_result}")
             try:
                 evolved_hypothesis_id = evolution_result.get('evolved_hypothesis_id')
             except:
                 self.logger.info("ERROR: evolved hypothesis not found")
-
             try:
                 evolved_pg_hypothesis = self.coscientist.memory.get_hypothesis(evolved_hypothesis_id)
+                if DEBUG:
+                    self.logger.info(f"Evolved hypothesis: \n {evolved_pg_hypothesis}")
             except:
                 self.logger.info("Evolved hypothesis not found in memory")
 
