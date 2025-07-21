@@ -15,7 +15,10 @@ from ..core.multi_llm_config import LLMConfig, AgentLLMConfig
 from .data_converter import ProtoGnosisDataConverter
 from ...data.unified_hypothesis import UnifiedHypothesis
 from ...core.model_manager import UnifiedModelManager
+from ..core.agent_core import ResearchHypothesis
 
+#Debug mode?
+DEBUG = True
 
 class JnanaProtoGnosisAdapter:
     """
@@ -206,9 +209,16 @@ class JnanaProtoGnosisAdapter:
         try:
             # Convert to ProtoGnosis format
             pg_hypothesis = self.converter.unified_to_protognosis(hypothesis)
-            
+            pg_id = pg_hypothesis.hypothesis_id
+            if DEBUG:
+                self.logger.info(f"Protognosis hypothesis:\n{pg_hypothesis.to_dict()}")
+
             # Add to ProtoGnosis memory
             self.coscientist.memory.add_hypothesis(pg_hypothesis)
+
+            assert isinstance(pg_hypothesis, ResearchHypothesis)
+            assert isinstance(self.coscientist.memory.get_hypothesis(pg_id),ResearchHypothesis)
+            assert self.coscientist.memory.get_hypothesis(pg_id).metadata is not None
             
             # Evolve hypothesis
             evolution_result = self.coscientist.evolve_hypothesis(
