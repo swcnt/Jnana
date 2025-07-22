@@ -232,14 +232,15 @@ class JnanaProtoGnosisAdapter:
 
             if DEBUG:
                 self.logger.info(f"Evolved raw: \n {evolution_result}")
-            try:
-                evolved_hypothesis_id = evolution_result.get('evolved_hypothesis_id')
-            except:
-                self.logger.info("ERROR: evolved hypothesis not found")
+            evolved_pg_direct = evolution_result.get('improved_hypothesis')
+            evolved_hypothesis_id = evolution_result.get('improved_hypothesis_id')
+        
+            assert isinstance(evolved_pg_direct,ResearchHypothesis),"Hypothesis passed through incorrectly!"
             try:
                 evolved_pg_hypothesis = self.coscientist.memory.get_hypothesis(evolved_hypothesis_id)
                 if DEBUG:
                     self.logger.info(f"Evolved hypothesis: \n {evolved_pg_hypothesis}")
+                    self.logger.info(f"Evolved hypothesis DIRECT: \n {evolved_pg_direct.to_dict()}")
             except:
                 self.logger.info("Evolved hypothesis not found in memory")
 
@@ -249,8 +250,11 @@ class JnanaProtoGnosisAdapter:
                 evolution_result.get("evolved_hypothesis_id", pg_hypothesis.hypothesis_id)
             ) or pg_hypothesis
             """
+
+            #set the id of the refined hypothesis to that of the original so it can be updated
+            evolved_pg_direct.hypothesis_id = pg_id
             # Convert back to Jnana format
-            evolved_unified_hypothesis = self.converter.protognosis_to_unified(evolved_pg_hypothesis)
+            evolved_unified_hypothesis = self.converter.protognosis_to_unified(evolved_pg_direct)
             
             return evolved_unified_hypothesis
             

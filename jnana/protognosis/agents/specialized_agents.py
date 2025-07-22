@@ -1263,6 +1263,7 @@ class EvolutionAgent(Agent):
                 content=response["improved_hypothesis"]["content"],
                 summary=response["improved_hypothesis"]["summary"],
                 agent_id=self.agent_id,
+                #hypothesis_id= field(default_factory=lambda: str(uuid.uuid4()))
                 metadata={
                     "original_hypothesis_id": hypothesis_id,
                     "improvements": response["improvements"],
@@ -1271,14 +1272,16 @@ class EvolutionAgent(Agent):
                     "evolution_type": "improve"
                 }
             )
-            
+            self.logger.info(f"Improved hypothesis: \n {improved_hypothesis.to_dict()}")
             # Add the improved hypothesis to memory
             self.memory.add_hypothesis(improved_hypothesis)
+            self.memory.save()
             
             return {
                 "original_hypothesis_id": hypothesis_id,
                 "improved_hypothesis_id": improved_hypothesis.hypothesis_id,
-                "improvements": response["improvements"]
+                "improvements": response["improvements"],
+                "improved_hypothesis": improved_hypothesis
             }
             
         except Exception as e:

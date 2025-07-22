@@ -295,6 +295,8 @@ class InteractiveInterface(EventSubscriber):
                     if refined_hypothesis:
                         print("✅ Hypothesis refined successfully with AI!")
                         print(f"📝 New description: {refined_hypothesis.description[:300]}...")
+                        #add to memory
+                        await self.session_manager.update_hypothesis(refined_hypothesis)
 
                         # Publish event
                         await self.publish_event(

@@ -37,7 +37,7 @@ class JnanaSystem:
     """
     
     def __init__(self, config_path: Union[str, Path] = "config/models.yaml",
-                 storage_path: Union[str, Path] = "data/jnana_run6.db",
+                 storage_path: Union[str, Path] = "data/jnana_run11.db",
                  storage_type: str = "json",
                  max_workers: int = 4,
                  output_path: Optional[Union[str, Path]] = None,
