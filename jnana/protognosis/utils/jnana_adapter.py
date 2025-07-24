@@ -122,16 +122,35 @@ class JnanaProtoGnosisAdapter:
             self.coscientist.set_research_goal(research_goal)
             
             # Generate hypotheses
-            hypothesis_ids = self.coscientist.generate_hypotheses(
+            _ = self.coscientist.generate_hypotheses(
                 count=count,
                 strategies=strategies or ["literature_exploration", "scientific_debate"]
             )
             
             # Wait for completion
             self.coscientist.wait_for_completion()
-            
+
+            if DEBUG:
+                self.logger.info(f"PG Memory Contents: {self.coscientist.get_hypo_dict()}")
+
+            # get hypothesis ids
+            hypothesis_ids = []
+            rev_hypo_dict = reversed(self.coscientist.get_hypo_dict())
+
+            for i in range(count):
+                most_recent_id = next(rev_hypo_dict)
+                hypothesis_ids.append(most_recent_id)
+
+
+
             # Get generated hypotheses
-            pg_hypotheses = self.coscientist.get_all_hypotheses()
+            pg_hypotheses = []
+            for h_id in hypothesis_ids:
+                pg_hypotheses.append(self.coscientist.memory.get_hypothesis(h_id))
+                if DEBUG:
+                    self.logger.info(f"Fetched hypothesis from cosci memory:{self.coscientist.memory.get_hypothesis(h_id)}")
+
+            
             
             # Convert to Jnana format
             unified_hypotheses = self.converter.batch_protognosis_to_unified(pg_hypotheses)

@@ -629,7 +629,7 @@ class Agent(ABC):
         # For now, we'll use placeholder templates
         templates = {
             "default": "You are an AI co-scientist agent. Your role is to {role}.\n\nResearch goal: {research_goal}\n\nTask: {task}\n\n",
-            "system": "You are an AI co-scientist {agent_type} agent. Your role is to {role}."
+            "system": "You are an AI co-scientist {agent_type} agent. Your role is to {role}. Ensure you output valid json according to the schema. Ensure you enclose property names in double quotes."
         }
         
         return templates.get(template_name, templates["default"])
@@ -905,7 +905,7 @@ class SupervisorAgent:
 
         try:
             # Generate the research plan
-            config = self.llm.generate_with_json_output(prompt, schema)
+            config,_,_ = self.llm.generate_with_json_output(prompt, schema)
             
             # Add the original research goal to the config
             config["original_research_goal"] = research_goal

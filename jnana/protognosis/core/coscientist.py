@@ -291,6 +291,9 @@ class CoScientist:
     def get_agent_usages(self, verbose=True):
         return self.supervisor.get_usages(verbose=verbose)
 
+    def get_hypo_dict(self):
+        return self.memory.hypotheses
+
     def get_all_hypotheses(self):
         """
         Get all hypotheses from memory.
@@ -387,6 +390,8 @@ class CoScientist:
             )
 
             self.supervisor.add_task(task)
+
+            #wait for completion and fetch ids?
 
         return hypothesis_ids
 

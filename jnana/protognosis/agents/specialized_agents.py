@@ -12,6 +12,7 @@ import os
 
 from ..core.agent_core import Agent, Task, ResearchHypothesis, ContextMemory
 from ..core.llm_interface import LLMInterface
+DEBUG = True
 
 # Import prompt templates
 try:
@@ -110,6 +111,8 @@ class GenerationAgent(Agent):
         system_prompt = self.fill_prompt_template("system", 
                                                 agent_type="generation",
                                                 role="generate novel research hypotheses")
+        if DEBUG:
+            self.logger.info(f"System prompt: {system_prompt}")
         
         # Define the expected output schema
         schema = {
@@ -128,6 +131,9 @@ class GenerationAgent(Agent):
             # Generate the hypothesis with the LLM
             response_data = self.llm.generate_with_json_output(prompt, schema, system_prompt=system_prompt)
             
+            if DEBUG:
+                self.logger.info(f"Raw LLM output : {response_data}")
+
             # Unpack the response data
             if isinstance(response_data, tuple) and len(response_data) == 3:
                 response, prompt_tokens, completion_tokens = response_data
