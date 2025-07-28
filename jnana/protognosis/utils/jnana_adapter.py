@@ -7,6 +7,8 @@ functionality into the Jnana system.
 
 import asyncio
 import logging
+#import make_boltz_input
+
 from typing import Dict, List, Optional, Any, Union
 from datetime import datetime
 
@@ -280,6 +282,14 @@ class JnanaProtoGnosisAdapter:
         except Exception as e:
             self.logger.error(f"Error evolving hypothesis: {e}")
             return hypothesis  # Return original if evolution fails
+
+    async def analyze_protein(self, hypothesis: UnifiedHypothesis):
+        """
+        Get protein names from a hypothesis and generate a boltz-compatible yaml file
+        """
+        self.logger.info("Extracting protein name from hypothesis")
+        # TODO!
+
     
     def _convert_model_config(self) -> AgentLLMConfig:
         """
