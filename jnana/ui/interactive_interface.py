@@ -153,6 +153,8 @@ class InteractiveInterface(EventSubscriber):
                     await self._save_session()
                 elif command == 'help' or command == 'h':
                     self._show_help()
+                elif command == 'boltz' or command == 'b':
+                    self._analyze_protein()
                 else:
                     print("Unknown command. Type 'help' for available commands.")
                     
@@ -256,7 +258,11 @@ class InteractiveInterface(EventSubscriber):
                 "strategy": "placeholder"
             }
         )
-    
+
+    def _analyze_protein(self):
+        current_hypothesis = self.session_manager.get_active_hypothesis()
+        self.jnana_system.prep_protein_sequence(current_hypothesis)
+
     async def _refine_current_hypothesis(self):
         """Refine the currently selected hypothesis."""
         current_hypothesis = self.session_manager.get_active_hypothesis()
@@ -271,7 +277,7 @@ class InteractiveInterface(EventSubscriber):
                 return
         
         await self._refine_hypothesis_interactive(current_hypothesis)
-    
+
     async def _refine_hypothesis_interactive(self, hypothesis: UnifiedHypothesis):
         """Interactively refine a specific hypothesis using AI."""
         print(f"\n🔧 Refining: {hypothesis.title}")

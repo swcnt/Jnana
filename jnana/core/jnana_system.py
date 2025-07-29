@@ -796,6 +796,12 @@ Generate an expansion-focused hypothesis:"""
         await self.session_manager.update_hypothesis(hypothesis)
         
         return hypothesis
+
+
+    async def prep_protein_sequence(self):
+        hypo = self.session_manager.get_active_hypothesis()
+        assert isinstance(hypo, UnifiedHypothesis), "Must select a hypothesis first~"
+        self.protognosis_adapter.analyze_protein(hypo)
     
     def get_system_status(self) -> Dict[str, Any]:
         """Get current system status."""
