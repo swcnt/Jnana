@@ -7,12 +7,12 @@ functionality into the Jnana system.
 
 import asyncio
 import logging
-#import make_boltz_input
 
 from typing import Dict, List, Optional, Any, Union
 from datetime import datetime
 
 from ..core.coscientist import CoScientist
+from .make_boltz_input import hypo_to_boltz_query
 from ..core.multi_llm_config import LLMConfig, AgentLLMConfig
 from .data_converter import ProtoGnosisDataConverter
 from ...data.unified_hypothesis import UnifiedHypothesis
