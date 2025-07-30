@@ -798,8 +798,8 @@ Generate an expansion-focused hypothesis:"""
         return hypothesis
 
 
-    async def prep_protein_sequence(self):
-        hypo = self.session_manager.get_active_hypothesis()
+    def prep_protein_sequence(self,hypo):
+        self.logger.info(f"Hypothesis passed into jnana_system: {hypo}")
         assert isinstance(hypo, UnifiedHypothesis), "Must select a hypothesis first~"
         self.protognosis_adapter.analyze_protein(hypo)
     

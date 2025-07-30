@@ -283,11 +283,11 @@ class JnanaProtoGnosisAdapter:
             self.logger.error(f"Error evolving hypothesis: {e}")
             return hypothesis  # Return original if evolution fails
 
-    async def analyze_protein(self, hypothesis: UnifiedHypothesis, filepath: str = "boltz_feed/placeholder_sequence.yaml"):
+    def analyze_protein(self, hypothesis: UnifiedHypothesis, filepath: str = "boltz_feed/placeholder_sequence.yaml"):
         """
         Get protein names from a hypothesis and generate a boltz-compatible yaml file
         """
-        self.logger.info("Extracting protein name from hypothesis {hypothesis}")
+        self.logger.info("Adaper: Extracting protein name from hypothesis {hypothesis}")
         htext = hypothesis.content
 
         hypo_to_boltz_query(htext,filepath)
