@@ -13,6 +13,7 @@ from datetime import datetime
 
 from ..core.coscientist import CoScientist
 from .make_boltz_input import hypo_to_boltz_query
+
 from ..core.multi_llm_config import LLMConfig, AgentLLMConfig
 from .data_converter import ProtoGnosisDataConverter
 from ...data.unified_hypothesis import UnifiedHypothesis

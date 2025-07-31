@@ -6,7 +6,7 @@ import re
 DEBUG = True
 
 def get_protein_name(s):
-    result = re.findall(r'\b[A-Z]{3,5}[A-Z\d]\b',test_string)
+    result = re.findall(r'\b[A-Z-]{3,5}[A-Z\d]{1,2}\b',s)
     assert len(result) > 0, "Protein not found!!"
     if DEBUG:
         print(f"protein found! name: {result[0]}")
