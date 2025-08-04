@@ -12,8 +12,7 @@ from typing import Dict, List, Optional, Any, Union
 from datetime import datetime
 
 from ..core.coscientist import CoScientist
-from .make_boltz_input import hypo_to_boltz_query
-
+from .make_boltz_input import hypo_to_boltz_query, is_protein_present
 from ..core.multi_llm_config import LLMConfig, AgentLLMConfig
 from .data_converter import ProtoGnosisDataConverter
 from ...data.unified_hypothesis import UnifiedHypothesis
@@ -99,6 +98,22 @@ class JnanaProtoGnosisAdapter:
             except Exception as e:
                 self.logger.error(f"Error shutting down ProtoGnosis: {e}")
     
+
+    def analyze_protein(self, hypothesis: UnifiedHypothesis, filepath: str = "boltz_feed/placeholder_sequence.yaml"):
+        """
+        Get protein names from a hypothesis and generate a boltz-compatible yaml file
+        """
+        self.logger.info("Adapter: Extracting protein name from hypothesis {hypothesis}")
+        htext = hypothesis.content
+        h_id = hypothesis.hypothesis_id
+        
+        if h_id:
+            fname = "boltz_feed/seq-" + h_id +".yaml"
+            hypo_to_boltz_query(htext,fname)
+        else:
+            hypo_to_boltz_query(htext,filepath)
+
+
     async def generate_hypotheses(self, research_goal: str, count: int = 5,
                                  strategies: Optional[List[str]] = None) -> List[UnifiedHypothesis]:
         """
@@ -149,14 +164,21 @@ class JnanaProtoGnosisAdapter:
             # Get generated hypotheses
             pg_hypotheses = []
             for h_id in hypothesis_ids:
-                pg_hypotheses.append(self.coscientist.memory.get_hypothesis(h_id))
+                hypo = self.coscientist.memory.get_hypothesis(h_id)
+                pg_hypotheses.append(hypo)
+
                 if DEBUG:
                     self.logger.info(f"Fetched hypothesis from cosci memory:{self.coscientist.memory.get_hypothesis(h_id)}")
 
             
-            
             # Convert to Jnana format
             unified_hypotheses = self.converter.batch_protognosis_to_unified(pg_hypotheses)
+            
+            for hypo in unified_hypotheses:
+                if is_protein_present(hypo.content):
+                    self.analyze_protein(hypo)
+                    if DEBUG:
+                        self.logger.info(f"Protein found in hypothesis {hypo.hypothesis_id}")
             
             self.logger.info(f"Successfully generated and converted {len(unified_hypotheses)} hypotheses")
             return unified_hypotheses
@@ -283,17 +305,7 @@ class JnanaProtoGnosisAdapter:
         except Exception as e:
             self.logger.error(f"Error evolving hypothesis: {e}")
             return hypothesis  # Return original if evolution fails
-
-    def analyze_protein(self, hypothesis: UnifiedHypothesis, filepath: str = "boltz_feed/placeholder_sequence.yaml"):
-        """
-        Get protein names from a hypothesis and generate a boltz-compatible yaml file
-        """
-        self.logger.info("Adaper: Extracting protein name from hypothesis {hypothesis}")
-        htext = hypothesis.content
-
-        hypo_to_boltz_query(htext,filepath)
-
-
+    
     def _convert_model_config(self) -> AgentLLMConfig:
         """
         Convert Jnana model configuration to ProtoGnosis format.

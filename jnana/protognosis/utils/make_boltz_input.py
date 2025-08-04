@@ -12,6 +12,14 @@ def get_protein_name(s):
         print(f"protein found! name: {result[0]}")
     return result[0]
 
+
+def is_protein_present(s):
+    result = re.findall(r'\b[A-Z-]{3,5}[A-Z\d]{1,2}\b',s)
+    if len(result) > 0:
+        return True
+    else:
+        return False
+
 def prot_to_dict(pname):
     if DEBUG:
         print(f"Protein name input is {pname}")

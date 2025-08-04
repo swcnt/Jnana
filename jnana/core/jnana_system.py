@@ -37,7 +37,7 @@ class JnanaSystem:
     """
     
     def __init__(self, config_path: Union[str, Path] = "config/models.yaml",
-                 storage_path: Union[str, Path] = "data/jnana_run19.db",
+                 storage_path: Union[str, Path] = "data/jnana_run21.db",
                  storage_type: str = "json",
                  max_workers: int = 4,
                  output_path: Optional[Union[str, Path]] = None,
@@ -735,7 +735,7 @@ Generate an expansion-focused hypothesis:"""
             return "general"
 
     # ProtoGnosis integration methods removed - now handled by adapter
-    
+
     async def generate_single_hypothesis(self, strategy: str = "literature_exploration") -> UnifiedHypothesis:
         """
         Generate a single hypothesis using the specified strategy.
