@@ -14,7 +14,8 @@ from .agent_core import (
 )
 from ..agents.specialized_agents import (
     GenerationAgent, ReflectionAgent, RankingAgent,
-    EvolutionAgent, ProximityAgent, MetaReviewAgent
+    EvolutionAgent, ProximityAgent, MetaReviewAgent,
+    ProteinAgent
 )
 from .multi_llm_config import LLMConfig, AgentLLMConfig
 
@@ -157,6 +158,12 @@ class CoScientist:
             self.supervisor.register_agent(agent)
             self._initialize_agent_state(agent)
 
+        # Protein agent
+        llm = self._get_llm_for_agent("protein", "protein-0")
+        protein_agent = ProteinAgent("protein-0", llm, self.memory)
+        self.supervisor.register_agent(protein_agent)
+        self._initialize_agent_state(protein_agent)
+        
         # Ranking agent
         llm = self._get_llm_for_agent("ranking", "ranking-0")
         ranking_agent = RankingAgent("ranking-0", llm, self.memory)
@@ -394,6 +401,20 @@ class CoScientist:
             #wait for completion and fetch ids?
 
         return hypothesis_ids
+
+    def generate_protein_report(self,hypothesis_id):
+        self.logger.info(f"Scheduling Protein Report for hypothesis {hypothesis_id}")
+
+        task = Task(
+                task_type="generate_protein_report",
+                agent_type="protein",
+                priority=1,
+                params={
+                    "hypothesis_id": hypothesis_id
+                }
+            )
+        self.supervisor.add_task(task)
+
 
     def review_hypotheses(self, hypothesis_ids: Optional[List[str]] = None,
                          review_types: Optional[List[str]] = None) -> Dict:

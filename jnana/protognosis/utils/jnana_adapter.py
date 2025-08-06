@@ -186,6 +186,11 @@ class JnanaProtoGnosisAdapter:
         except Exception as e:
             self.logger.error(f"Error generating hypotheses: {e}")
             return []
+
+    async def make_protein_report(self, hypothesis: UnifiedHypothesis):
+        self.logger.info("Protein report ordered!")
+        self.coscientist.generate_protein_report(hypothesis.hypothesis_id)
+
     
     async def run_tournament(self, hypotheses: List[UnifiedHypothesis], 
                            match_count: int = 25) -> List[UnifiedHypothesis]:

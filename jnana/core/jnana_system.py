@@ -802,7 +802,12 @@ Generate an expansion-focused hypothesis:"""
         self.logger.info(f"Hypothesis passed into jnana_system: {hypo}")
         assert isinstance(hypo, UnifiedHypothesis), "Must select a hypothesis first~"
         self.protognosis_adapter.analyze_protein(hypo)
-    
+
+    def gen_protein_report(self,hypo):
+        self.logger.info(f"Hypothesis passed into jnana_system for protein report: {hypo}")
+        assert isinstance(hypo, UnifiedHypothesis), "Must select a hypothesis first~"
+        await self.protognosis_adapter.make_protein_report(hypo)
+
     def get_system_status(self) -> Dict[str, Any]:
         """Get current system status."""
         session_info = self.session_manager.get_session_info()

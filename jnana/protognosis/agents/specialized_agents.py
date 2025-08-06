@@ -114,18 +114,18 @@ class GenerationAgent(Agent):
         if DEBUG:
             self.logger.info(f"System prompt: {system_prompt}")
         
-        # Define the expected output schema
+    # Define the expected output schema
         schema = {
-            "hypothesis": {
-                "title": "string",
-                "content": "string",
-                "summary": "string",
-                "key_novelty_aspects": ["string"],
-                "testable_predictions": ["string"]
-            },
-            "explanation": "string",
-            "generation_strategy": "string"
-        }
+             "hypothesis": {
+                 "title": "string",
+                 "content": "string",
+                 "summary": "string",
+                 "key_novelty_aspects": ["string"],
+                 "testable_predictions": ["string"]
+             },
+             "explanation": "string",
+             "generation_strategy": "string"
+         }
         
         try:
             # Generate the hypothesis with the LLM
@@ -392,6 +392,79 @@ class GenerationAgent(Agent):
         """
         
         return prompt
+
+
+class ProteinAgent(Agent):
+
+    def __init__(self, agent_id: str, llm: LLMInterface, memory: ContextMemory):
+        """Initialize the protein analysis agent."""
+        super().__init__(agent_id, "protein", llm, memory)
+    
+    async def execute_task(self, task: Task) -> Dict:
+        task_type = task.task_type
+        
+        if task_type == "generate-protein-report":
+            return await self._generate_protein_report(task)
+        else:
+            raise ValueError(f"Unsupported task type for ProteinAgent: {task_type}")
+    
+    async def _generate_protein_report(self, task: Task) -> Dict:
+        self.logger.info(f"Generating Protein Report  for task {task.task_id}")
+        
+        # Get hypothesis
+        hypothesis_id = task.params.get("hypothesis_id")
+        hypothesis = self.memory.get_hypothesis(hypothesis_id)
+        if not hypothesis:
+            raise ValueError(f"Hypothesis {hypothesis_id} not found in memory")
+        
+        schema = {
+            "protein_A": {
+                "name": "string",
+                "residue_connect": "string",
+            },
+            "protein_A": {
+                "name": "string",
+                "residue_connect": "string",
+            },
+        }
+
+        prompt = f"""You are an agent that must respond according to the specified schema.
+        Please analyze this hypothesis: {hypothesis.content}.
+        It should contain a scientific inquiry corresponding to a protein-protein interaction.
+        For these two proteins, provide their names and important residue for interaction in the appropriate fields of the json schema.
+        Enclose property names in double quotes.
+        """
+        
+        try:
+            # Generate the hypothesis with the LLM
+            response_data = self.llm.generate_with_json_output(prompt, schema)
+            
+            if DEBUG:
+                self.logger.info(f"Protein Analysis Output : {response_data}")
+
+            # Unpack the response data
+            if isinstance(response_data, tuple) and len(response_data) == 3:
+                response, prompt_tokens, completion_tokens = response_data
+                
+                # Update token counts
+                self.total_calls += 1
+                self.total_prompt_tokens += int(prompt_tokens)
+                self.total_completion_tokens += int(completion_tokens)
+            else:
+                # Handle the case where the response is not a tuple
+                response = response_data
+                self.total_calls += 1
+            
+            return {
+                "hypothesis_id": hypothesis.hypothesis_id,
+                "summary": hypothesis.summary,
+                "strategy": strategy
+            }
+            
+        except Exception as e:
+            self.logger.error(f"Error generating hypothesis: {str(e)}")
+            raise
+    
 
 
 class ReflectionAgent(Agent):

@@ -48,6 +48,7 @@ class AgentLLMConfig:
     evolution: Optional[LLMConfig] = None
     proximity: Optional[LLMConfig] = None
     meta_review: Optional[LLMConfig] = None
+    protein: Optional[LLMConfig] = None
 
     # Additional configs for specific agent instances (by id)
     specific_agents: Dict[str, LLMConfig] = field(default_factory=dict)
@@ -83,6 +84,7 @@ class AgentLLMConfig:
             return self.proximity
         elif agent_type == "meta-review" and self.meta_review:
             return self.meta_review
-
+        elif agent_type == "protein" and self.protein:
+            return self.protein
         # Otherwise use the default
         return self.default
