@@ -406,7 +406,7 @@ class CoScientist:
         self.logger.info(f"Scheduling Protein Report for hypothesis {hypothesis_id}")
 
         task = Task(
-                task_type="generate_protein_report",
+                task_type="generate-protein-report",
                 agent_type="protein",
                 priority=1,
                 params={

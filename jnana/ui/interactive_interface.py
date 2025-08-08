@@ -154,7 +154,7 @@ class InteractiveInterface(EventSubscriber):
                 elif command == 'help' or command == 'h':
                     self._show_help()
                 elif command == 'boltz' or command == 'b':
-                    await self._make_protein_report()
+                    self._make_protein_report()
                 else:
                     print("Unknown command. Type 'help' for available commands.")
                     
@@ -263,7 +263,7 @@ class InteractiveInterface(EventSubscriber):
         current_hypothesis = self.session_manager.get_active_hypothesis()
         self.jnana_system.prep_protein_sequence(current_hypothesis)
 
-    async def _make_protein_report(self):
+    def _make_protein_report(self):
         current_hypothesis = self.session_manager.get_active_hypothesis()
         self.jnana_system.gen_protein_report(current_hypothesis)
 

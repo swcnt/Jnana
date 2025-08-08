@@ -37,7 +37,7 @@ class JnanaSystem:
     """
     
     def __init__(self, config_path: Union[str, Path] = "config/models.yaml",
-                 storage_path: Union[str, Path] = "data/jnana_run21.db",
+                 storage_path: Union[str, Path] = "data/jnana_run22.db",
                  storage_type: str = "json",
                  max_workers: int = 4,
                  output_path: Optional[Union[str, Path]] = None,
@@ -806,7 +806,7 @@ Generate an expansion-focused hypothesis:"""
     def gen_protein_report(self,hypo):
         self.logger.info(f"Hypothesis passed into jnana_system for protein report: {hypo}")
         assert isinstance(hypo, UnifiedHypothesis), "Must select a hypothesis first~"
-        await self.protognosis_adapter.make_protein_report(hypo)
+        self.protognosis_adapter.make_protein_report(hypo)
 
     def get_system_status(self) -> Dict[str, Any]:
         """Get current system status."""

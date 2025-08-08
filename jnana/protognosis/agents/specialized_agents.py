@@ -422,7 +422,7 @@ class ProteinAgent(Agent):
                 "name": "string",
                 "residue_connect": "string",
             },
-            "protein_A": {
+            "protein_B": {
                 "name": "string",
                 "residue_connect": "string",
             },
@@ -455,11 +455,8 @@ class ProteinAgent(Agent):
                 response = response_data
                 self.total_calls += 1
             
-            return {
-                "hypothesis_id": hypothesis.hypothesis_id,
-                "summary": hypothesis.summary,
-                "strategy": strategy
-            }
+            return 
+            # TODO
             
         except Exception as e:
             self.logger.error(f"Error generating hypothesis: {str(e)}")

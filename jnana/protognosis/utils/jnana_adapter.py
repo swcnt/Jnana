@@ -187,7 +187,7 @@ class JnanaProtoGnosisAdapter:
             self.logger.error(f"Error generating hypotheses: {e}")
             return []
 
-    async def make_protein_report(self, hypothesis: UnifiedHypothesis):
+    def make_protein_report(self, hypothesis: UnifiedHypothesis):
         self.logger.info("Protein report ordered!")
         self.coscientist.generate_protein_report(hypothesis.hypothesis_id)
 
