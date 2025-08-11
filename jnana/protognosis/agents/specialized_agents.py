@@ -437,6 +437,8 @@ class ProteinAgent(Agent):
         
         try:
             # Generate the hypothesis with the LLM
+            if DEBUG:
+                self.logger.info(f"Generating with prompt: {prompt}")
             response_data = self.llm.generate_with_json_output(prompt, schema)
             
             if DEBUG:
