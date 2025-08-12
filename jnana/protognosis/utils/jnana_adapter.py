@@ -12,7 +12,7 @@ from typing import Dict, List, Optional, Any, Union
 from datetime import datetime
 
 from ..core.coscientist import CoScientist
-from .make_boltz_input import hypo_to_boltz_query, is_protein_present
+from .make_boltz_input import hypo_to_boltz_query, is_protein_present, process_report
 from ..core.multi_llm_config import LLMConfig, AgentLLMConfig
 from .data_converter import ProtoGnosisDataConverter
 from ...data.unified_hypothesis import UnifiedHypothesis
@@ -188,8 +188,16 @@ class JnanaProtoGnosisAdapter:
             return []
 
     def make_protein_report(self, hypothesis: UnifiedHypothesis):
+        h_id = hypothesis.hypothesis_id
         self.logger.info("Protein report ordered!")
         self.coscientist.generate_protein_report(hypothesis.hypothesis_id)
+        pg_hypo = self.coscientist.memory.get_hypothesis(h_id)
+        pg_hypo_d = pg_hypo.to_dict()
+
+        #get protein sequences and generate a boltz query
+        process_report(pg_hypo_d)
+
+
 
     
     async def run_tournament(self, hypotheses: List[UnifiedHypothesis], 

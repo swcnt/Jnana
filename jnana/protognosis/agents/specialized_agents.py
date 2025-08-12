@@ -457,8 +457,11 @@ class ProteinAgent(Agent):
                 response = response_data
                 self.total_calls += 1
             
-            return 
-            # TODO
+            # Add response to hypothesis protein data
+            hypothesis.add_protein_data(response)
+            self.memory.update_hypothesis(hypothesis)
+            if DEBUG:
+                self.logger.info(f"Updated hypothesis: {hypothesis}")
             
         except Exception as e:
             self.logger.error(f"Error generating hypothesis: {str(e)}")

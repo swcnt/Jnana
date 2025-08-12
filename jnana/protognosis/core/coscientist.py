@@ -414,6 +414,7 @@ class CoScientist:
                 }
             )
         self.supervisor.add_task(task)
+        return 0
 
 
     def review_hypotheses(self, hypothesis_ids: Optional[List[str]] = None,

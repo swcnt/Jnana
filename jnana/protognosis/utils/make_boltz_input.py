@@ -56,6 +56,23 @@ def hypo_to_boltz_query(hypo_content, output_path):
     template_dict = prot_to_dict(protein_name)
     dict_to_yaml(template_dict, output_path)
 
+def process_report(protein_info: dict):
+    name_residue_pairs = {}
+    print(f"Info passed in: {protein_info}")
+    for key in protein_info:
+        print(f"Searching protein {key}")
+        p_name = protein_info[key]["name"]
+        p_res =  protein_info[key]["residue_connect"]
+        name_residue_pairs[p_name] = p_res
+    # get sequences to check
+    for name in name_residue_pairs:
+        content = getseq(pname)
+        seq = content[1]
+        print(f"Protein Sequence: {seq}")
+
+
+
+
 """
 if __name__ == "__main__":
     test_string = "Proteins such as ALKBH1 are very interesting to examine in the context of AI agent hypothesis generation at Argonne. The elo is 4214 today."

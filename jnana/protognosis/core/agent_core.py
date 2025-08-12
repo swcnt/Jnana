@@ -51,6 +51,7 @@ class ResearchHypothesis:
         self.metadata = metadata or {}
         self.reviews = []
         self.tournament_matches = []
+        self.protein_data = {}
 
         # Tournament tracking attributes
         self.tournament_wins = 0
@@ -64,6 +65,9 @@ class ResearchHypothesis:
     def add_tournament_match(self, match_result: Dict):
         """Add a tournament match result to this hypothesis."""
         self.tournament_matches.append(match_result)
+
+    def add_protein_data(self, prot_dat: Dict):
+        self.protein_data = prot_dat
     
     def to_dict(self) -> Dict:
         """Convert the hypothesis to a dictionary."""
@@ -79,7 +83,8 @@ class ResearchHypothesis:
             "tournament_matches": self.tournament_matches,
             "tournament_wins": self.tournament_wins,
             "tournament_losses": self.tournament_losses,
-            "last_tournament_time": self.last_tournament_time
+            "last_tournament_time": self.last_tournament_time,
+            "protein_data": self.protein_data
         }
     
     @classmethod
@@ -96,6 +101,7 @@ class ResearchHypothesis:
         hypothesis.created_at = data["created_at"]
         hypothesis.reviews = data["reviews"]
         hypothesis.tournament_matches = data["tournament_matches"]
+        hypothesis.add_protein_data(data["protein_data"])
 
         # Load tournament tracking attributes with defaults for backward compatibility
         hypothesis.tournament_wins = data.get("tournament_wins", 0)
