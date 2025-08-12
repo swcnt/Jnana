@@ -56,7 +56,8 @@ def hypo_to_boltz_query(hypo_content, output_path):
     template_dict = prot_to_dict(protein_name)
     dict_to_yaml(template_dict, output_path)
 
-def process_report(protein_info: dict):
+def process_report(hypothesis_d: dict):
+    protein_info = hypothesis_d['protein_data']
     name_residue_pairs = {}
     print(f"Info passed in: {protein_info}")
     for key in protein_info:
@@ -65,10 +66,9 @@ def process_report(protein_info: dict):
         p_res =  protein_info[key]["residue_connect"]
         name_residue_pairs[p_name] = p_res
     # get sequences to check
-    for name in name_residue_pairs:
+    for pname in name_residue_pairs:
         content = getseq(pname)
-        seq = content[1]
-        print(f"Protein Sequence: {seq}")
+        print(f"Protein Sequence: {content}")
 
 
 
