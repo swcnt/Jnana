@@ -1,7 +1,10 @@
 import sys
 from getSequence import getseq
-import yaml
+from ruamel.yaml import YAML
+from ruamel.yaml.scalarstring import PlainScalarString
+from ruamel.yaml.comments import CommentedSeq
 import re
+
 
 DEBUG = True
 
@@ -84,38 +87,39 @@ def hypo_to_list(hypothesis_d: dict) -> list:
     assert len(protein_list) == 2 # for now, assume each protein is single-chain :(
     return protein_list
 
-def make_residue_dict(prot_list: list[Protein]) -> dict:
-    
+def make_residue_yaml(prot_list: list[Protein], output_path: str):
+    yaml = YAML()
+    yaml.indent(mapping=2, sequence=4, offset=2)
+
+    def seq(*l):
+      s = CommentedSeq(l)
+      s.fa.set_flow_style()
+      return s
+
     out_dict = {"version": 1,
-            "sequences": {
-                "proteinA": {
-                    "id": "A",
-                    "sequence":prot_list[0].sequence
-            },
-                "proteinB": {
-                    "id": "B",
-                    "sequence":prot_list[1].sequence
-            }
-        },
-            "constraints": {
-                "- contact": {
-                    "token1": f"[ A , prot_list[0].residue]"
-                    "token2": f"[ B, prot_list[1].residue]"
+            "sequences": [
+                {"protein":{"id": "A", "sequence":prot_list[0].sequence}},
+                {"protein":{"id": "B", "sequence":prot_list[1].sequence}}
+        ],
+            "constraints": [{
+                "contact": {
+                    "token1": seq("A" , int(prot_list[0].residue)),
+                    "token2": seq("B", int(prot_list[1].residue)),
                     "max_distance": 6,
-                    "force": 'false'
+                    "force": False
             }
 
-        }
+        }]
     }
 
     print(f"Output dict: {out_dict}")
 
-    return out_dict
+    with open(output_path, 'w+') as ff:
+        yaml.dump(out_dict, ff)
 
 def process_report(hyp_d: dict, output_path: str):
     p_list = hypo_to_list(hyp_d)
-    boltz_dict = make_residue_dict(p_list)
-    dict_to_yaml(boltz_dict, output_path)
+    boltz_dict = make_residue_yaml(p_list, output_path)
 
 
 
