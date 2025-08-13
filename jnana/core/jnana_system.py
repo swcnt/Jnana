@@ -195,6 +195,7 @@ class JnanaSystem:
         Returns:
             Session ID
         """
+        await self.protognosis_adapter.initialize()
         session_id = await self.session_manager.load_session(session_path)
         
         # Session info is automatically available to ProtoGnosis adapter when needed
