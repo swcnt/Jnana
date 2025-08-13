@@ -34,7 +34,7 @@ def prot_to_dict(pname):
 
     out_dict = {"version": 1,
             "sequences": {
-                "protein": {
+                "- protein": {
                     "id": "A",
                     "sequence":seq
 
@@ -56,19 +56,79 @@ def hypo_to_boltz_query(hypo_content, output_path):
     template_dict = prot_to_dict(protein_name)
     dict_to_yaml(template_dict, output_path)
 
-def process_report(hypothesis_d: dict):
+class Protein:
+    def __init__(self, name="blank", residue="0", sequence="ABBA"):
+        self.name = name
+        self.residue = residue
+        self.sequence = sequence
+
+def hypo_to_list(hypothesis_d: dict) -> list:
     protein_info = hypothesis_d['protein_data']
-    name_residue_pairs = {}
     print(f"Info passed in: {protein_info}")
+    protein_list = []
+
     for key in protein_info:
         print(f"Searching protein {key}")
         p_name = protein_info[key]["name"]
-        p_res =  protein_info[key]["residue_connect"]
-        name_residue_pairs[p_name] = p_res
-    # get sequences to check
-    for pname in name_residue_pairs:
-        content = getseq(pname)
-        print(f"Protein Sequence: {content}")
+        p_res_raw =  protein_info[key]["residue_connect"]
+        p_res = "".join(char for char in p_res_raw if char.isdigit())
+        protein_list.append(Protein(p_name, p_res))
+
+    for ii in range(len(protein_list)):
+        prot = protein_list[ii]
+        content = getseq(prot.name)
+        seq = content[1]
+        protein_list[ii].sequence = seq
+        print(f"Updated Sequence for {protein_list[ii].name}: {protein_list[ii].sequence}")
+    
+    assert len(protein_list) == 2 # for now, assume each protein is single-chain :(
+    return protein_list
+
+def make_residue_dict(prot_list: list[Protein]) -> dict:
+    
+    out_dict = {"version": 1,
+            "sequences": {
+                "proteinA": {
+                    "id": "A",
+                    "sequence":prot_list[0].sequence
+            },
+                "proteinB": {
+                    "id": "B",
+                    "sequence":prot_list[1].sequence
+            }
+        },
+            "constraints": {
+                "- contact": {
+                    "token1": f"[ A , prot_list[0].residue]"
+                    "token2": f"[ B, prot_list[1].residue]"
+                    "max_distance": 6,
+                    "force": 'false'
+            }
+
+        }
+    }
+
+    print(f"Output dict: {out_dict}")
+
+    return out_dict
+
+def process_report(hyp_d: dict, output_path: str):
+    p_list = hypo_to_list(hyp_d)
+    boltz_dict = make_residue_dict(p_list)
+    dict_to_yaml(boltz_dict, output_path)
+
+
+
+
+
+    
+    
+
+
+
+
+
+
 
 
 

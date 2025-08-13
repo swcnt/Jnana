@@ -195,8 +195,8 @@ class JnanaProtoGnosisAdapter:
         pg_hypo_d = pg_hypo.to_dict()
 
         #get protein sequences and generate a boltz query
-        process_report(pg_hypo_d)
-
+        fname = "boltz_feed/interaction-" + h_id +".yaml"
+        process_report(pg_hypo_d,fname)
 
 
     
